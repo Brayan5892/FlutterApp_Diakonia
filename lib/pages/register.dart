@@ -1,3 +1,4 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 
 
@@ -8,15 +9,19 @@ class Register extends StatefulWidget {
 
 class _RegisterState extends State<Register> {
 
-  String id;
-  String password;
-  String confirmPassword;
+  String _email;
+  String _password;
+  String _confirmPassword;
+   
+  final auth = FirebaseAuth.instance;
+
+   final formKey = GlobalKey<FormState>();
   @override
   Widget build(BuildContext context) {
    return MaterialApp(
       title: 'Material App',
       home: Scaffold(
-    
+        resizeToAvoidBottomInset: false,
         body: Container(
           decoration: BoxDecoration(
           image: DecorationImage(
@@ -32,10 +37,10 @@ class _RegisterState extends State<Register> {
                
                children: <Widget>[
                  Container(
-                   margin: EdgeInsets.only(top:30),
+                   margin: EdgeInsets.only(top:30, bottom: 60),
                   child: Image.asset("assets/images/logoAmarillo.png"),
                   ),
-               Spacer(),
+               
                  Row(
                    mainAxisAlignment: MainAxisAlignment.start,
                    children: [
@@ -51,12 +56,14 @@ class _RegisterState extends State<Register> {
                   
                  Container(
                      height: 55,
-                     child: TextField(
-                   //Mostrara teclado numérico
-                       
+                     margin: EdgeInsets.only(top:8.0, bottom: 8.0),
+                     child: TextFormField(
+                       onSaved:  (value){
+                             _email = value;
+                       }, 
                        decoration: InputDecoration(
                           fillColor: Colors.white, filled: true,
-                         labelText: "ID:",
+                         labelText: "Email:",
                          border: OutlineInputBorder(borderRadius: const BorderRadius.all(
                            const Radius.circular(30.0),
                          ),
@@ -70,10 +77,13 @@ class _RegisterState extends State<Register> {
                      ),
                      Container(
                        height: 55,
-                       margin: EdgeInsets.only(top:8.0),
-                       child: TextField(
-                   
-                       decoration: InputDecoration(
+                       margin: EdgeInsets.only(top:8.0, bottom: 8.0),
+                       child: TextFormField(
+                         obscureText: true,
+                         onSaved:(value){
+                             _password = value;
+                          },  
+                         decoration: InputDecoration(
                          fillColor: Colors.white, filled: true,
                          labelText: "Password:",
                          border: OutlineInputBorder(borderRadius: const BorderRadius.all(
@@ -89,10 +99,15 @@ class _RegisterState extends State<Register> {
                      ),
                       Container(
                        height: 55,
-                       margin: EdgeInsets.only(top:8.0),
-                       child: TextField(
+                       margin: EdgeInsets.only(top:8.0, bottom: 8.0),
+                       child: TextFormField(
+                         obscureText: true,
                        textInputAction: TextInputAction.send,
+                       onSaved:  (value){
+                        _confirmPassword = value;
+                       },  
                        decoration: InputDecoration(
+                        
                          fillColor: Colors.white, filled: true,
                          labelText: "Confirm Password:",
                          border: OutlineInputBorder(borderRadius: const BorderRadius.all(
@@ -111,7 +126,9 @@ class _RegisterState extends State<Register> {
                        width: 375,
                        margin: EdgeInsets.only(top:30.0),
                        child: OutlinedButton(
-                         onPressed: null,
+                         onPressed: (){
+                           _signuP();
+                         },
                          child: Text(
                            "Sign Up",
                            style: TextStyle(color: Colors.white,
@@ -124,7 +141,7 @@ class _RegisterState extends State<Register> {
                          ),
                          ),
                      ),
-                     
+                     Spacer(),
                      Row(
                        mainAxisAlignment: MainAxisAlignment.start,
                        children: [
@@ -146,5 +163,13 @@ class _RegisterState extends State<Register> {
         )
       ),
     );
+  }
+
+  void _signuP() {
+ 
+     //formKey.currentState.save();
+     auth.createUserWithEmailAndPassword(email: "Brayan323@gmail.com", password: "123456").then((_){
+          Navigator.of(context).pushNamed("/");
+    });
   }
 }

@@ -8,8 +8,10 @@ class Login extends StatefulWidget {
 
 class _LoginState extends State<Login> {
 
-  String id;
+  String email;
   String password;
+
+  final formKey = GlobalKey<FormState>();
 
   @override
   Widget build(BuildContext context) {
@@ -37,9 +39,12 @@ class _LoginState extends State<Login> {
                    Spacer(),
                     Container(
                       height: 55,
-                      child: TextField(
+                      child: TextFormField(
+                        onSaved:  (value){
+                            email = value;
+                        },
                         decoration: InputDecoration(
-                           fillColor: Colors.white, filled: true,
+                          fillColor: Colors.white, filled: true,
                           labelText: "ID:",
                           border: OutlineInputBorder(borderRadius: const BorderRadius.all(
                             const Radius.circular(30.0),
@@ -55,9 +60,11 @@ class _LoginState extends State<Login> {
                       Container(
                         height: 55,
                         margin: EdgeInsets.only(top:8.0),
-                        child: TextField(
-                    
-                        decoration: InputDecoration(
+                        child: TextFormField(
+                          onSaved:  (value){
+                             password = value;
+                          },                      
+                          decoration: InputDecoration(
                           fillColor: Colors.white, filled: true,
                           labelText: "Password:",
                           border: OutlineInputBorder(borderRadius: const BorderRadius.all(
