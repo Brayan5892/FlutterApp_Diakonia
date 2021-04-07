@@ -1,4 +1,5 @@
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 
 
@@ -15,7 +16,9 @@ class _RegisterState extends State<Register> {
    
   final auth = FirebaseAuth.instance;
 
-   final formKey = GlobalKey<FormState>();
+  final formKey = GlobalKey<FormState>();
+
+  var pass;
   @override
   Widget build(BuildContext context) {
    return MaterialApp(
@@ -32,6 +35,7 @@ class _RegisterState extends State<Register> {
           child: Padding(
             padding: const EdgeInsets.all(10.0),
             child: Form(
+              key: formKey,
              child: Column(
                mainAxisAlignment: MainAxisAlignment.start,
                
@@ -61,6 +65,14 @@ class _RegisterState extends State<Register> {
                        onSaved:  (value){
                              _email = value;
                        }, 
+                       validator: (value){
+                        if(value.isEmpty){
+                          return "Please enter the email";
+                        }else{
+                          return null;
+                        }
+                        
+                       },
                        decoration: InputDecoration(
                           fillColor: Colors.white, filled: true,
                          labelText: "Email:",
@@ -83,6 +95,15 @@ class _RegisterState extends State<Register> {
                          onSaved:(value){
                              _password = value;
                           },  
+                          validator: (value){
+                             pass = value;
+                            if(value.isEmpty){
+                              return "Please enter the password";
+                            }else{
+                              return null;
+                            }
+            
+                          },
                          decoration: InputDecoration(
                          fillColor: Colors.white, filled: true,
                          labelText: "Password:",
@@ -106,6 +127,16 @@ class _RegisterState extends State<Register> {
                        onSaved:  (value){
                         _confirmPassword = value;
                        },  
+                       validator: (value){
+                        if(value.isEmpty){
+                          return "Please enter the password";
+                        }else if (value != pass) {
+                          return "Password must be same as above";
+                        } else{
+                          return null;
+                        }
+                        
+                       },
                        decoration: InputDecoration(
                         
                          fillColor: Colors.white, filled: true,
@@ -165,11 +196,15 @@ class _RegisterState extends State<Register> {
     );
   }
 
-  void _signuP() {
- 
-     //formKey.currentState.save();
-     auth.createUserWithEmailAndPassword(email: "Brayan323@gmail.com", password: "123456").then((_){
+  void _signuP() async {
+  if(formKey.currentState.validate()){
+     formKey.currentState.save();
+     auth.createUserWithEmailAndPassword(email: _email, password: _password).then((_){
           Navigator.of(context).pushNamed("/");
     });
+  }
+    
+
+
   }
 }
