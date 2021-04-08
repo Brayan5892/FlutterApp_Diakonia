@@ -150,12 +150,46 @@ class _LoginState extends State<Login> {
                           Navigator.of(context).pushNamed("/register");
                       }
                             
-                  void _logIn() {
+                  void _logIn() async {
                     if(formKey.currentState.validate()){
-                        formKey.currentState.save();
-                        auth.signInWithEmailAndPassword(email: _email, password: _password).then((_){
-                              Navigator.of(context).pushNamed("/home");  
-                        });
+                      try {
+                          formKey.currentState.save();
+                          UserCredential userCredential = await FirebaseAuth.instance.signInWithEmailAndPassword(
+                          email:  _email,
+                          password: _password
+                          );
+          
+                            Navigator.of(context).pushNamed("/home");  
+                        
+                          }  on FirebaseAuthException catch (e) {
+                            
+                            if (e.code == 'user-not-found') {
+                              _showErrorDialog('Usuario no encontrado');
+                            } else if (e.code == 'wrong-password') {
+                              _showErrorDialog('Contraseña incorrecta');
+                            }
+                          }
+
+                     
                       }
                   }
+                    void _showErrorDialog(String msg)
+                    {
+                      showDialog(
+                          context: context,
+                        builder: (ctx) => AlertDialog(
+                          title: Text('An Error Occured'),
+                          content: Text(msg),
+                          actions: <Widget>[
+                            TextButton(
+                              child: Text('Okay'),
+                              onPressed: (){
+                                Navigator.of(ctx).pop();
+                              },
+                            )
+                          ],
+                        )
+                      );
+                    }
+
 }

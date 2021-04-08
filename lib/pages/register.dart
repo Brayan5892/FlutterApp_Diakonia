@@ -1,7 +1,8 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
-
+// Import the firebase_core and cloud_firestore plugin
+import 'package:cloud_firestore/cloud_firestore.dart';
 
 class Register extends StatefulWidget {
   @override
@@ -17,10 +18,12 @@ class _RegisterState extends State<Register> {
   final auth = FirebaseAuth.instance;
 
   final formKey = GlobalKey<FormState>();
-
+  CollectionReference users = FirebaseFirestore.instance.collection('users');
   var pass;
   @override
   Widget build(BuildContext context) {
+ 
+
    return MaterialApp(
       title: 'Material App',
       home: Scaffold(
@@ -198,13 +201,61 @@ class _RegisterState extends State<Register> {
 
   void _signuP() async {
   if(formKey.currentState.validate()){
-     formKey.currentState.save();
-     auth.createUserWithEmailAndPassword(email: _email, password: _password).then((_){
+
+          try {
+            formKey.currentState.save();
+            UserCredential userCredential = await FirebaseAuth.instance.createUserWithEmailAndPassword(
+            email: _email,
+            password: _password
+          );
+          users.add({
+                      'email': _email, // John Doe,
+                      'password': _password, // 42
+                    }).then((value) => print("User Added"))
+                    .catchError((error) => print("Failed to add user: $error"));
+
           Navigator.of(context).pushNamed("/");
-    });
-  }
-    
 
-
+            } on FirebaseAuthException catch (e) {
+              if (e.code == 'weak-password') {
+                _showErrorDialog('La contraseña es poco segura');
+              } else if (e.code == 'email-already-in-use') {
+              _showErrorDialog('El correo ya está en uso');
+              }
+            } catch (e) {
+              print(e);
+            }
+         }
   }
+                    void _showErrorDialog(String msg)
+                    {
+                      showDialog(
+                          context: context,
+                        builder: (ctx) => AlertDialog(
+                          title: Text('An Error Occured'),
+                          content: Text(msg),
+                          actions: <Widget>[
+                            TextButton(
+                              child: Text('Okay'),
+                              onPressed: (){
+                                Navigator.of(ctx).pop();
+                              },
+                            )
+                          ],
+                        )
+                      );
+                    }
+              
+
+                Future<void> addUser() {
+                    // Call the user's CollectionReference to add a new user
+                    return users
+                    .add({
+                      'email': _email, // John Doe,
+                      'password': _password, // 42
+                    })
+                    .then((value) => print("User Added"))
+                    .catchError((error) => print("Failed to add user: $error"));
+              } 
+                   
 }
