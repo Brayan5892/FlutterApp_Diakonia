@@ -200,7 +200,7 @@ class _RegisterState extends State<Register> {
   }
 
   void _signuP() async {
-  if(formKey.currentState.validate()){
+      if(formKey.currentState.validate()){
 
           try {
             formKey.currentState.save();
@@ -208,24 +208,26 @@ class _RegisterState extends State<Register> {
             email: _email,
             password: _password
           );
-          users.add({
-                      'email': _email, // John Doe,
-                      'password': _password, // 42
+          var firebaseUser =  FirebaseAuth.instance.currentUser;
+          
+          users.doc(firebaseUser.uid).set({
+                      'email': _email, 
+                      'password': _password,
                     }).then((value) => print("User Added"))
                     .catchError((error) => print("Failed to add user: $error"));
 
-          Navigator.of(context).pushNamed("/");
+                          Navigator.of(context).pushNamed("/");
 
-            } on FirebaseAuthException catch (e) {
-              if (e.code == 'weak-password') {
-                _showErrorDialog('La contraseña es poco segura');
-              } else if (e.code == 'email-already-in-use') {
-              _showErrorDialog('El correo ya está en uso');
-              }
-            } catch (e) {
-              print(e);
-            }
-         }
+                          } on FirebaseAuthException catch (e) {
+                            if (e.code == 'weak-password') {
+                              _showErrorDialog('La contraseña es poco segura');
+                            } else if (e.code == 'email-already-in-use') {
+                            _showErrorDialog('El correo ya está en uso');
+                            }
+                          } catch (e) {
+                            print(e);
+                          }
+                      }
   }
                     void _showErrorDialog(String msg)
                     {
