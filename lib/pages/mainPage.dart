@@ -1,6 +1,4 @@
 import 'package:flutter/material.dart';
- 
- 
 
 class Main extends StatelessWidget {
   @override
