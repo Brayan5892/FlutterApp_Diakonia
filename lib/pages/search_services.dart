@@ -68,12 +68,11 @@ class _SearchState extends State<Search> {
   void search() async {
     var result = await FirebaseFirestore.instance
         .collection('services')
-        .where('name', isEqualTo: paramSearch)
+        .where('name', isGreaterThanOrEqualTo: paramSearch)
         .get();
-    result.docs.forEach((res) {
-      print(res.data());
-    });
-
-    Navigator.of(context).pushNamed("/results");
+    final List<DocumentSnapshot> documents = result.docs;
+    
+    Navigator.of(context).pushNamed("/results", arguments: documents);
   }
+
 }
