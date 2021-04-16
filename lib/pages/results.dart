@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
 
 class Results extends StatefulWidget {
   @override
@@ -6,11 +7,9 @@ class Results extends StatefulWidget {
 }
 
 class _ResultsState extends State<Results> {
-  List<String> services = ["Plomeria", "tecnico", "pintura"];
-
   @override
   Widget build(BuildContext context) {
-    //final services = ModalRoute.of(context).settings.arguments;
+    final List<DocumentSnapshot> services = ModalRoute.of(context).settings.arguments;
     return MaterialApp(
       title: 'Material App',
       home: Scaffold(
@@ -22,9 +21,9 @@ class _ResultsState extends State<Results> {
               child: ListView.builder(
             itemCount: services.length,
             itemBuilder: (BuildContext context, int index) {
-              final service = services[index];
+              final service = services[index].data();
               return Card(
-                child: Text(service),
+                child: Text('Nombre: '+service['name']+', Descripcion: '+service['description']),
               );
             },
           )),

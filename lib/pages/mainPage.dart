@@ -25,7 +25,9 @@ class Main extends StatelessWidget {
                         Container(
                           child: IconButton(
                             icon: Icon(Icons.account_circle_outlined,size: 130,), 
-                            onPressed: null
+                            onPressed: (){
+                               Navigator.of(context).pushNamed("/profile");
+                            }
                             ),
                         ),
                         Spacer(),
