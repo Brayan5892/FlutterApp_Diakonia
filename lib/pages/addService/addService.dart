@@ -25,107 +25,107 @@ class addServiceState extends State<addService>{
         ),
         body: Builder(
           builder: (context) => 
-            Stack(
-              children: <Widget>[
-                Padding(
-                  padding: EdgeInsets.all(16.0),
-                  child: Align(
-                    alignment: Alignment.topLeft,
-                    child: Column(
-                      children: <Widget>[
-                        SizedBox(height: 16.0,),
-                        DropdownButton(
-                          value: _selectedCategory,
-                          items: _dropdownMenuItems,
-                          onChanged: onChangeDropdownItem,
+          Stack(
+            children: <Widget>[
+              Padding(
+                padding: EdgeInsets.all(16.0),
+                child: Align(
+                  alignment: Alignment.topLeft,
+                  child: Column(
+                    children: <Widget>[
+                      SizedBox(height: 16.0,),
+                      DropdownButton(
+                        value: _selectedCategory,
+                        items: _dropdownMenuItems,
+                        onChanged: onChangeDropdownItem,
+                      ),
+                      SizedBox(height: 16.0,),
+                      TextField(
+                        obscureText: true,
+                        decoration: InputDecoration(
+                          border: OutlineInputBorder(),
+                          labelText: 'Name',
                         ),
-                        SizedBox(height: 16.0,),
-                        TextField(
-                          obscureText: true,
-                          decoration: InputDecoration(
-                            border: OutlineInputBorder(),
-                            labelText: 'Name',
-                          ),
-                          controller: _nameCon,
+                        controller: _nameCon,
+                      ),
+                      SizedBox(height: 16.0,),
+                      TextField(
+                        obscureText: true,
+                        decoration: InputDecoration(
+                          border: OutlineInputBorder(),
+                          labelText: 'Price',
                         ),
-                        SizedBox(height: 16.0,),
-                        TextField(
-                          obscureText: true,
-                          decoration: InputDecoration(
-                            border: OutlineInputBorder(),
-                            labelText: 'Price',
-                          ),
-                          controller: _priceCon,
+                        controller: _priceCon,
+                      ),
+                      SizedBox(height: 16.0,),
+                      TextField(
+                        obscureText: true,
+                        decoration: InputDecoration(
+                          border: OutlineInputBorder(),
+                          labelText: 'Description',
                         ),
-                        SizedBox(height: 16.0,),
-                        TextField(
-                          obscureText: true,
-                          decoration: InputDecoration(
-                            border: OutlineInputBorder(),
-                            labelText: 'Description',
-                          ),
-                          controller: _descCon,
+                        controller: _descCon,
+                      ),
+                      SizedBox(height: 16.0,),
+                      TextField(
+                        obscureText: true,
+                        decoration: InputDecoration(
+                          border: OutlineInputBorder(),
+                          labelText: 'Location',
                         ),
-                        SizedBox(height: 16.0,),
-                        TextField(
-                          obscureText: true,
-                          decoration: InputDecoration(
-                            border: OutlineInputBorder(),
-                            labelText: 'Location',
-                          ),
-                          controller: _locCon,
-                        ),
-                        SizedBox(height: 16.0,),
-                        ElevatedButton(
-                          onPressed: (){showAlertDialog(context);},
-                          child: Text('Upload'),
-                        ),
-                        SizedBox(height: 16.0,),
-                        ElevatedButton(
-                          onPressed: (){
-                            setState(() {
-                              _name=_nameCon.text;     
-                              _price=_priceCon.text;   
-                              _des=_descCon.text;
-                              _loc=_locCon.text; 
-                            });
-                          },
-                          child: Text('Add'),
-                        ),
-                      ],
-                    ),
-                  ),
+                        controller: _locCon,
+                      ),
+                      SizedBox(height: 16.0,),
+                      ElevatedButton(
+                        onPressed: (){showAlertDialog(context);},
+                        child: Text('Upload'),
+                      ),
+                      SizedBox(height: 16.0,),
+                      ElevatedButton(
+                        onPressed: (){
+                          setState(() {
+                            _name=_nameCon.text;     
+                            _price=_priceCon.text;   
+                            _des=_descCon.text;
+                            _loc=_locCon.text; 
+                          });
+                        },
+                        child: Text('Add'),
+                      ),
+                    ]
+                  )
                 )
-              ] ,
-          ),
+              )
+            ]
+          )
         )
       )
     );
   }
 
 //COMBO BOX CATEGORIES ---------------------------------------------------------------
-  String _selectedCategory;
-  List<DropdownMenuItem<String>> _dropdownMenuItems;
+  categories _selectedCategory;
+  List<DropdownMenuItem<categories>> _dropdownMenuItems;
 
   //funcion para cambios en la seleccion del combobox
-  onChangeDropdownItem(String selectedCactegory) {
+  onChangeDropdownItem(categories selectedCactegory) {
     setState(() {
       _selectedCategory = selectedCactegory;
     });
   }
 
   //funcion para construir el combobox
-  List<DropdownMenuItem<String>> buildDropdownMenuItems(List<String> _categories) {
-    List<DropdownMenuItem<String>> items=new List();
-    DropdownMenuItem<String> item=DropdownMenuItem(
-      value: 'Categories',
-      child: Text('Categories'),
-    );
-    items.add(item);    
-    for (String _category in _categories) {
+  List<DropdownMenuItem<categories>> buildDropdownMenuItems() {
+    List<DropdownMenuItem<categories>> items=new List();
+    DropdownMenuItem<categories> item;
+    List<categories> _categories=new List();
+    categories.values.forEach((category) {
+    _categories.add(category);
+    });
+    for (categories _category in _categories) {
       item=DropdownMenuItem(
           value: _category,
-          child: Text(_category),
+          child: Text(_category.toString().split('.').last),
         );
       items.add(item);
     }
@@ -135,7 +135,7 @@ class addServiceState extends State<addService>{
   @override
   void initState() {
     //esto es para el combobox
-    _dropdownMenuItems = buildDropdownMenuItems(getCategories());
+    _dropdownMenuItems = buildDropdownMenuItems();
     _selectedCategory = _dropdownMenuItems[0].value;
     
     super.initState();
@@ -155,6 +155,7 @@ class addServiceState extends State<addService>{
     _priceCon.dispose();
     _descCon.dispose();
     _locCon.dispose();
+
     super.dispose();
   }
 
@@ -192,6 +193,7 @@ class addServiceState extends State<addService>{
 
   File imageFile;
 
+  //cargar imagen de galeria
   openGallery()async{
     final picker = ImagePicker();
     var pic=await picker.getImage(source: ImageSource.gallery);
@@ -204,6 +206,7 @@ class addServiceState extends State<addService>{
     });
   }
   
+  //cargar imagen de camara
   openCamera()async{
     final picker = ImagePicker();
     var pic=await picker.getImage(source: ImageSource.gallery);
@@ -215,101 +218,5 @@ class addServiceState extends State<addService>{
       }
     });
   }
+//---------------------------------------------------------------------------
 }
-
-/*
-import 'package:flutter/material.dart';
- 
-class DropDown extends StatefulWidget {
-  DropDown() : super();
- 
-  final String title = "DropDown Demo";
- 
-  @override
-  DropDownState createState() => DropDownState();
-}
- -----------------------------------------------------------------------------
-class Company {
-  int id;
-  String name;
- 
-  Company(this.id, this.name);
- 
-  static List<Company> getCompanies() {
-    return <Company>[
-      Company(1, 'Apple'),
-      Company(2, 'Google'),
-      Company(3, 'Samsung'),
-      Company(4, 'Sony'),
-      Company(5, 'LG'),
-    ];
-  }
-}
- 
-class DropDownState extends State<DropDown> {
-  //
-  List<Company> _companies = Company.getCompanies();
-  List<DropdownMenuItem<Company>> _dropdownMenuItems;
-  Company _selectedCompany;
- 
-  @override
-  void initState() {
-    _dropdownMenuItems = buildDropdownMenuItems(_companies);
-    _selectedCompany = _dropdownMenuItems[0].value;
-    super.initState();
-  }
- 
-  List<DropdownMenuItem<Company>> buildDropdownMenuItems(List companies) {
-    List<DropdownMenuItem<Company>> items = List();
-    for (Company company in companies) {
-      items.add(
-        DropdownMenuItem(
-          value: company,
-          child: Text(company.name),
-        ),
-      );
-    }
-    return items;
-  }
- 
-  onChangeDropdownItem(Company selectedCompany) {
-    setState(() {
-      _selectedCompany = selectedCompany;
-    });
-  }
- 
-  @override
-  Widget build(BuildContext context) {
-    return new MaterialApp(
-      debugShowCheckedModeBanner: false,
-      home: new Scaffold(
-        appBar: new AppBar(
-          title: new Text("DropDown Button Example"),
-        ),
-        body: new Container(
-          child: Center(
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.center,
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: <Widget>[
-                Text("Select a company"),
-                SizedBox(
-                  height: 20.0,
-                ),
-                DropdownButton(
-                  value: _selectedCompany,
-                  items: _dropdownMenuItems,
-                  onChanged: onChangeDropdownItem,
-                ),
-                SizedBox(
-                  height: 20.0,
-                ),
-                Text('Selected: ${_selectedCompany.name}'),
-              ],
-            ),
-          ),
-        ),
-      ),
-    );
-  }
-}*/
