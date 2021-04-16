@@ -229,8 +229,7 @@ class _RegisterState extends State<Register> {
                           }
                       }
   }
-                    void _showErrorDialog(String msg)
-                    {
+                    void _showErrorDialog(String msg){
                       showDialog(
                           context: context,
                         builder: (ctx) => AlertDialog(
