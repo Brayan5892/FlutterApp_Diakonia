@@ -1,3 +1,4 @@
+import 'package:diakonia/objects/service.dart';
 import 'package:flutter/material.dart';
 
 /*import para los permisos */
@@ -68,7 +69,7 @@ MapType _currentMapType=MapType.normal;
                     SizedBox(height: 50.0,),
                     button(_onMapTypeButtonPressed, Icons.map),
                     SizedBox(height: 16.0,),
-                    button(_onReturnButtonPressed, Icons.add),
+                    button(_onReturnButtonPressed, Icons.keyboard_return),
                   ]
                 )
               )
@@ -129,4 +130,39 @@ MapType _currentMapType=MapType.normal;
       :MapType.normal;
     });
   }
+
+//Cargar Srvicios de las tablas-----------------------------------------------------------
+
+  loadServices(){
+    Set <service> services={};
+    
+    //codigo para conseguir las coordenadas de los servicios:
+    //
+    //------------------------------------------------------
+    
+    for(service service in services){
+      double hueYellow = 60.0;
+      _markers.add(
+        Marker(
+          markerId:MarkerId(service.id),
+          position: service.coord,
+          infoWindow:InfoWindow(
+            title: service.name,
+            snippet: service.description
+          ),
+          //esto tengo que ver si funciona de verdad
+          icon: BitmapDescriptor.defaultMarkerWithHue(hueYellow) 
+        )
+      );  
+    }
+  }
+
+  @override
+  void initState() {
+    //esto puede que de problemas al ser lo primer que se inicializa?... creo?
+    loadServices();
+
+    super.initState();
+  }
+//----------------------------------------------------------------------------------------
 }

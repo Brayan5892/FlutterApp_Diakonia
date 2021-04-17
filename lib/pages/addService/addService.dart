@@ -122,14 +122,15 @@ class addServiceState extends State<addService>{
     Set <String>coord={};
     for(Marker marker in markers){
       coord.add(marker.position.latitude.toString()+','+marker.position.longitude.toString());
-    } 
+    }
     //codigo para agregar servicio a las tablas
       _name;     
       _price;   
       _des;
       _loc; 
-      coord;
-      imageFile.path;
+      coord;//esto puede ir vacio, no nulo, vacio
+        if(imageFile!=null)
+         imageFile.path;
       _selectedCategory.toString().split('.').last;
     //-----------------------------------------
     Navigator.pushNamed(context, '/home');
