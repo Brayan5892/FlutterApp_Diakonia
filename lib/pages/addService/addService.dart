@@ -129,6 +129,8 @@ class addServiceState extends State<addService>{
       _des;
       _loc; 
       coord;
+      imageFile.path;
+      _selectedCategory.toString().split('.').last;
     //-----------------------------------------
     Navigator.pushNamed(context, '/home');
   }
