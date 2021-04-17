@@ -1,4 +1,5 @@
 import 'package:diakonia/pages/categories/categories.dart';
+import 'package:diakonia/pages/map.dart/map.dart';
 import 'package:flutter/material.dart';
 
 //import para el manejo de archivos E/S
@@ -6,6 +7,9 @@ import 'dart:io';
 
 //import para cargar imagenes del dispositvo
 import 'package:image_picker/image_picker.dart';
+
+/*import de google maps */
+import 'package:google_maps_flutter/google_maps_flutter.dart';
 
 class addService extends StatefulWidget{
   addService():super();
@@ -15,10 +19,12 @@ class addService extends StatefulWidget{
 }
 
 class addServiceState extends State<addService>{
+  final GlobalKey<ScaffoldState>_scaffold=GlobalKey<ScaffoldState>();
   @override
   Widget build(BuildContext contex){
     return MaterialApp(
       home: Scaffold(
+        key: _scaffold,
         appBar: AppBar(
           title: Text(widget.title),
           backgroundColor: Colors.blue,
@@ -77,19 +83,17 @@ class addServiceState extends State<addService>{
                       ),
                       SizedBox(height: 16.0,),
                       ElevatedButton(
+                        onPressed: (){goToMap(context);},
+                        child: Text('pick location'),
+                      ),                      
+                      SizedBox(height: 16.0,),
+                      ElevatedButton(
                         onPressed: (){showAlertDialog(context);},
                         child: Text('Upload'),
                       ),
                       SizedBox(height: 16.0,),
                       ElevatedButton(
-                        onPressed: (){
-                          setState(() {
-                            _name=_nameCon.text;     
-                            _price=_priceCon.text;   
-                            _des=_descCon.text;
-                            _loc=_locCon.text; 
-                          });
-                        },
+                        onPressed: (){add();},
                         child: Text('Add'),
                       ),
                     ]
@@ -99,8 +103,43 @@ class addServiceState extends State<addService>{
             ]
           )
         )
-      )
+      ),
+      routes: {
+        '/map':(context)=>map()//el contexto aqui puede dar problemas de materializacion
+      }
     );
+  }
+
+  //funcion para agregar servicio a la tabla (markers continene todos los marcadores del en el mapa)
+  add(){
+    setState(() {
+      _name=_nameCon.text;     
+      _price=_priceCon.text;   
+      _des=_descCon.text;
+      _loc=_locCon.text; 
+    });
+    //markers puede llegar vacio
+    Set <String>coord={};
+    for(Marker marker in markers){
+      coord.add(marker.position.latitude.toString()+','+marker.position.longitude.toString());
+    } 
+    //codigo para agregar servicio a las tablas
+      _name;     
+      _price;   
+      _des;
+      _loc; 
+      coord;
+    //-----------------------------------------
+    Navigator.pushNamed(context, '/home');
+  }
+
+//Navegacion a la ventana mapa-------------------------------------------------------
+  Set <Marker> markers={};
+
+  goToMap(BuildContext context)async{
+    markers=await Navigator.push(
+      context,
+      MaterialPageRoute(builder: (context)=>map()));
   }
 
 //COMBO BOX CATEGORIES ---------------------------------------------------------------
