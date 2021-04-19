@@ -1,4 +1,6 @@
 import 'package:diakonia/pages/mainPage.dart';
+import 'package:diakonia/pages/profile.dart';
+import 'package:diakonia/pages/profileEdit.dart';
 import 'package:diakonia/pages/results.dart';
 import 'package:diakonia/pages/search_services.dart';
 import 'package:firebase_core/firebase_core.dart';
@@ -24,6 +26,8 @@ class MyApp extends StatelessWidget {
         "/register": (BuildContext context) => Register(),
         "/search": (BuildContext context) => Search(),
         "/results": (BuildContext context) => Results(),
+        "/profile": (BuildContext context) => Profile(),
+        "/profileEdit": (BuildContext context) => ProfileEdit(),
       },
     );
   }

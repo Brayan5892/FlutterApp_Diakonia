@@ -201,7 +201,6 @@ class _RegisterState extends State<Register> {
 
   void _signuP() async {
       if(formKey.currentState.validate()){
-
           try {
             formKey.currentState.save();
             UserCredential userCredential = await FirebaseAuth.instance.createUserWithEmailAndPassword(
