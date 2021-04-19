@@ -43,7 +43,7 @@ class Main extends StatelessWidget {
                         children:[
                           Container(
                             child: IconButton(
-                               icon: Icon(Icons.account_circle_outlined,size: 130,),  
+                              icon: Icon(Icons.account_circle_outlined,size: 130,),  
                               onPressed: (){
                                  Navigator.of(context).pushNamed("/profile");
                               }

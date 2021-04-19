@@ -17,7 +17,9 @@ class _SearchState extends State<Search> {
     FontAwesomeIcons.walking,
     FontAwesomeIcons.biking,
     FontAwesomeIcons.biking,
-    
+    FontAwesomeIcons.walking,
+    FontAwesomeIcons.biking,
+    FontAwesomeIcons.biking,
   ];
 
   Widget _buildIcon(int index){
@@ -107,12 +109,7 @@ class _SearchState extends State<Search> {
                           },
                         ),
                       ),
-                      InkWell(
-                        child: Icon(
-                          Icons.arrow_downward,
-                          color: Colors.black54,
-                        ),
-                      ),
+                     
                     ],
                   ),
                 ),
@@ -124,7 +121,7 @@ class _SearchState extends State<Search> {
         body: Column(
           children: [
             Container(
-              margin: EdgeInsets.only(top:10),
+              margin: EdgeInsets.only(top:10,bottom: 10),
               height:100.0,
               child: new ListView.builder(
                 itemCount: _icons.length,
@@ -139,7 +136,37 @@ class _SearchState extends State<Search> {
             Text('SERVICES',
             style: TextStyle(fontSize: 25),
             ),
+              
+            Container(
+              width: 350,
+              height: 300,
 
+              child: FutureBuilder<QuerySnapshot>(
+                future: FirebaseFirestore.instance.collection('services').get(),
+                builder: (context,snapshot){
+                  if(snapshot.hasData){
+                    final List<DocumentSnapshot> documents = snapshot.data.docs;
+                    return ListView(
+
+                      //Service card
+                      children: documents.
+                          map((doc) => Card(
+                            color: Color(int.parse("#E6EEED".replaceAll('#', '0xff'))),
+                            shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(20)),
+                            child: ListTile(
+                              title: Text(doc['name']),
+                              subtitle: Text(doc['price'], style: TextStyle(fontWeight: FontWeight.bold),),
+                            ),
+                          )).toList()
+                    );
+                  }else if (!snapshot.hasData){
+                    return Center(child: CircularProgressIndicator(),);
+                  }
+
+                }
+                
+                ),
+            )
 
 
        
