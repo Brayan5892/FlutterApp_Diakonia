@@ -132,15 +132,14 @@ MapType _currentMapType=MapType.normal;
   }
 
 //Cargar Srvicios de las tablas-----------------------------------------------------------
-
   loadServices(){
-    Set <service> services={};
-    
+    Set <Service> services={};
+
     //codigo para conseguir las coordenadas de los servicios:
     //
     //------------------------------------------------------
     
-    for(service service in services){
+    for(Service service in services){
       double hueYellow = 60.0;
       _markers.add(
         Marker(

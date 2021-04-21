@@ -14,6 +14,8 @@ import 'package:google_maps_flutter/google_maps_flutter.dart';
 class addService extends StatefulWidget{
   addService():super();
   final String title="Add Service";
+  final Color verdeOscuro=Color(0xff41736C),
+              grisClaro=Color(0xffE6EEED);
   @override
   addServiceState createState()=>addServiceState();
 }
@@ -26,8 +28,46 @@ class addServiceState extends State<addService>{
       home: Scaffold(
         key: _scaffold,
         appBar: AppBar(
-          title: Text(widget.title),
-          backgroundColor: Colors.blue,
+          backgroundColor: widget.verdeOscuro,
+          toolbarHeight: 200,
+          shape: ContinuousRectangleBorder(
+            borderRadius: const BorderRadius.only(
+              bottomLeft: Radius.circular(67.0),
+              bottomRight: Radius.circular(67.0),
+            ),
+          ),          
+          title: Column(
+            mainAxisSize: MainAxisSize.min,
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: <Widget>[
+              Padding(
+                padding: EdgeInsets.all(16.0),
+                child: Align(
+                  alignment: Alignment.center,
+                  child: Column(
+                    children: <Widget>[
+                      Text(widget.title),
+                      SizedBox(height: 20.0,),
+                      Container(
+                        padding: const EdgeInsets.only(left: 10.0, right: 10.0),
+                        decoration: BoxDecoration(
+                          borderRadius: BorderRadius.circular(10.0),
+                          color: widget.grisClaro,
+                        ),
+                        child: DropdownButtonHideUnderline(
+                          child: DropdownButton(
+                            value: _selectedCategory,
+                            items: _dropdownMenuItems,
+                            onChanged: onChangeDropdownItem,
+                          ),
+                        ),
+                      ),
+                    ],
+                  ),
+                )
+              ),
+            ],
+          ),
         ),
         body: Builder(
           builder: (context) => 
@@ -39,12 +79,6 @@ class addServiceState extends State<addService>{
                   alignment: Alignment.topLeft,
                   child: Column(
                     children: <Widget>[
-                      SizedBox(height: 16.0,),
-                      DropdownButton(
-                        value: _selectedCategory,
-                        items: _dropdownMenuItems,
-                        onChanged: onChangeDropdownItem,
-                      ),
                       SizedBox(height: 16.0,),
                       TextField(
                         obscureText: true,
@@ -167,7 +201,7 @@ class addServiceState extends State<addService>{
     for (categories _category in _categories) {
       item=DropdownMenuItem(
           value: _category,
-          child: Text(_category.toString().split('.').last),
+          child: Text(_category.toString().split('.').last.replaceAll("_", " ")),
         );
       items.add(item);
     }
