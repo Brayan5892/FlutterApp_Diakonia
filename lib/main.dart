@@ -1,3 +1,4 @@
+import 'package:diakonia/pages/homePage.dart';
 import 'package:diakonia/pages/mainPage.dart';
 import 'package:diakonia/pages/profile.dart';
 import 'package:diakonia/pages/profileEdit.dart';
@@ -21,7 +22,7 @@ class MyApp extends StatelessWidget {
       title: 'Material App',
       initialRoute: "/",
       routes: {
-        "/home": (BuildContext context) => Main(),
+        "/home": (BuildContext context) => MyHomePage(),
         "/": (BuildContext context) => Login(),
         "/register": (BuildContext context) => Register(),
         "/search": (BuildContext context) => Search(),
