@@ -18,7 +18,7 @@ class _ResultsState extends State<Results> {
         ),
         body: Center(
           child: Container(
-              child: ListView.builder(
+            child: ListView.builder(
             itemCount: services.length,
             itemBuilder: (BuildContext context, int index) {
               final service = services[index].data();
