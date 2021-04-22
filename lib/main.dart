@@ -18,13 +18,6 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       title: 'Material App',
       home: addService(),
-      /*routes: {
-        "/home":(context)=> Main(),
-        "/login":(context)=> Login(),
-        "/register":(context)=> Register(),
-        '/map':(context)=>map(),
-        '/addService':(context)=>addService()
-      },*/
       //para pasar datos entre pantallas/routes
       onGenerateRoute: (RouteSettings settings){
         final List<String>pathElements=settings.name.split('/');

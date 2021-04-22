@@ -12,7 +12,9 @@ import 'package:geolocator/geolocator.dart';
 
 class map extends StatefulWidget{
   map():super();
-  final String title="Demo Google Maps";
+  final String title="MAP";
+  final Color verdeOscuro=Color(0xff41736C),
+              grisClaro=Color(0xffE6EEED);  
   @override
   mapState createState()=>mapState();
 }
@@ -21,14 +23,15 @@ class mapState extends State<map>{
 
 /*Localizacion*/
 LatLng _currentLocation;
+
   _locatePosition()async{
     Position position=await Geolocator.getCurrentPosition(desiredAccuracy:LocationAccuracy.high,forceAndroidLocationManager: true);
     _currentLocation=LatLng(position.latitude, position.longitude);
   }
-
 /*mapa */
 final Set <Marker> _markers={};
 MapType _currentMapType=MapType.normal;
+GoogleMapController mapController;
 
   @override
   Widget build(BuildContext contex){
@@ -37,8 +40,51 @@ MapType _currentMapType=MapType.normal;
     return MaterialApp(
       home: Scaffold(
         appBar: AppBar(
-          title: Text(widget.title),
-          backgroundColor: Colors.blue,
+          backgroundColor: widget.verdeOscuro,
+          toolbarHeight: 200,
+          shape: ContinuousRectangleBorder(
+            borderRadius: const BorderRadius.only(
+              bottomLeft: Radius.circular(67.0),
+              bottomRight: Radius.circular(67.0),
+            ),
+          ),          
+          title: Column(
+            mainAxisSize: MainAxisSize.min,
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: <Widget>[
+              Padding(
+                padding: EdgeInsets.all(16.0),
+                child: Align(
+                  alignment: Alignment.center,
+                  child: Column(
+                    children: <Widget>[
+                      Text(widget.title),
+                      SizedBox(height: 20.0,),
+                      Container(
+                        padding: const EdgeInsets.only(left: 0.0, right: 0.0),
+                        decoration: BoxDecoration(
+                          borderRadius: BorderRadius.circular(10.0),
+                          color: widget.grisClaro,
+                        ),
+                        child:TextField(
+                        obscureText: true,
+                        decoration: InputDecoration(
+                          border: OutlineInputBorder(),
+                          labelText: 'Search',
+                          suffixIcon: IconButton(
+                            icon: Icon(Icons.search),
+                            onPressed: (_searchServices),
+                          ),
+                        ),
+                        controller: _searchCont,
+                      ),
+                      )
+                    ]
+                  )
+                )
+              )
+            ]
+          )
         ),
         body: Stack(
           children: <Widget>[          
@@ -49,12 +95,14 @@ MapType _currentMapType=MapType.normal;
               zoomControlsEnabled: true,
               initialCameraPosition: CameraPosition(
                 target: LatLng(10,10),
-                zoom: 11.0),
+                zoom: 11.0
+              ),
               onMapCreated: (GoogleMapController controller){
                   _setPermissions();
                   _locatePosition();
+                  mapController=controller;
                   controller.animateCamera(CameraUpdate.newCameraPosition(CameraPosition(target: _currentLocation,zoom: 9.0)));
-                },
+              },
               onLongPress: _addMarkerOnMap,  
               mapType: _currentMapType,
               markers: _markers,
@@ -106,7 +154,7 @@ MapType _currentMapType=MapType.normal;
 
   _onCameraMove(CameraPosition position){
     _currentLocation=position.target;
-  }  
+  }
 
   Widget button(Function function,IconData icon){
     _setPermissions();
@@ -131,9 +179,37 @@ MapType _currentMapType=MapType.normal;
     });
   }
 
+//Barra de busqueda-----------------------------------------------------------------------
+String _search;
+final _searchCont=TextEditingController();
+
+  _searchServices(){
+    
+    setState(() {
+    _search=_searchCont.text;      
+    });
+
+    for(Service service in services){
+
+      if(service.name==_search||
+          service.name.contains(_search)||
+          service.description.contains(_search)||
+          service.location.contains(_search)){
+        mapController.animateCamera(CameraUpdate.newCameraPosition(CameraPosition(target: service.coord,zoom: 9.0)));
+      }
+    }
+  }
+
+  @override
+  void dispose() {
+    // Limpia el controlador cuando se termina el widget
+    _searchCont.dispose();
+
+    super.dispose();
+  }
 //Cargar Srvicios de las tablas-----------------------------------------------------------
+Set <Service> services={};
   loadServices(){
-    Set <Service> services={};
 
     //codigo para conseguir las coordenadas de los servicios:
     //

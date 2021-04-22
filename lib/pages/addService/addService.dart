@@ -8,7 +8,7 @@ import 'dart:io';
 //import para cargar imagenes del dispositvo
 import 'package:image_picker/image_picker.dart';
 
-/*import de google maps */
+//import de google maps
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 
 class addService extends StatefulWidget{
@@ -59,15 +59,15 @@ class addServiceState extends State<addService>{
                             value: _selectedCategory,
                             items: _dropdownMenuItems,
                             onChanged: onChangeDropdownItem,
-                          ),
-                        ),
-                      ),
-                    ],
-                  ),
+                          )
+                        )
+                      )
+                    ]
+                  )
                 )
-              ),
-            ],
-          ),
+              )
+            ]
+          )
         ),
         body: Builder(
           builder: (context) => 
@@ -129,7 +129,7 @@ class addServiceState extends State<addService>{
                       ElevatedButton(
                         onPressed: (){add();},
                         child: Text('Add'),
-                      ),
+                      )
                     ]
                   )
                 )
@@ -144,7 +144,7 @@ class addServiceState extends State<addService>{
     );
   }
 
-  //funcion para agregar servicio a la tabla (markers continene todos los marcadores del en el mapa)
+//funcion para agregar servicio a la tabla (markers continene todos los marcadores del en el mapa)
   add(){
     setState(() {
       _name=_nameCon.text;     
