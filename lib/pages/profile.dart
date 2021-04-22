@@ -46,7 +46,6 @@ class _ProfileState extends State<Profile> {
           .collection('services')
           .where('userId', isEqualTo: 'gIwFCCeDIXZbAqAbkI6IM8Uf0d12')
           .get();
-         
           services = result.docs;
          
   }
@@ -170,6 +169,7 @@ class _ProfileState extends State<Profile> {
                             Icons.edit,
                             color: Colors.white,
                           ),
+                            onPressed: null,
                           ),
                           ), 
                         )),
@@ -247,20 +247,12 @@ class _ProfileState extends State<Profile> {
                                 style: TextStyle(fontSize: 20, color: Colors.black),)
                              ),
 
-
-
                             ],
                           ),
                       ),
-                    ),
-                   
-
-
-
-                    
+                    ),               
                   ],
                 ),
-              
               ),
             ),
           ],
