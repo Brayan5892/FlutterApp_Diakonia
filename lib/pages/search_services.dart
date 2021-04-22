@@ -10,29 +10,34 @@ class Search extends StatefulWidget {
 
 class _SearchState extends State<Search> {
   var paramSearch;
-
+  var iconSelected;
   List<IconData> _icons=[
-    FontAwesomeIcons.plane,
-    FontAwesomeIcons.bed,
-    FontAwesomeIcons.walking,
+    FontAwesomeIcons.chalkboardTeacher,
+    FontAwesomeIcons.paintRoller,
+    FontAwesomeIcons.wrench,
     FontAwesomeIcons.biking,
-    FontAwesomeIcons.biking,
-    FontAwesomeIcons.walking,
-    FontAwesomeIcons.biking,
-    FontAwesomeIcons.biking,
+    FontAwesomeIcons.dumbbell,
   ];
 
   Widget _buildIcon(int index){
-    return Container(
-      margin: EdgeInsets.only(left:10),
-      height:80.0,
-      width:60.0,
-      decoration: BoxDecoration(
-        color: Color(int.parse("#E6EEED".replaceAll('#', '0xff'))),
-        borderRadius: BorderRadius.circular(30.0),
+    return GestureDetector(
+        onTap: (){
+          setState(() {
+            iconSelected=index;
+            searchByCategory();
+          });
+        },
+        child: Container(
+        margin: EdgeInsets.only(left:20),
+        height:80.0,
+        width:60.0,
+        decoration: BoxDecoration(
+          color: Color(int.parse("#F2BB35".replaceAll('#', '0xff'))),
+          borderRadius: BorderRadius.circular(30.0),
+          ),
+        child: Icon(_icons[index],size: 25.0,color: Colors.brown,),
         ),
-      child: Icon(_icons[index],size: 25.0,color: Colors.black,),
-      );
+    );
   }
 
   @override
@@ -71,8 +76,7 @@ class _SearchState extends State<Search> {
           title: Column(
             children: [
               Text('SEARCH',
-              style: TextStyle(fontSize: 25 ),
-              
+                style: TextStyle(fontSize: 25 ),
               ),
               Container(
                 margin: EdgeInsets.only(top:40),
@@ -165,11 +169,8 @@ class _SearchState extends State<Search> {
 
                 }
                 
-                ),
+              ),
             )
-
-
-       
           ],
           )
       ),
@@ -184,6 +185,37 @@ class _SearchState extends State<Search> {
     final List<DocumentSnapshot> documents = result.docs;
     
     Navigator.of(context).pushNamed("/results", arguments: documents);
+  }
+
+   void searchByCategory() async {
+     var cat="";
+
+    switch(iconSelected){
+        case 0:
+          cat="teacher";
+        break;
+        case 1:
+          cat="painter";
+        break;
+        case 2:
+          cat="plumber";
+        break;
+        case 3:
+          cat="biking";
+        break;
+        case 4:
+          cat="coach";
+        break;
+    }  
+
+    var result = await FirebaseFirestore.instance
+        .collection('services')
+        .where('category', isEqualTo: cat)
+        .get();
+    final List<DocumentSnapshot> documents = result.docs;
+    
+    Navigator.of(context).pushNamed("/results", arguments: documents);
+    
   }
 
 }
