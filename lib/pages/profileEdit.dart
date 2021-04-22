@@ -11,7 +11,7 @@ class ProfileEdit extends StatefulWidget {
 
 class _ProfileEditState extends State<ProfileEdit> {
     final formKey = GlobalKey<FormState>();
-    var editName, editLastName, editPhone;
+    var editName, editLastName, editPhone, addCerti;
     
 
 
@@ -20,7 +20,34 @@ class _ProfileEditState extends State<ProfileEdit> {
     return Scaffold(
       resizeToAvoidBottomInset: false,
        appBar: AppBar(
-        title: Text('Profile edit'),
+               leading: Column(
+            mainAxisAlignment: MainAxisAlignment.start,
+            children: [
+              IconButton(
+                icon: Icon(Icons.arrow_back  ,size: 30,color: Colors.white,),
+                onPressed: (){
+                     Navigator.of(context).pushNamed("/profile");
+                   }
+                ),
+            ],
+          ),
+        title: Padding(
+          padding: const EdgeInsets.all(8.0),
+          child: Column(
+             mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              Text('Profile edit',
+              style: TextStyle(
+                color: Colors.white,
+                fontSize: 25,
+                ),),
+
+            ],
+          ),
+        ),
+        backgroundColor: Color(int.parse("#41736C".replaceAll('#', '0xff'))),
+        toolbarHeight: 200.0,
+        shape: RoundedRectangleBorder(borderRadius: BorderRadius.only(bottomRight: Radius.circular(67),bottomLeft: Radius.circular(67))),
       ),
       body: Padding(
         padding: const EdgeInsets.all(10.0),
@@ -113,6 +140,31 @@ class _ProfileEditState extends State<ProfileEdit> {
                          )
                          ),
                        )
+                     ),
+                         Container(
+                     height: 55,
+                     margin: EdgeInsets.only(top:8.0, bottom: 8.0),
+                     child: TextFormField(
+              
+                       onSaved:  (value){
+                             addCerti = value;
+                       }, 
+                      
+                       decoration: InputDecoration(
+                          fillColor: Colors.white, filled: true,
+                         labelText: "Upload certification",
+                         border: OutlineInputBorder(borderRadius: const BorderRadius.all(
+                           const Radius.circular(30.0),
+                         ),
+                         borderSide: BorderSide(
+                               width: 0, 
+                               style: BorderStyle.none,
+                         ),
+                         )
+                       
+                         ),
+                       )
+                        
                      ),
                    Container(
                        height: 50,
