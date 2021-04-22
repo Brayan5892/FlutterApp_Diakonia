@@ -14,7 +14,8 @@ class map extends StatefulWidget{
   map():super();
   final String title="MAP";
   final Color verdeOscuro=Color(0xff41736C),
-              grisClaro=Color(0xffE6EEED);  
+              grisClaro=Color(0xffE6EEED),
+              amarillo=Color(0xffF2BB35);  
   @override
   mapState createState()=>mapState();
 }
@@ -70,7 +71,7 @@ GoogleMapController mapController;
                         obscureText: true,
                         decoration: InputDecoration(
                           border: OutlineInputBorder(),
-                          labelText: 'Search',
+                          labelText: 'Search...',
                           suffixIcon: IconButton(
                             icon: Icon(Icons.search),
                             onPressed: (_searchServices),
@@ -117,7 +118,7 @@ GoogleMapController mapController;
                     SizedBox(height: 50.0,),
                     button(_onMapTypeButtonPressed, Icons.map),
                     SizedBox(height: 16.0,),
-                    button(_onReturnButtonPressed, Icons.keyboard_return),
+                    button(_onReturnButtonPressed, Icons.keyboard_return)
                   ]
                 )
               )
@@ -164,7 +165,7 @@ GoogleMapController mapController;
 
       onPressed: function,
       materialTapTargetSize: MaterialTapTargetSize.padded,
-      backgroundColor: Colors.blue,
+      backgroundColor: widget.verdeOscuro,
       child: Icon(
         icon,
         size: 36.0,)

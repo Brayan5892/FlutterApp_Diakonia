@@ -1,4 +1,4 @@
-import 'package:diakonia/pages/categories/categories.dart';
+import 'package:diakonia/objects/categories.dart';
 import 'package:diakonia/pages/map.dart/map.dart';
 import 'package:flutter/material.dart';
 
@@ -13,9 +13,10 @@ import 'package:google_maps_flutter/google_maps_flutter.dart';
 
 class addService extends StatefulWidget{
   addService():super();
-  final String title="Add Service";
+  final String title="ADD SERVICE";
   final Color verdeOscuro=Color(0xff41736C),
-              grisClaro=Color(0xffE6EEED);
+              grisClaro=Color(0xffE6EEED),
+              amarillo=Color(0xffF2BB35);
   @override
   addServiceState createState()=>addServiceState();
 }
@@ -81,7 +82,7 @@ class addServiceState extends State<addService>{
                     children: <Widget>[
                       SizedBox(height: 16.0,),
                       TextField(
-                        obscureText: true,
+                        obscureText: false,
                         decoration: InputDecoration(
                           border: OutlineInputBorder(),
                           labelText: 'Name',
@@ -90,7 +91,7 @@ class addServiceState extends State<addService>{
                       ),
                       SizedBox(height: 16.0,),
                       TextField(
-                        obscureText: true,
+                        obscureText: false,
                         decoration: InputDecoration(
                           border: OutlineInputBorder(),
                           labelText: 'Price',
@@ -99,7 +100,7 @@ class addServiceState extends State<addService>{
                       ),
                       SizedBox(height: 16.0,),
                       TextField(
-                        obscureText: true,
+                        obscureText: false,
                         decoration: InputDecoration(
                           border: OutlineInputBorder(),
                           labelText: 'Description',
@@ -107,28 +108,70 @@ class addServiceState extends State<addService>{
                         controller: _descCon,
                       ),
                       SizedBox(height: 16.0,),
-                      TextField(
-                        obscureText: true,
-                        decoration: InputDecoration(
-                          border: OutlineInputBorder(),
-                          labelText: 'Location',
-                        ),
-                        controller: _locCon,
-                      ),
-                      SizedBox(height: 16.0,),
-                      ElevatedButton(
-                        onPressed: (){goToMap(context);},
-                        child: Text('pick location'),
-                      ),                      
-                      SizedBox(height: 16.0,),
-                      ElevatedButton(
-                        onPressed: (){showAlertDialog(context);},
-                        child: Text('Upload'),
-                      ),
-                      SizedBox(height: 16.0,),
-                      ElevatedButton(
-                        onPressed: (){add();},
-                        child: Text('Add'),
+                      Container(
+                        alignment: Alignment.topLeft,
+                        child: Row(
+                          mainAxisSize: MainAxisSize.min,
+                          children: <Widget>[
+                            Expanded(
+                              child:TextField(
+                              obscureText: false,
+                              decoration: InputDecoration(
+                                border: OutlineInputBorder(),
+                                labelText: 'Location',
+                              ),
+                              controller: _locCon,
+                              )
+                            ),
+                            Expanded(
+                              child: Padding(
+                                padding: const EdgeInsets.all(16.0),
+                                child:ElevatedButton(
+                                onPressed: (){goToMap(context);},
+                                child: Text('pick location'),
+                                style:
+                                  ElevatedButton.styleFrom(
+                                  primary: widget.amarillo,
+                                  onPrimary: Colors.black,
+                                  ),
+                                )   
+                              )
+                            ) 
+                          ]
+                        )  
+                      ),                 
+                      Container(
+                        alignment: Alignment.topLeft,
+                        child: Row(
+                          mainAxisSize: MainAxisSize.min,
+                          children: <Widget>[
+                            Expanded(
+                              child:ElevatedButton(
+                                onPressed: (){showAlertDialog(context);},
+                                child: Text('Upload Pic'),
+                                style:
+                                  ElevatedButton.styleFrom(
+                                  primary: widget.amarillo,
+                                  onPrimary: Colors.black,
+                                  ),
+                              )
+                            ),
+                            Expanded(
+                              child: Padding(
+                                padding: const EdgeInsets.all(20.0),
+                                child:ElevatedButton(
+                                onPressed: (){add();},
+                                child: Text('AddService'),
+                                style:
+                                  ElevatedButton.styleFrom(
+                                  primary: widget.amarillo,
+                                  onPrimary: Colors.black,
+                                  ),
+                                )   
+                              )
+                            ) 
+                          ]
+                        )  
                       )
                     ]
                   )
