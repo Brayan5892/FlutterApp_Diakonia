@@ -1,7 +1,13 @@
+import 'dart:io';
+
 import 'package:flutter/material.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:image_picker/image_picker.dart';
+import 'package:cloudinary_public/cloudinary_public.dart';
+
+
 
 class Profile extends StatefulWidget {
   @override
@@ -9,6 +15,9 @@ class Profile extends StatefulWidget {
 }
 
 class _ProfileState extends State<Profile> {
+  final cloudinary = CloudinaryPublic('dvbxq7upf', 'ml_default', cache: false);
+  PickedFile _imageFile;
+  final ImagePicker _picker = ImagePicker();
   var name=" ", telephone=" ", lastname=" ", email=" ", description=" ";
   var firebaseUser =  FirebaseAuth.instance.currentUser;
   List<DocumentSnapshot> services=[];
@@ -52,11 +61,26 @@ class _ProfileState extends State<Profile> {
           backgroundColor: Colors.white,
           elevation: 0,
           leading: IconButton(
-                icon: Icon(Icons.home_outlined,size: 35,color: Colors.black,),
+                icon: Icon(
+                  Icons.home_outlined,
+                  size: 35,
+                  color: Colors.black,),
                 onPressed: (){
                      Navigator.of(context).pushNamed("/home");
                    }
                 ),
+                     actions: [
+          IconButton(
+            icon: Icon(
+              Icons.settings,
+              size: 30,
+              color: Colors.black,
+            ),
+            onPressed: () {
+           Navigator.of(context).pushNamed("/profileEdit");
+            },
+          ),
+        ],
         ),
         body: Column(
           children: [
@@ -93,31 +117,66 @@ class _ProfileState extends State<Profile> {
                                   ),),
                             ],
                           ),
-                          Column(
-                            children: [
-                              Row(
-                                mainAxisAlignment: MainAxisAlignment.end,
-                                children: [
-                                  Container(
-                                    margin: EdgeInsets.all(0),
-                                    child: Icon(Icons.account_circle_outlined, size: 90,color:Colors.white,
-                                    )
-                                    ),
-                                  Container(
-                                    padding: const EdgeInsets.all(0.0),
-                                    margin: EdgeInsets.only(top:40),
-                                    child: IconButton(
-                                        icon: Icon(Icons.edit_outlined,size: 20,color: Colors.white,), 
-                                        onPressed: null
-                                ),
-                                  ),
-                                ],
+                                        Center(
+                child: Stack(
+                  children: [
+                    Container(
+                      width: 130,
+                      height: 130,
+                      decoration: BoxDecoration(
+                          border: Border.all(
+                              width: 4,
+                              color: Color.fromARGB(255, 242, 187, 53)),
+                          boxShadow: [
+                            BoxShadow(
+                                spreadRadius: 2,
+                                blurRadius: 10,
+                                color: Colors.black.withOpacity(0.1),
+                                offset: Offset(0, 10))
+                          ],
+                          shape: BoxShape.circle,
+                          image: DecorationImage(
+                              fit: BoxFit.cover,
+                              image: _imageFile==null ? NetworkImage(
+                                "https://pm1.narvii.com/6521/328d0ecf99dd0a94976de54ac20e3f0ded2219e0_hq.jpg",
+                              ) : FileImage(File(_imageFile.path)),
+                              )
                               ),
-                             
-                            ],
+                    ),
+                    Positioned(
+                        bottom: 0,
+                        right: 0,
+                        child: Container(
+                          height: 40,
+                          width: 50,
+                          decoration: BoxDecoration(
+                            shape: BoxShape.circle,
+                            border: Border.all(
+                              width: 2,
+                              color: Theme.of(context).scaffoldBackgroundColor,
+                            ),
+                            color: Color.fromARGB(255, 242, 187, 53),
                           ),
+                          child: InkWell(
+                            onTap: (){
+                              showModalBottomSheet(
+                                context: context, 
+                                builder: ((builder) => bottomSheet()),
+                                );
+                            },
                          
-                          
+                          child: IconButton(
+                            icon: Icon(
+                            Icons.edit,
+                            color: Colors.white,
+                          ),
+                          ),
+                          ), 
+                        )),
+                          ],
+                        ),
+                      ),
+                    
                         ],
                         
                         
@@ -208,5 +267,81 @@ class _ProfileState extends State<Profile> {
         ),
       ),
     );
+  }
+
+
+
+  Widget bottomSheet(){
+    return Container(
+      height: 100.0,
+      width: MediaQuery.of(context).size.width,
+      margin: EdgeInsets.symmetric(
+        horizontal: 20,
+        vertical: 20,
+      ),
+      child: Column(
+        children: <Widget>[
+          Text(
+            "Choose profile photo",
+            style: TextStyle(
+              fontSize: 20.0,
+              color: Colors.black,
+            ),
+          ),
+          SizedBox(
+            height: 20,
+          ),
+          Row(mainAxisAlignment: MainAxisAlignment.center, children: <Widget>[
+            TextButton.icon(
+              icon: Icon(
+                Icons.camera,
+                color: Color.fromARGB(255, 65, 115, 108),
+                ),
+              onPressed: () async {
+                takePhoto(ImageSource.camera);
+                    try {
+                      CloudinaryResponse response = await cloudinary.uploadFile(
+                      CloudinaryFile.fromFile(_imageFile.path, resourceType: CloudinaryResourceType.Image),
+                  );
+                        print(response.secureUrl);
+                    } on CloudinaryException catch (e) {
+                      print(e.message);
+                      print(e.request);
+                    }
+              }, 
+               label: Text("Camera"),
+               ),
+                  TextButton.icon(
+              icon: Icon(
+                Icons.image, 
+                color: Color.fromARGB(255, 65, 115, 108),
+                ),
+              onPressed: () async {
+                 takePhoto(ImageSource.gallery);
+                       try {
+                      CloudinaryResponse response = await cloudinary.uploadFile(
+                      CloudinaryFile.fromFile(_imageFile.path, resourceType: CloudinaryResourceType.Image),
+                  );
+                        print(response.secureUrl);
+                    } on CloudinaryException catch (e) {
+                      print(e.message);
+                      print(e.request);
+                    }
+              }, 
+               label: Text("Gallery"),
+               ),
+          ],)
+        ],
+      ),
+    );
+  }
+
+  void takePhoto(ImageSource source) async{
+    final pickedFile = await _picker.getImage(
+      source: source,
+    );
+    setState(() {
+          _imageFile = pickedFile;
+        });
   }
 }
