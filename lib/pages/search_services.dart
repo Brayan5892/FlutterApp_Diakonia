@@ -76,8 +76,7 @@ class _SearchState extends State<Search> {
           title: Column(
             children: [
               Text('SEARCH',
-              style: TextStyle(fontSize: 25 ),
-              
+                style: TextStyle(fontSize: 25 ),
               ),
               Container(
                 margin: EdgeInsets.only(top:40),
@@ -170,11 +169,8 @@ class _SearchState extends State<Search> {
 
                 }
                 
-                ),
+              ),
             )
-
-
-       
           ],
           )
       ),

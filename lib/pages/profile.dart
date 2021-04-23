@@ -15,10 +15,10 @@ class Profile extends StatefulWidget {
 }
 
 class _ProfileState extends State<Profile> {
-  final cloudinary = CloudinaryPublic('dvbxq7upf', 'ml_default', cache: false);
+  final cloudinary = CloudinaryPublic('dfm8d2pyf', 'zjtb4tq2', cache: false);
   PickedFile _imageFile;
   final ImagePicker _picker = ImagePicker();
-  var name=" ", telephone=" ", lastname=" ", email=" ", description=" ";
+  var name=" ", telephone=" ", lastname=" ", email=" ", description=" ", profilePicture=" ";
   var firebaseUser =  FirebaseAuth.instance.currentUser;
   List<DocumentSnapshot> services=[];
   void initState() { 
@@ -37,6 +37,7 @@ class _ProfileState extends State<Profile> {
         lastname=document.data()['lastname'];
         telephone=document.data()['phone'];
         description=document.data()['description'];
+        profilePicture=document.data()['profilePicture'];
       });
     
   }
@@ -44,7 +45,7 @@ class _ProfileState extends State<Profile> {
    void servicesById() async {
       var result = await FirebaseFirestore.instance
           .collection('services')
-          .where('userId', isEqualTo: 'gIwFCCeDIXZbAqAbkI6IM8Uf0d12')
+          .where('userId', isEqualTo: firebaseUser.uid)
           .get();
           services = result.docs;
          
@@ -76,7 +77,7 @@ class _ProfileState extends State<Profile> {
               color: Colors.black,
             ),
             onPressed: () {
-           Navigator.of(context).pushNamed("/profileEdit");
+              Navigator.of(context).pushNamed("/profileEdit");
             },
           ),
         ],
@@ -94,7 +95,6 @@ class _ProfileState extends State<Profile> {
                 ),
                 child: Column(
                   children: [
-
                     Padding(
                       padding: const EdgeInsets.all(0.0),
                       child: Row(
@@ -136,9 +136,9 @@ class _ProfileState extends State<Profile> {
                           shape: BoxShape.circle,
                           image: DecorationImage(
                               fit: BoxFit.cover,
-                              image: _imageFile==null ? NetworkImage(
-                                "https://pm1.narvii.com/6521/328d0ecf99dd0a94976de54ac20e3f0ded2219e0_hq.jpg",
-                              ) : FileImage(File(_imageFile.path)),
+                              image: profilePicture==null ? NetworkImage(
+                                'https://pm1.narvii.com/6521/328d0ecf99dd0a94976de54ac20e3f0ded2219e0_hq.jpg',
+                              ) : NetworkImage(profilePicture),
                               )
                               ),
                     ),
@@ -177,10 +177,7 @@ class _ProfileState extends State<Profile> {
                         ),
                       ),
                     
-                        ],
-                        
-                        
-                        
+                        ],      
                         ),
                     ),
                     Expanded(
@@ -290,17 +287,31 @@ class _ProfileState extends State<Profile> {
                 color: Color.fromARGB(255, 65, 115, 108),
                 ),
               onPressed: () async {
-                takePhoto(ImageSource.camera);
-                    try {
-                      CloudinaryResponse response = await cloudinary.uploadFile(
-                      CloudinaryFile.fromFile(_imageFile.path, resourceType: CloudinaryResourceType.Image),
-                  );
+                      await takePhoto(ImageSource.camera);
+                      try {
+                        CloudinaryResponse response = await cloudinary.uploadFile(
+                        CloudinaryFile.fromFile(_imageFile.path, resourceType: CloudinaryResourceType.Image),
+                      );
+
                         print(response.secureUrl);
+
+                        var firebaseUser =  FirebaseAuth.instance.currentUser;
+
+                        FirebaseFirestore.instance.collection("users").doc(firebaseUser.uid).update({
+                          "profilePicture": response.secureUrl,
+                        }).then((_) {
+                          print("Se ha guardado su foto satisfactoriamente");
+                          setState(() {
+                            profilePicture=response.secureUrl;
+                          });
+                        });
+
                     } on CloudinaryException catch (e) {
                       print(e.message);
                       print(e.request);
                     }
               }, 
+
                label: Text("Camera"),
                ),
                   TextButton.icon(
@@ -309,15 +320,18 @@ class _ProfileState extends State<Profile> {
                 color: Color.fromARGB(255, 65, 115, 108),
                 ),
               onPressed: () async {
-                 takePhoto(ImageSource.gallery);
+                await takePhoto(ImageSource.gallery);
                        try {
+                      
                       CloudinaryResponse response = await cloudinary.uploadFile(
                       CloudinaryFile.fromFile(_imageFile.path, resourceType: CloudinaryResourceType.Image),
-                  );
+                      );
+                      
                         print(response.secureUrl);
                     } on CloudinaryException catch (e) {
                       print(e.message);
                       print(e.request);
+                         
                     }
               }, 
                label: Text("Gallery"),
@@ -328,12 +342,15 @@ class _ProfileState extends State<Profile> {
     );
   }
 
-  void takePhoto(ImageSource source) async{
+  takePhoto(ImageSource source) async{
+  
     final pickedFile = await _picker.getImage(
       source: source,
     );
+   
     setState(() {
-          _imageFile = pickedFile;
-        });
+      _imageFile = pickedFile;
+    });
+    
   }
 }
