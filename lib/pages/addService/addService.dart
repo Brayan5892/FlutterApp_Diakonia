@@ -211,14 +211,14 @@ class addServiceState extends State<addService>{
       _selectedCategory.toString().split('.').last;
       
 
-      FirebaseFirestore.instance.collection('services').doc('servicio_'/*+firebaseUser.uid*/).set({
+      FirebaseFirestore.instance.collection('services').doc('servicio_'+firebaseUser.uid).set({
         "category":_selectedCategory.toString().split('.').last,
         "coords" : new GeoPoint(coord.latitude, coord.longitude),
         "description":_des,
         "location":_loc,
         "name":_name,
         "price":_price,
-        "userId":"prueba"//firebaseUser.uid
+        "userId":firebaseUser.uid
       });
        
     //-----------------------------------------

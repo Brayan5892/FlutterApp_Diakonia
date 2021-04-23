@@ -215,6 +215,7 @@ List <Service> services=new List<Service>();
     //codigo para conseguir las coordenadas de los servicios:
 
     QuerySnapshot qSnapShot=await FirebaseFirestore.instance.collection('services').get();
+    int i=1;
     qSnapShot.docs.asMap().forEach((key, value) {
       GeoPoint geoPoint = qSnapShot.docs[key]['coords'];
       Service service=new Service(
@@ -231,7 +232,7 @@ List <Service> services=new List<Service>();
       setState(() {
         _markers.add(
           Marker(
-            markerId:MarkerId(service.idOwner),
+            markerId:MarkerId(service.idOwner+"$i"),
             position: service.coord,
             infoWindow:InfoWindow(
               title: service.name,
@@ -246,6 +247,7 @@ List <Service> services=new List<Service>();
           )
         );   
       }); 
+      i++;
     });
   }
 //----------------------------------------------------------------------------------------
