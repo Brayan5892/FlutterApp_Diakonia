@@ -1,3 +1,4 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:diakonia/objects/service.dart';
 import 'package:flutter/material.dart';
 
@@ -25,18 +26,19 @@ class mapState extends State<map>{
 /*Localizacion*/
 LatLng _currentLocation;
 
-  _locatePosition()async{
+  _locatePosition(GoogleMapController controller)async{
     Position position=await Geolocator.getCurrentPosition(desiredAccuracy:LocationAccuracy.high,forceAndroidLocationManager: true);
     _currentLocation=LatLng(position.latitude, position.longitude);
+    controller.animateCamera(CameraUpdate.newCameraPosition(CameraPosition(target: _currentLocation,zoom: 9.0)));
   }
 /*mapa */
 final Set <Marker> _markers={};
+Marker _marker;
 MapType _currentMapType=MapType.normal;
 GoogleMapController mapController;
 
   @override
   Widget build(BuildContext contex){
-    _locatePosition();
     _setPermissions();
     return MaterialApp(
       home: Scaffold(
@@ -68,7 +70,7 @@ GoogleMapController mapController;
                           color: widget.grisClaro,
                         ),
                         child:TextField(
-                        obscureText: true,
+                        obscureText: false,
                         decoration: InputDecoration(
                           border: OutlineInputBorder(),
                           labelText: 'Search...',
@@ -99,10 +101,10 @@ GoogleMapController mapController;
                 zoom: 11.0
               ),
               onMapCreated: (GoogleMapController controller){
-                  _setPermissions();
-                  _locatePosition();
-                  mapController=controller;
-                  controller.animateCamera(CameraUpdate.newCameraPosition(CameraPosition(target: _currentLocation,zoom: 9.0)));
+                _setPermissions();
+                _locatePosition(controller);
+                _loadServices();
+                mapController=controller;
               },
               onLongPress: _addMarkerOnMap,  
               mapType: _currentMapType,
@@ -130,22 +132,21 @@ GoogleMapController mapController;
   }
 
   _onReturnButtonPressed(){
-    Navigator.pop(context,_markers);
+    Navigator.pop(context,_marker);
   }  
 
   _addMarkerOnMap(LatLng pos){
     setState(() {
-      _markers.add(
-        Marker(
-          markerId:MarkerId(pos.toString()),
-          position: pos,
-          infoWindow:InfoWindow(
-            title: 'Ubicacion',
-            snippet: 'Ubicacion a escoger para el servicio'
-          ),
-          icon: BitmapDescriptor.defaultMarker
-        )
-      );      
+      _marker=Marker(
+        markerId:MarkerId(pos.toString()),
+        position: pos,
+        infoWindow:InfoWindow(
+          title: 'Ubicacion',
+          snippet: 'Ubicacion a escoger para el servicio'
+        ),
+        icon: BitmapDescriptor.defaultMarker
+      );
+      _markers.add(_marker);      
     });
   }
 
@@ -165,7 +166,7 @@ GoogleMapController mapController;
 
       onPressed: function,
       materialTapTargetSize: MaterialTapTargetSize.padded,
-      backgroundColor: widget.verdeOscuro,
+      backgroundColor: widget.amarillo,
       child: Icon(
         icon,
         size: 36.0,)
@@ -192,11 +193,10 @@ final _searchCont=TextEditingController();
 
     for(Service service in services){
 
-      if(service.name==_search||
-          service.name.contains(_search)||
+      if(service.name.contains(_search)||
           service.description.contains(_search)||
           service.location.contains(_search)){
-        mapController.animateCamera(CameraUpdate.newCameraPosition(CameraPosition(target: service.coord,zoom: 9.0)));
+        mapController.animateCamera(CameraUpdate.newCameraPosition(CameraPosition(target: service.coord,zoom: 15.0)));
       }
     }
   }
@@ -209,36 +209,44 @@ final _searchCont=TextEditingController();
     super.dispose();
   }
 //Cargar Srvicios de las tablas-----------------------------------------------------------
-Set <Service> services={};
-  loadServices(){
-
+List <Service> services=new List<Service>();
+  
+  Future _loadServices()async{//esto hay que probarlo en serio
     //codigo para conseguir las coordenadas de los servicios:
-    //
-    //------------------------------------------------------
-    
-    for(Service service in services){
+
+    QuerySnapshot qSnapShot=await FirebaseFirestore.instance.collection('services').get();
+    qSnapShot.docs.asMap().forEach((key, value) {
+      GeoPoint geoPoint = qSnapShot.docs[key]['coords'];
+      Service service=new Service(
+        qSnapShot.docs[key]['userId'], 
+        qSnapShot.docs[key]['name'], 
+        qSnapShot.docs[key]['description'], 
+        qSnapShot.docs[key]['location'], 
+        new LatLng(geoPoint.latitude,geoPoint.longitude),
+        qSnapShot.docs[key]['price']
+      );
+      services.add(service);
+
       double hueYellow = 60.0;
-      _markers.add(
-        Marker(
-          markerId:MarkerId(service.id),
-          position: service.coord,
-          infoWindow:InfoWindow(
-            title: service.name,
-            snippet: service.description
-          ),
-          //esto tengo que ver si funciona de verdad
-          icon: BitmapDescriptor.defaultMarkerWithHue(hueYellow) 
-        )
-      );  
-    }
-  }
-
-  @override
-  void initState() {
-    //esto puede que de problemas al ser lo primer que se inicializa?... creo?
-    loadServices();
-
-    super.initState();
+      setState(() {
+        _markers.add(
+          Marker(
+            markerId:MarkerId(service.idOwner),
+            position: service.coord,
+            infoWindow:InfoWindow(
+              title: service.name,
+              snippet: service.description
+            ),
+            //esto tengo que ver si funciona de verdad
+            icon: BitmapDescriptor.defaultMarkerWithHue(hueYellow),
+            onTap:(){
+              //codigo para desplazarce a la pag servicio
+              //Navigator.push(context,MaterialPageRoute(builder: (context)=>service()));
+            }
+          )
+        );   
+      }); 
+    });
   }
 //----------------------------------------------------------------------------------------
 }

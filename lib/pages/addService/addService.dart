@@ -11,6 +11,11 @@ import 'package:image_picker/image_picker.dart';
 //import de google maps
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 
+//import para autenticacion firebase
+import 'package:firebase_auth/firebase_auth.dart';
+
+import 'package:cloud_firestore/cloud_firestore.dart';
+
 class addService extends StatefulWidget{
   addService():super();
   final String title="ADD SERVICE";
@@ -191,33 +196,40 @@ class addServiceState extends State<addService>{
   add(){
     setState(() {
       _name=_nameCon.text;     
-      _price=_priceCon.text;   
+      _price=int.parse(_priceCon.text);   
       _des=_descCon.text;
       _loc=_locCon.text; 
     });
     //markers puede llegar vacio
-    Set <String>coord={};
-    for(Marker marker in markers){
-      coord.add(marker.position.latitude.toString()+','+marker.position.longitude.toString());
-    }
+    LatLng coord=new LatLng(_marker.position.latitude,_marker.position.longitude);
+
+    var firebaseUser =  FirebaseAuth.instance.currentUser;
     //codigo para agregar servicio a las tablas
-      _name;     
-      _price;   
-      _des;
-      _loc; 
-      coord;//esto puede ir vacio, no nulo, vacio
+
         if(imageFile!=null)
          imageFile.path;
       _selectedCategory.toString().split('.').last;
+      
+
+      FirebaseFirestore.instance.collection('services').doc('servicio_'/*+firebaseUser.uid*/).set({
+        "category":_selectedCategory.toString().split('.').last,
+        "coords" : new GeoPoint(coord.latitude, coord.longitude),
+        "description":_des,
+        "location":_loc,
+        "name":_name,
+        "price":_price,
+        "userId":"prueba"//firebaseUser.uid
+      });
+       
     //-----------------------------------------
     Navigator.pushNamed(context, '/home');
   }
 
 //Navegacion a la ventana mapa-------------------------------------------------------
-  Set <Marker> markers={};
+  Marker _marker;
 
   goToMap(BuildContext context)async{
-    markers=await Navigator.push(
+    _marker=await Navigator.push(
       context,
       MaterialPageRoute(builder: (context)=>map()));
   }
@@ -261,7 +273,8 @@ class addServiceState extends State<addService>{
   }
 
 //CAMPOS DE TEXTO ----------------------------------------------------------
-  String _name,_price,_des,_loc;  
+  String _name,_des,_loc;  
+  int _price;
   final _nameCon=TextEditingController(),
         _priceCon=TextEditingController(),
         _descCon=TextEditingController(),
@@ -339,3 +352,7 @@ class addServiceState extends State<addService>{
   }
 //---------------------------------------------------------------------------
 }
+/**
+var firebaseUser =  FirebaseAuth.instance.currentUser;
+firebaseUser.uid
+ */
