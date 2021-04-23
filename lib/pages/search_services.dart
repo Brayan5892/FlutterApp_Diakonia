@@ -23,6 +23,7 @@ class _SearchState extends State<Search> {
 
    Widget _buildIcon(int index){
     return GestureDetector(
+
         onTap: (){
           setState(() {
             iconSelected=index;
@@ -45,6 +46,7 @@ class _SearchState extends State<Search> {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
+      debugShowCheckedModeBanner: false,
       home: Scaffold(
           appBar: AppBar(
             leading: Column(
