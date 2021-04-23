@@ -159,7 +159,7 @@ class _SearchState extends State<Search> {
                             shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(20)),
                             child: ListTile(
                               title: Text(doc['name']),
-                              subtitle: Text(doc['price'], style: TextStyle(fontWeight: FontWeight.bold),),
+                              subtitle: Text(doc['price'].toString(), style: TextStyle(fontWeight: FontWeight.bold),),
                             ),
                           )).toList()
                     );

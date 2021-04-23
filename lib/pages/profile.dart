@@ -139,8 +139,8 @@ class _ProfileState extends State<Profile> {
                               image: profilePicture==null ? NetworkImage(
                                 'https://pm1.narvii.com/6521/328d0ecf99dd0a94976de54ac20e3f0ded2219e0_hq.jpg',
                               ) : NetworkImage(profilePicture),
-                              )
-                              ),
+                            )
+                          ),
                     ),
                     Positioned(
                         bottom: 0,
@@ -214,29 +214,29 @@ class _ProfileState extends State<Profile> {
                                 ),
                               ),
                               Container(
-                                margin: EdgeInsets.only(top:15),
-                                child: Text('Current services', 
-                                style: TextStyle(fontSize: 20, color: Colors.black),)
-                                ),
+                                  margin: EdgeInsets.only(top:15),
+                                  child: Text('Current services', 
+                                  style: TextStyle(fontSize: 20, color: Colors.black),)
+                                  ),
                               Container(
-                              height: 50,
-                              margin: EdgeInsets.only(top:20),
-                              padding: EdgeInsets.symmetric(horizontal:20),
-                              child: ListView.builder(
-                              scrollDirection: Axis.horizontal,
-                              itemCount: services.length,
-                              itemBuilder: (BuildContext context, int index) {
-                                final service = services[index].data();
-                                return Card(
-                                  shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(15)),
-                                   color: Color(int.parse("#F2BB35".replaceAll('#', '0xff'))),
-                                   child: Container(
-                                    padding: EdgeInsets.all(10),
-                                    
-                                    child: Text(service['name'])
-                                    ),
-                                );
-                              },
+                                  height: 50,
+                                  margin: EdgeInsets.only(top:20),
+                                  padding: EdgeInsets.symmetric(horizontal:20),
+                                  child: ListView.builder(
+                                  scrollDirection: Axis.horizontal,
+                                  itemCount: services.length,
+                                  itemBuilder: (BuildContext context, int index) {
+                                    final service = services[index].data();
+                                    return Card(
+                                      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(15)),
+                                      color: Color(int.parse("#F2BB35".replaceAll('#', '0xff'))),
+                                      child: Container(
+                                        padding: EdgeInsets.all(10),
+                                        
+                                        child: Text(service['name'])
+                                        ),
+                                    );
+                                  },
                             )),
                              Container(
                                 margin: EdgeInsets.only(top:15),
