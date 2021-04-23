@@ -11,11 +11,12 @@ class ProfileEdit extends StatefulWidget {
 
 class _ProfileEditState extends State<ProfileEdit> {
   final formKey = GlobalKey<FormState>();
-  var editName, editLastName, editPhone, addCerti;
+  var editName, editLastName, editPhone, aboutMe;
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      
       resizeToAvoidBottomInset: false,
       appBar: AppBar(
         leading: Column(
@@ -146,20 +147,20 @@ class _ProfileEditState extends State<ProfileEdit> {
                   margin: EdgeInsets.only(top: 8.0, bottom: 8.0),
                   child: TextFormField(
                     onSaved: (value) {
-                      addCerti = value;
+                      aboutMe = value;
                     },
                     decoration: InputDecoration(
                         fillColor: Colors.white,
                         filled: true,
-                        labelText: "Upload certification",
-                        suffixIcon: InkWell(
-                          child: Icon(
-                            Icons.upload_sharp,
-                            size:14),
-                            onTap:(){
-                              print("hOLA");
-                            }
-                        ),
+                        labelText: "About me",
+                        // suffixIcon: InkWell(
+                        //   child: Icon(
+                        //     Icons.upload_sharp,
+                        //     size:25),
+                        //     onTap:(){
+                        //       print("hOLA");
+                        //     }
+                        // ),
                         border: OutlineInputBorder(
                           borderRadius: const BorderRadius.all(
                             const Radius.circular(30.0),
@@ -220,6 +221,7 @@ class _ProfileEditState extends State<ProfileEdit> {
           "name": editName,
           "lastname": editLastName,
           "phone": editPhone,
+          "description": aboutMe,
         }).then((_) {
           _showErrorDialog("Se han guardado sus cambios satisfactoriamente!");
         });

@@ -9,8 +9,10 @@ class Results extends StatefulWidget {
 class _ResultsState extends State<Results> {
   @override
   Widget build(BuildContext context) {
+  
     final List<DocumentSnapshot> services = ModalRoute.of(context).settings.arguments;
     return MaterialApp(
+      debugShowCheckedModeBanner: false,
       title: 'Material App',
       home: Scaffold(
         appBar: AppBar(

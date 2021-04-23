@@ -44,7 +44,7 @@ class _ProfileState extends State<Profile> {
    void servicesById() async {
       var result = await FirebaseFirestore.instance
           .collection('services')
-          .where('userId', isEqualTo: 'gIwFCCeDIXZbAqAbkI6IM8Uf0d12')
+          .where('userId', isEqualTo: firebaseUser.uid)
           .get();
           services = result.docs;
          
@@ -53,6 +53,7 @@ class _ProfileState extends State<Profile> {
  
   Widget build(BuildContext context) {
     return MaterialApp(
+      debugShowCheckedModeBanner: false,
       title: 'Material App',
       home: Scaffold(
         appBar: AppBar(
