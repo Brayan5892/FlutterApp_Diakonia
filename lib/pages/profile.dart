@@ -30,7 +30,7 @@ class _ProfileState extends State<Profile> {
   Future<void> getUser() async{
       
       var document = await FirebaseFirestore.instance.collection('users').doc(firebaseUser.uid).get(); 
-
+      
       setState(() {
         email=document.data()['email'];
         name=document.data()['name'];
@@ -54,6 +54,7 @@ class _ProfileState extends State<Profile> {
  
   Widget build(BuildContext context) {
     return MaterialApp(
+      debugShowCheckedModeBanner: false,
       title: 'Material App',
       home: Scaffold(
         appBar: AppBar(

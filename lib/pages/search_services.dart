@@ -43,6 +43,7 @@ class _SearchState extends State<Search> {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
+      debugShowCheckedModeBanner: false,
       home: Scaffold(
 
         appBar: AppBar(
@@ -151,7 +152,6 @@ class _SearchState extends State<Search> {
                   if(snapshot.hasData){
                     final List<DocumentSnapshot> documents = snapshot.data.docs;
                     return ListView(
-
                       //Service card
                       children: documents.
                           map((doc) => Card(

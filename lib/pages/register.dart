@@ -25,6 +25,7 @@ class _RegisterState extends State<Register> {
  
 
    return MaterialApp(
+     debugShowCheckedModeBanner: false,
       title: 'Material App',
       home: Scaffold(
         resizeToAvoidBottomInset: false,
