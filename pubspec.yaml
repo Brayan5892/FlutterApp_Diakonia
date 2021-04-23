@@ -63,6 +63,7 @@ flutter:
   - assets/images/job-search.png
   - assets/images/map.png
   - assets/images/pana.png
+  - assets/images/plomero.jpg
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/assets-and-images/#resolution-aware.
 
