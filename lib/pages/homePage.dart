@@ -89,6 +89,7 @@ class MyHomePage extends StatelessWidget {
                                 image: 'assets/images/clipboard.png',
                                 text: 'Add Service',
                                 color: Colors.black,
+                                ruta: '/addService',
                               )
                             ],
                           ),
@@ -119,6 +120,7 @@ class MyHomePage extends StatelessWidget {
                                 image: 'assets/images/map.png',
                                 text: 'Map',
                                 color: Colors.black,
+                                ruta: '/map',
                               ),
                               CatigoryW(
                                 image: 'assets/images/complain.png',

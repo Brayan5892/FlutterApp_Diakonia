@@ -23,6 +23,7 @@ class _SearchState extends State<Search> {
 
    Widget _buildIcon(int index){
     return GestureDetector(
+
         onTap: (){
           setState(() {
             iconSelected=index;
