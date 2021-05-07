@@ -11,7 +11,7 @@ import 'package:flutter/material.dart';
 import 'package:diakonia/pages/login.dart';
 import 'package:diakonia/pages/register.dart';
 
-void main() async {
+void main() async { 
   WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp();
   runApp(MyApp());
