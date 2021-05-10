@@ -33,9 +33,7 @@ void main(){
       await tester.pump();      
       //prueba para obtener geopunto del mapa---------------------------
       await tester.tap(find.widgetWithText(ElevatedButton, 'pick location'));  
-      await tester.pump();
-
-      //aqui ocurre los permisos que no puedo aceptar desde testing, a menos que coloque un pumpAndSettle(Duration(seconds: 5)); en la linea 36
+      await tester.pumpAndSettle(Duration(seconds: 5));
       
       await tester.longPressAt(Offset(270,700));
       await tester.pump();   
