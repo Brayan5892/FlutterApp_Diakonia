@@ -117,6 +117,7 @@ class _SearchState extends State<Search> {
                             width: 10.0,
                           ),
                           Expanded(
+                            key: Key("searchField"),
                             child: TextField(
                               decoration: InputDecoration(
                                   border: InputBorder.none,

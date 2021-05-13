@@ -1,6 +1,5 @@
 import 'package:diakonia/pages/addService/addService.dart';
 import 'package:diakonia/pages/homePage.dart';
-import 'package:diakonia/pages/mainPage.dart';
 import 'package:diakonia/pages/map.dart/map.dart';
 import 'package:diakonia/pages/profile.dart';
 import 'package:diakonia/pages/profileEdit.dart';

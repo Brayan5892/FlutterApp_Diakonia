@@ -56,6 +56,7 @@ class _LoginState extends State<Login> {
                           }
                         
                        },
+                       key: Key("emailLogin"),
                         decoration: InputDecoration(
                           fillColor: Colors.white, filled: true,
                           labelText: "ID:",
@@ -85,7 +86,7 @@ class _LoginState extends State<Login> {
                                   return null;
                                 }
                              },  
-
+                          key: Key("passwordLogin"),
                           decoration: InputDecoration(
                           fillColor: Colors.white, filled: true,
                           labelText: "Password:",
@@ -105,47 +106,49 @@ class _LoginState extends State<Login> {
                         width: 375,
                         margin: EdgeInsets.only(top:30.0),
                         child: OutlinedButton(
-                          onPressed: (){
-                            _logIn();
-                                                      },
-                                                      child: Text(
-                                                        "Log in",
-                                                        style: TextStyle(color: Colors.black),
-                                                      ),
-                                                      style: OutlinedButton.styleFrom(
-                                                        shape:RoundedRectangleBorder(borderRadius: BorderRadius.circular(30.0)),
-                                                        backgroundColor: Color(int.parse("#F2BB35".replaceAll('#', '0xff')))
-                                                        
-                                                      ),
-                                                      ),
-                                                  ),
-                                                  Container(
-                                                    height: 50,
-                                                    width: 375,
-                                                    margin: EdgeInsets.only(top:10.0),
-                                                    child: OutlinedButton(
-                                                      onPressed: (){
-                                                        _showRegisterPage(context);
-                                                      },
-                                                      child: Text(
-                                                        "Create account",
-                                                        style: TextStyle(color: Colors.black),
-                                                      ),
-                                                      style: OutlinedButton.styleFrom(
-                                                        shape:RoundedRectangleBorder(borderRadius: BorderRadius.circular(30.0)),
-                                                        backgroundColor: Color(int.parse("#41736C".replaceAll('#', '0xff')))
-                                                        
-                                                      ),
-                                                      ),
-                                                  )
-                                            ],
-                                            )
-                                          ),
+                                      onPressed: (){
+                                        _logIn();
+                                                  },
+                                      child: Text(
+                                        "Log in",
+                                        style: TextStyle(color: Colors.black),
                                       ),
-                                    )
+                                      key: Key("login"),
+                                      style: OutlinedButton.styleFrom(
+                                        shape:RoundedRectangleBorder(borderRadius: BorderRadius.circular(30.0)),
+                                        backgroundColor: Color(int.parse("#F2BB35".replaceAll('#', '0xff')))
+                                        
+                                      ),
+                                      ),
                                   ),
-                                );  
-                              }
+                                  Container(
+                                    height: 50,
+                                    width: 375,
+                                    margin: EdgeInsets.only(top:10.0),
+                                    key: Key("register"),
+                                    child: OutlinedButton(
+                                      onPressed: (){
+                                        _showRegisterPage(context);
+                                      },
+                                      child: Text(
+                                        "Create account",
+                                        style: TextStyle(color: Colors.black),
+                                      ),
+                                      style: OutlinedButton.styleFrom(
+                                        shape:RoundedRectangleBorder(borderRadius: BorderRadius.circular(30.0)),
+                                        backgroundColor: Color(int.parse("#41736C".replaceAll('#', '0xff')))
+                                        
+                                      ),
+                                      ),
+                                  )
+                            ],
+                            )
+                          ),
+                      ),
+                    )
+                  ),
+                );  
+              }
                             
                       void _showRegisterPage(BuildContext context) {
                           Navigator.of(context).pushNamed("/register");
@@ -174,11 +177,11 @@ class _LoginState extends State<Login> {
                      
                       }
                   }
-                    void _showErrorDialog(String msg)
-                    {
+
+            void _showErrorDialog(String msg){
                       showDialog(
                           context: context,
-                        builder: (ctx) => AlertDialog(
+                          builder: (ctx) => AlertDialog(
                           title: Text('An Error Occured'),
                           content: Text(msg),
                           actions: <Widget>[

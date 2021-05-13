@@ -38,14 +38,17 @@ dependencies:
   #dependencias de localizacion
   geolocator: 
   font_awesome_flutter: ^8.2.0
-
+  path_provider: ^2.0.1
 
 dev_dependencies:
   flutter_test:
     sdk: flutter
-  #dependecias testeo
+  flutter_driver:
+    sdk: flutter
+  test:
+  hive_generator: 
+  build_runner: 
   integration_test:
-
 # For information on the generic Dart part of this file, see the
 # following page: https://dart.dev/tools/pub/pubspec
 
