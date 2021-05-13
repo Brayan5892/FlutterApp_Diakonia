@@ -72,6 +72,7 @@ class _ProfileState extends State<Profile> {
                 ),
                      actions: [
           IconButton(
+            key: Key("settings"),
             icon: Icon(
               Icons.settings,
               size: 30,
@@ -166,6 +167,7 @@ class _ProfileState extends State<Profile> {
                             },
                          
                           child: IconButton(
+                            key: Key("editImage"),
                             icon: Icon(
                             Icons.edit,
                             color: Colors.white,
@@ -282,7 +284,9 @@ class _ProfileState extends State<Profile> {
             height: 20,
           ),
           Row(mainAxisAlignment: MainAxisAlignment.center, children: <Widget>[
+            
             TextButton.icon(
+              key: Key("camera"),
               icon: Icon(
                 Icons.camera,
                 color: Color.fromARGB(255, 65, 115, 108),
@@ -315,8 +319,9 @@ class _ProfileState extends State<Profile> {
 
                label: Text("Camera"),
                ),
-                  TextButton.icon(
-              icon: Icon(
+              TextButton.icon(
+                key: Key("gallery"),
+                icon: Icon(
                 Icons.image, 
                 color: Color.fromARGB(255, 65, 115, 108),
                 ),

@@ -38,7 +38,7 @@ dependencies:
   #dependencias de localizacion
   geolocator: 
   font_awesome_flutter: ^8.2.0
-
+  path_provider: ^2.0.1
 
 dev_dependencies:
   flutter_test:

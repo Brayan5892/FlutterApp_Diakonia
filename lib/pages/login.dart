@@ -125,6 +125,7 @@ class _LoginState extends State<Login> {
                                     height: 50,
                                     width: 375,
                                     margin: EdgeInsets.only(top:10.0),
+                                    key: Key("register"),
                                     child: OutlinedButton(
                                       onPressed: (){
                                         _showRegisterPage(context);
