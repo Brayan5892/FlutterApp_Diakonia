@@ -72,6 +72,7 @@ class _ProfileState extends State<Profile> {
                 ),
                      actions: [
           IconButton(
+            key: Key("settings"),
             icon: Icon(
               Icons.settings,
               size: 30,

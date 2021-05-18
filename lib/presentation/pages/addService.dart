@@ -1,5 +1,5 @@
-import 'package:diakonia/objects/categories.dart';
-import 'package:diakonia/pages/map.dart/map.dart';
+import 'package:diakonia/data/objects/categories.dart';
+import 'package:diakonia/presentation/pages/map.dart';
 import 'package:flutter/material.dart';
 
 //import para el manejo de archivos E/S
