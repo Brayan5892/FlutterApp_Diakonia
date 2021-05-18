@@ -1,16 +1,21 @@
-import 'package:diakonia/pages/addService/addService.dart';
-import 'package:diakonia/pages/homePage.dart';
-import 'package:diakonia/pages/map.dart/map.dart';
-import 'package:diakonia/pages/profile.dart';
-import 'package:diakonia/pages/profileEdit.dart';
-import 'package:diakonia/pages/results.dart';
-import 'package:diakonia/pages/search_services.dart';
+import 'package:diakonia/presentation/pages/addService.dart';
+import 'package:diakonia/presentation/pages/homePage.dart';
+import 'package:diakonia/presentation/pages/map.dart';
+import 'package:diakonia/presentation/pages/profile.dart';
+import 'package:diakonia/presentation/pages/profileEdit.dart';
+import 'package:diakonia/presentation/pages/results.dart';
+import 'package:diakonia/presentation/pages/search_services.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
-import 'package:diakonia/pages/login.dart';
-import 'package:diakonia/pages/register.dart';
+import 'package:diakonia/presentation/pages/login.dart';
+import 'package:diakonia/presentation/pages/register.dart';
+import 'package:get/get_core/src/get_main.dart';
+import 'package:get/get_navigation/src/root/get_material_app.dart';
+import 'package:get/get.dart';
+import 'data/models/getX_controller.dart';
 
 void main() async {
+  Get.put(SimpleGetXController());
   WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp();
   runApp(MyApp());
@@ -19,10 +24,10 @@ void main() async {
 class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
+    return GetMaterialApp(
       title: 'Material App',
-     // home: addService(),
-        debugShowCheckedModeBanner: false,
+      
+      debugShowCheckedModeBanner: false,
      
       initialRoute: "/",
       routes: {

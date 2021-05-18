@@ -119,6 +119,7 @@ class _SearchState extends State<Search> {
                           Expanded(
                             key: Key("searchField"),
                             child: TextField(
+                              key:Key('searchField'),
                               decoration: InputDecoration(
                                   border: InputBorder.none,
                                   hintText: "Search..."),

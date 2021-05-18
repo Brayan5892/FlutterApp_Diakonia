@@ -61,7 +61,7 @@ class _ProfileEditState extends State<ProfileEdit> {
               Container(
                   height: 55,
                   margin: EdgeInsets.only(top: 8.0, bottom: 8.0),
-                    key: Key("Name"),
+                  key: Key("Name"),
                   child: TextFormField(
                     onSaved: (value) {
                       editName = value;
@@ -189,11 +189,12 @@ class _ProfileEditState extends State<ProfileEdit> {
                     width: 375,
                     padding: EdgeInsets.only(top: 30.0, bottom: 30.0),
                     margin: EdgeInsets.only(top: 40.0, bottom: 15.0),
-                     key: Key("saveEdit"),
+                    key: Key("saveEdit"),
                     child: OutlinedButton(
                       onPressed: () {
                         _save();
                       },
+
                       child: Text(
                         "Save",
                         style: TextStyle(color: Colors.black, fontSize: 20),
