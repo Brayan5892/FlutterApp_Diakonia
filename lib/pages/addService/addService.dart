@@ -167,7 +167,9 @@ class addServiceState extends State<addService>{
                               child: Padding(
                                 padding: const EdgeInsets.all(20.0),
                                 child:ElevatedButton(
-                                onPressed: (){add();},
+                                onPressed: (){
+                                  add();
+                                  showAlertDialogExit(context);},
                                 child: Text('AddService'),
                                 style:
                                   ElevatedButton.styleFrom(
@@ -220,7 +222,7 @@ class addServiceState extends State<addService>{
       });
     }else{
       //codigo para agregar servicio a las tablas
-      FirebaseFirestore.instance.collection('services').doc('servicio_'+firebaseUser.uid).set({
+      FirebaseFirestore.instance.collection('services').doc('servicio_'+firebaseUser.uid+'_'+_name).set({
         "category":_selectedCategory.toString().split('.').last,
         "coords" : new GeoPoint(0,0),
         "description":_des,
@@ -243,6 +245,24 @@ class addServiceState extends State<addService>{
 
     Navigator.pushNamed(context, '/home');
   }
+
+  showAlertDialogExit(BuildContext context){
+
+    // configurar el alert dialog
+    AlertDialog alert = AlertDialog(
+      title: Text("Service added successfully"),
+      content: Text("The service "+_name+" was added succesfully"),
+    );
+
+    // mostrar el alert dialog
+    showDialog(
+      context: context,
+      builder: (BuildContext context) {
+        return alert;
+      },
+    );
+  }
+
 //Navegacion a la ventana mapa-------------------------------------------------------
   Marker _marker;
 
@@ -315,11 +335,15 @@ class addServiceState extends State<addService>{
     // configurar los botones
     Widget cameraButton = ElevatedButton(
       child: Text("Camera"),
-      onPressed:  () {openCamera();},
+      onPressed:  () {
+        openCamera();
+      },
     );
     Widget galleryButton = ElevatedButton(
       child: Text("Gallery"),
-      onPressed:  () {openGallery();},
+      onPressed:  () {
+        openGallery();
+      },
     );
 
     // configurar el alert dialog
