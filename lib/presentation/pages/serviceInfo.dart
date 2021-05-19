@@ -4,6 +4,8 @@ import 'package:diakonia/presentation/pages/profile.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 
+import 'package:diakonia/presentation/pages/chatList.dart';
+
 class ServiceInfo extends StatefulWidget {
   final DocumentSnapshot service;
   ServiceInfo(this.service);
@@ -16,7 +18,7 @@ class _ServiceInfoState extends State<ServiceInfo> {
   String name='';
   String description='';
   String userServiceid='';
-    var nameUser=" ", telephone=" ", lastname=" ",  descriptionUser=" ", profilePicture=" ";
+    var nameUser=" ", telephone=" ", lastname=" ",  descriptionUser=" ", profilePicture=" ",nameUserCurrent="",profilePictureCurrent="";
 void initState() {
     super.initState();
      
@@ -27,10 +29,10 @@ void initState() {
           description =service.data()['description'];
           userServiceid= service.data()['userId'];
         });
-        getUser();
+        getUsers();
   }
   
-   Future<void> getUser() async{
+   Future<void> getUsers() async{
       
       var document = await FirebaseFirestore.instance.collection('users').doc(userServiceid).get(); 
       
@@ -42,7 +44,14 @@ void initState() {
         descriptionUser=document.data()['description'];
         profilePicture=document.data()['profilePicture'];
       });
-    
+
+      var document2 = await FirebaseFirestore.instance.collection('users').doc(FirebaseAuth.instance.currentUser.uid).get(); 
+      
+      setState(() {
+       
+        nameUserCurrent=document2.data()['name'];
+        profilePictureCurrent=document2.data()['profilePicture'];
+      });
   }
 
   
@@ -229,12 +238,7 @@ void initState() {
                               ),
                             ),
                                onPressed: () {
-                                Navigator.push(
-                                  context,
-                                  new MaterialPageRoute(
-                                    builder: (context) => new Profile(),
-                                  ),
-                                );
+                                createChat();
                               },
                           ),
                         ),
@@ -288,5 +292,51 @@ void initState() {
           
       
     );
+  }
+
+  Future<void> createChat() async{
+    var firebaseUser =  FirebaseAuth.instance.currentUser; 
+    var document = await FirebaseFirestore.instance.collection('chatList').where('User1', isEqualTo: FirebaseAuth.instance.currentUser.uid).where('User2',isEqualTo: userServiceid).get();
+    var document2 = await FirebaseFirestore.instance.collection('chatList').where('User1', isEqualTo: userServiceid).where('User2',isEqualTo: FirebaseAuth.instance.currentUser.uid).get();
+  
+    final List<DocumentSnapshot> chats = document.docs;
+    
+    final List<DocumentSnapshot> chats2 = document2.docs;
+    if(chats2.length==0){
+      if(chats.length==0){
+        String id = FirebaseAuth.instance.currentUser.uid + '-' + userServiceid;
+         await FirebaseFirestore.instance.collection('chatList').doc(id).set({
+            'User1':FirebaseAuth.instance.currentUser.uid,
+            'User2':userServiceid,
+            'User1Name':nameUserCurrent,
+            'User2Name':nameUser,
+            'ImageUser1':profilePictureCurrent,
+            'ImageUser2':profilePicture,
+            'chatGroupID':id
+         }).then((value) =>
+                      print('hola')
+                     )
+           .catchError((error) => print("Failed to add user: $error"));
+
+
+         await FirebaseFirestore.instance.collection('messages').doc(id).collection(id).doc().set({
+            'fromID':FirebaseAuth.instance.currentUser.uid,
+            'toID':userServiceid,
+            'text':'.',
+            'createdAT':DateTime.now().millisecondsSinceEpoch.toString(),
+         }).then((value) =>
+                      print('hola')
+                     )
+           .catchError((error) => print("Failed to add user: $error"));
+      }
+    }
+    
+
+      Navigator.push(context, MaterialPageRoute(
+          builder: (context) => ChatList(),
+          settings: RouteSettings(name: '/chatRoom')
+      ));
+
+
   }
 }

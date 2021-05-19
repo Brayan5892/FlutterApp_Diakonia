@@ -93,7 +93,6 @@ class _ChatListState extends State<ChatList> {
                       return GestureDetector(
                                    onTap: (){
                                               Navigator.push(context, MaterialPageRoute(
-  
                                                   builder: (context) => ChatRoom(chat['chatGroupID'],chat['User1Name'],chat['User1'],chat['User2'],chat['User2Name']),
                                                   settings: RouteSettings(name: '/chatRoom')
                                               ));

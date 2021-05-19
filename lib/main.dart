@@ -1,10 +1,6 @@
 import 'package:diakonia/presentation/pages/addService.dart';
-<<<<<<< HEAD
-import 'package:diakonia/presentation/pages/chatList.dart';
-import 'package:diakonia/presentation/pages/chatRoom.dart';
-=======
 import 'package:diakonia/presentation/pages/calendar.dart';
->>>>>>> karol
+import 'package:diakonia/presentation/pages/chatList.dart';
 import 'package:diakonia/presentation/pages/homePage.dart';
 import 'package:diakonia/presentation/pages/map.dart';
 import 'package:diakonia/presentation/pages/profile.dart';
@@ -24,7 +20,6 @@ import 'data/models/getX_controller.dart';
 
 
 void main() async { 
-
   WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp();
   runApp(MyApp());
@@ -33,7 +28,7 @@ void main() async {
 class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    return GetMaterialApp(
+    return MaterialApp(
       title: 'Material App',
       
       debugShowCheckedModeBanner: false,
@@ -49,12 +44,8 @@ class MyApp extends StatelessWidget {
         "/profileEdit": (BuildContext context) => ProfileEdit(),
         "/map": (BuildContext context) => map(),
         "/addService": (BuildContext context) => addService(),
-<<<<<<< HEAD
-        "/chatList": (BuildContext context) => ChatList(),
-=======
         "/request": (BuildContext context) => Request(),
-      //   "/calendar": (BuildContext context) => Calendar(),
->>>>>>> karol
+        "/chatList": (BuildContext context) => ChatList(),
       },
       //para pasar datos entre pantallas/routes
       // onGenerateRoute: (RouteSettings settings){
