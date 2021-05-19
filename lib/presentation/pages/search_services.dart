@@ -256,12 +256,7 @@ class _SearchState extends State<Search> {
                                         ),
                                       ),
 
-                                      /* color: Color(int.parse("#8B9A99".replaceAll('#', '0xff'))),
-                            shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(20)),
-                            child: ListTile(
-                              title: Text(doc['name']),
-                              subtitle: Text(doc['price'], style: TextStyle(fontWeight: FontWeight.bold),),
-                            ), */
+                               
                                     ))
                                 .toList());
                       } else if (!snapshot.hasData) {

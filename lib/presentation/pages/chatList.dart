@@ -24,7 +24,6 @@ class _ChatListState extends State<ChatList> {
       var document2 = await FirebaseFirestore.instance.collection('chatList').where('User2', isEqualTo: FirebaseAuth.instance.currentUser.uid).get(); 
       final List<DocumentSnapshot> chats1 = document.docs;
       final List<DocumentSnapshot> chats2 = document2.docs;
-
       final List<DocumentSnapshot> chats3 =  new List.from(chats1)..addAll(chats2);
       
       setState(() {

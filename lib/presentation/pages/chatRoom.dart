@@ -18,6 +18,7 @@ class _ChatRoomState extends State<ChatRoom> {
   final textController = TextEditingController();
   String chatId, name, user1, user2, name2;
   var message;
+
   void initState() {
     super.initState();
     chatId = widget.chatId;
@@ -38,10 +39,7 @@ class _ChatRoomState extends State<ChatRoom> {
       
     var document = await FirebaseFirestore.instance.collection('chatList').where('chatGroupID', isEqualTo: chatId).limit(1).get(); 
    
-    
-    
   }
-
 
   @override
   Widget build(BuildContext context) {
@@ -88,13 +86,13 @@ class _ChatRoomState extends State<ChatRoom> {
         body: Column(
           children: [
             Expanded(
-                          child: StreamBuilder(
-     stream: FirebaseFirestore.instance
-      .collection('messages')
-      .doc(chatId)
-      .collection(chatId)
-      .orderBy('createdAT', descending: true)
-      .snapshots(),
+                    child: StreamBuilder(
+            stream: FirebaseFirestore.instance
+                .collection('messages')
+                .doc(chatId)
+                .collection(chatId)
+                .orderBy('createdAT', descending: true)
+                .snapshots(),
                 builder: (context, snapshot) {
                   if (!snapshot.hasData) {
                     return Center(
