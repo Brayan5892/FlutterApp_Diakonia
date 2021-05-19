@@ -65,6 +65,7 @@ class _RegisterState extends State<Register> {
                  Container(
                      height: 55,
                      margin: EdgeInsets.only(top:8.0, bottom: 8.0),
+                     
                      child: TextFormField(
                        onSaved:  (value){
                              _email = value;
@@ -77,6 +78,7 @@ class _RegisterState extends State<Register> {
                         }
                         
                        },
+                       key: Key("emailRegister"),
                        decoration: InputDecoration(
                           fillColor: Colors.white, filled: true,
                          labelText: "Email:",
@@ -94,6 +96,7 @@ class _RegisterState extends State<Register> {
                      Container(
                        height: 55,
                        margin: EdgeInsets.only(top:8.0, bottom: 8.0),
+                      
                        child: TextFormField(
                          obscureText: true,
                          onSaved:(value){
@@ -108,6 +111,7 @@ class _RegisterState extends State<Register> {
                             }
             
                           },
+                          key: Key("passwordRegister"),
                          decoration: InputDecoration(
                          fillColor: Colors.white, filled: true,
                          labelText: "Password:",
@@ -125,6 +129,7 @@ class _RegisterState extends State<Register> {
                       Container(
                        height: 55,
                        margin: EdgeInsets.only(top:8.0, bottom: 8.0),
+                    
                        child: TextFormField(
                          obscureText: true,
                        textInputAction: TextInputAction.send,
@@ -141,6 +146,7 @@ class _RegisterState extends State<Register> {
                         }
                         
                        },
+                       key: Key("confirmRegister"),
                        decoration: InputDecoration(
                         
                          fillColor: Colors.white, filled: true,
@@ -250,8 +256,8 @@ class _RegisterState extends State<Register> {
 
                 Future<void> addUser() {
                     // Call the user's CollectionReference to add a new user
-                    return users
-                    .add({
+                    return 
+                    users.add({
                       'email': _email, // John Doe,
                       'password': _password, // 42
                     })
