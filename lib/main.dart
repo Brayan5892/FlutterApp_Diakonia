@@ -17,8 +17,9 @@ import 'package:get/get_navigation/src/root/get_material_app.dart';
 import 'package:get/get.dart';
 import 'data/models/getX_controller.dart';
 
-void main() async {
-  Get.put(SimpleGetXController());
+
+void main() async { 
+
   WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp();
   runApp(MyApp());
