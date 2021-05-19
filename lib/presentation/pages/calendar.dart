@@ -29,8 +29,6 @@ class _CalendarState extends State<Calendar> {
     DateTime selectedDate = DateTime.now();
 
   _selectDate(BuildContext context) async {
-    /// Which holds the selected date
-  /// Defaults to today's date.
     final DateTime picked = await showDatePicker(
       context: context,
       initialDate: selectedDate,
