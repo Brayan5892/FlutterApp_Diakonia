@@ -44,7 +44,7 @@ class MyApp extends StatelessWidget {
         "/profileEdit": (BuildContext context) => ProfileEdit(),
         "/map": (BuildContext context) => map(),
         "/addService": (BuildContext context) => addService(),
-        "/request": (BuildContext context) => Request(),
+      //  "/request": (BuildContext context) => Request(),
       //   "/calendar": (BuildContext context) => Calendar(),
       },
       //para pasar datos entre pantallas/routes

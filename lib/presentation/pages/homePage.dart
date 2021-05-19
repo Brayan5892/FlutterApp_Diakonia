@@ -1,3 +1,4 @@
+import 'package:diakonia/presentation/pages/request.dart';
 import 'package:diakonia/presentation/widgets/home_icon_buttoms.dart';
 import 'package:flutter/material.dart';
 
@@ -102,12 +103,25 @@ class MyHomePage extends StatelessWidget {
                                 color: Colors.black,
                                 ruta: '/search',
                               ),
-                              CatigoryW(
-                                image: 'assets/images/request.png',
-                                text: 'Request',
-                                color:Colors.black,
-                                ruta: '/request',
-                              )
+                              GestureDetector(
+                                child: CatigoryW(
+                                  image: 'assets/images/request.png',
+                                  text: 'Request',
+                                  color:Colors.black,
+                                 // ruta:'/Request'
+                                   ),
+                                     onTap: (){
+                                            Navigator.push(context, MaterialPageRoute(
+                                              builder: (context) => Request(),
+                                          
+                                            ),
+                                          ) ;
+                                          },
+                                ),
+                                     
+                                
+                
+                              
                             ],
                           ),
                           SizedBox(height: 10),

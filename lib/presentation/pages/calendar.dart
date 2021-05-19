@@ -1,5 +1,6 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:diakonia/presentation/pages/request.dart';
+import 'package:diakonia/presentation/pages/requestAdd.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 
@@ -232,7 +233,7 @@ class _CalendarState extends State<Calendar> {
                                     ),
                                   ),
                                   onPressed: () {
-                                 
+                                 saveRequest(nameUser, name, userServiceid, selectedDate, context);
                                     },
                         ),
                                ),
@@ -276,12 +277,28 @@ class _CalendarState extends State<Calendar> {
   }
 }
 
-void saveRequest() async{
+ Future <void> saveRequest(name, descriptionService, nameUser, selectedDate, context) async{
       var firebaseUser =  FirebaseAuth.instance.currentUser;
+     // var col = await FirebaseFirestore.instance.collection('request');
       var document = await FirebaseFirestore.instance
       .collection('users')
       .doc(firebaseUser.uid)
-      .collection('request')
-      .get()
-      ; 
+      .collection('request').doc()
+      .set({
+          'nameService': name,
+          'infoService': descriptionService,
+          'namePrestadorServicio': nameUser,
+          'dateGetService': selectedDate
+      })
+      .then((value) => 
+         Navigator.push(
+                context,
+                new MaterialPageRoute(
+                  builder: (context) => new RequestAdd(),
+                ),
+              )
+      )
+                    .catchError((error) => print("Failed to add request: $error"));
+      
+       
 }

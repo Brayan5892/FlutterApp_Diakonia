@@ -220,7 +220,7 @@ void initState() {
                               child: Padding(
                                 padding: EdgeInsets.all(20),
                                 child: Text(
-                                  ' Talk  ',
+                                  'Talk',
                                   style: TextStyle(
                                       color: Colors.white,
                                       fontSize: 18,
