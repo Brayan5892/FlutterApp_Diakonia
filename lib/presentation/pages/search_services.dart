@@ -159,12 +159,11 @@ class _SearchState extends State<Search> {
                 child: FutureBuilder<QuerySnapshot>(
                     future:
                         FirebaseFirestore.instance.collection('services').get(),
-                    builder: (context, snapshot) {
+                    builder: (context, snapshot){
                       if (snapshot.hasData) {
                         final List<DocumentSnapshot> documents =
                             snapshot.data.docs;
                         return ListView(
-
                             //Service card
                             children: documents
                                 .map((doc) => Card(
@@ -310,7 +309,7 @@ class _SearchState extends State<Search> {
 
     var result = await FirebaseFirestore.instance
         .collection('services')
-        .where('category', isEqualTo: cat)
+        .where('category', isEqualTo: "teacher")
         .get();
     final List<DocumentSnapshot> documents = result.docs;
     

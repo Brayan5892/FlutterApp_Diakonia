@@ -39,7 +39,9 @@ dependencies:
   geolocator: 
   font_awesome_flutter: ^8.2.0
   get: ^4.1.4
-
+  bubble: ^1.2.1
+  firebase_messaging: ^10.0.0
+  flutter_local_notifications: ^5.0.0+4
 dev_dependencies:
   flutter_test:
     sdk: flutter
@@ -49,6 +51,7 @@ dev_dependencies:
   hive_generator: 
   build_runner: 
   integration_test:
+  
 # For information on the generic Dart part of this file, see the
 # following page: https://dart.dev/tools/pub/pubspec
 

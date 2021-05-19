@@ -1,4 +1,6 @@
 import 'package:diakonia/presentation/pages/addService.dart';
+import 'package:diakonia/presentation/pages/chatList.dart';
+import 'package:diakonia/presentation/pages/chatRoom.dart';
 import 'package:diakonia/presentation/pages/homePage.dart';
 import 'package:diakonia/presentation/pages/map.dart';
 import 'package:diakonia/presentation/pages/profile.dart';
@@ -40,6 +42,7 @@ class MyApp extends StatelessWidget {
         "/profileEdit": (BuildContext context) => ProfileEdit(),
         "/map": (BuildContext context) => map(),
         "/addService": (BuildContext context) => addService(),
+        "/chatList": (BuildContext context) => ChatList(),
       },
       //para pasar datos entre pantallas/routes
       // onGenerateRoute: (RouteSettings settings){
