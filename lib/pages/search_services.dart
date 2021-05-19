@@ -12,8 +12,7 @@ class _SearchState extends State<Search> {
   var paramSearch;
   var iconSelected;
 
-
-   List<IconData> _icons=[
+  List<IconData> _icons = [
     FontAwesomeIcons.chalkboardTeacher,
     FontAwesomeIcons.paintRoller,
     FontAwesomeIcons.wrench,
@@ -21,25 +20,28 @@ class _SearchState extends State<Search> {
     FontAwesomeIcons.dumbbell,
   ];
 
-   Widget _buildIcon(int index){
+  Widget _buildIcon(int index) {
     return GestureDetector(
-
-        onTap: (){
-          setState(() {
-            iconSelected=index;
-            searchByCategory();
-          });
-        },
-        child: Container(
-        margin: EdgeInsets.only(left:20),
-        height:80.0,
-        width:60.0,
+      onTap: () {
+        setState(() {
+          iconSelected = index;
+          searchByCategory();
+        });
+      },
+      child: Container(
+        margin: EdgeInsets.only(left: 20),
+        height: 80.0,
+        width: 60.0,
         decoration: BoxDecoration(
           color: Color(int.parse("#F2BB35".replaceAll('#', '0xff'))),
           borderRadius: BorderRadius.circular(30.0),
-          ),
-        child: Icon(_icons[index],size: 25.0,color: Colors.brown,),
         ),
+        child: Icon(
+          _icons[index],
+          size: 25.0,
+          color: Colors.brown,
+        ),
+      ),
     );
   }
 
@@ -75,6 +77,7 @@ class _SearchState extends State<Search> {
                       ),
                       onPressed: () {
                         Navigator.of(context).pushNamed("/profile");
+                        //Navigator.of(context).pushNamed("/intento");
                       }),
                 ],
               )
@@ -183,7 +186,7 @@ class _SearchState extends State<Search> {
                                                             BorderRadius
                                                                 .circular(8.0),
                                                         child: Image.asset(
-                                                            'assets/images/plomero.jpg')),
+                                                            'assets/images/serviciosgeneral.png')),
                                                   )
                                                 ],
                                               ),
@@ -214,7 +217,8 @@ class _SearchState extends State<Search> {
                                                         title:
                                                             Text(doc['name']),
                                                         subtitle: Text(
-                                                          doc['price'].toString(),
+                                                          doc['price']
+                                                              .toString(),
                                                           style: TextStyle(
                                                               fontWeight:
                                                                   FontWeight
@@ -287,35 +291,33 @@ class _SearchState extends State<Search> {
     Navigator.of(context).pushNamed("/results", arguments: documents);
   }
 
-   void searchByCategory() async {
-     var cat="";
+  void searchByCategory() async {
+    var cat = "";
 
-    switch(iconSelected){
-        case 0:
-          cat="teacher";
+    switch (iconSelected) {
+      case 0:
+        cat = "teacher";
         break;
-        case 1:
-          cat="painter";
+      case 1:
+        cat = "painter";
         break;
-        case 2:
-          cat="plumber";
+      case 2:
+        cat = "plumber";
         break;
-        case 3:
-          cat="biking";
+      case 3:
+        cat = "biking";
         break;
-        case 4:
-          cat="coach";
+      case 4:
+        cat = "coach";
         break;
-    }  
+    }
 
     var result = await FirebaseFirestore.instance
         .collection('services')
         .where('category', isEqualTo: cat)
         .get();
     final List<DocumentSnapshot> documents = result.docs;
-    
-    Navigator.of(context).pushNamed("/results", arguments: documents);
-    
-  }
 
+    Navigator.of(context).pushNamed("/results", arguments: documents);
+  }
 }
