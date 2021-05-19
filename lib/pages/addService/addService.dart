@@ -13,8 +13,10 @@ import 'package:google_maps_flutter/google_maps_flutter.dart';
 
 //import para autenticacion firebase
 import 'package:firebase_auth/firebase_auth.dart';
-
 import 'package:cloud_firestore/cloud_firestore.dart';
+
+//import para guardar imagenes en firestore
+import 'package:firebase_storage/firebase_storage.dart';
 
 class addService extends StatefulWidget{
   addService():super();
@@ -193,25 +195,21 @@ class addServiceState extends State<addService>{
   }
 
 //funcion para agregar servicio a la tabla (markers continene todos los marcadores del en el mapa)
-  add(){
+  add()async{
     setState(() {
       _name=_nameCon.text;     
       _price=int.parse(_priceCon.text);   
       _des=_descCon.text;
       _loc=_locCon.text; 
     });
-    //markers puede llegar vacio
-    LatLng coord=new LatLng(_marker.position.latitude,_marker.position.longitude);
-
+    
     var firebaseUser =  FirebaseAuth.instance.currentUser;
-    //codigo para agregar servicio a las tablas
-
-        if(imageFile!=null)
-         imageFile.path;
-      _selectedCategory.toString().split('.').last;
-      
-
-      FirebaseFirestore.instance.collection('services').doc('servicio_'+firebaseUser.uid).set({
+    //markers puede llegar null
+    if(_marker!=null){
+      LatLng coord=new LatLng(_marker.position.latitude,_marker.position.longitude);
+    
+      //codigo para agregar servicio a las tablas
+      FirebaseFirestore.instance.collection('services').doc('servicio_'+firebaseUser.uid+'_'+_name).set({
         "category":_selectedCategory.toString().split('.').last,
         "coords" : new GeoPoint(coord.latitude, coord.longitude),
         "description":_des,
@@ -220,11 +218,31 @@ class addServiceState extends State<addService>{
         "price":_price,
         "userId":firebaseUser.uid
       });
-       
+    }else{
+      //codigo para agregar servicio a las tablas
+      FirebaseFirestore.instance.collection('services').doc('servicio_'+firebaseUser.uid).set({
+        "category":_selectedCategory.toString().split('.').last,
+        "coords" : new GeoPoint(0,0),
+        "description":_des,
+        "location":_loc,
+        "name":_name,
+        "price":_price,
+        "userId":firebaseUser.uid
+      });
+    }
     //-----------------------------------------
+    if(imageFile!=null){
+      var snapshot = await FirebaseStorage.instance.ref()
+      .child('servicesIMG/'+firebaseUser.uid+'/'+_name)
+      .putFile(imageFile);
+      var downloadUrl = await snapshot.ref.getDownloadURL();
+      setState(() {
+      String imageUrl = downloadUrl;
+      });
+    }
+
     Navigator.pushNamed(context, '/home');
   }
-
 //Navegacion a la ventana mapa-------------------------------------------------------
   Marker _marker;
 
@@ -352,7 +370,3 @@ class addServiceState extends State<addService>{
   }
 //---------------------------------------------------------------------------
 }
-/**
-var firebaseUser =  FirebaseAuth.instance.currentUser;
-firebaseUser.uid
- */
