@@ -383,7 +383,7 @@ class addServiceState extends State<addService>{
   //cargar imagen de camara
   openCamera()async{
     final picker = ImagePicker();
-    var pic=await picker.getImage(source: ImageSource.gallery);
+    var pic=await picker.getImage(source: ImageSource.camera);
     setState(() {
       if (pic!=null) {
         imageFile = File(pic.path);
