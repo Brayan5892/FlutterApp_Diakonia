@@ -106,22 +106,12 @@ class MyHomePage extends StatelessWidget {
                               GestureDetector(
                                 child: CatigoryW(
                                   image: 'assets/images/request.png',
-                                  text: 'Request',
+                                  text: 'request',
                                   color:Colors.black,
-                                 // ruta:'/Request'
+                                   ruta:'/request'
                                    ),
-                                     onTap: (){
-                                            Navigator.push(context, MaterialPageRoute(
-                                              builder: (context) => Request(),
-                                          
-                                            ),
-                                          ) ;
-                                          },
-                                ),
                                      
-                                
-                
-                              
+                                ),
                             ],
                           ),
                           SizedBox(height: 10),
