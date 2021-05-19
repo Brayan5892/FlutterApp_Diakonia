@@ -256,8 +256,8 @@ class _RegisterState extends State<Register> {
 
                 Future<void> addUser() {
                     // Call the user's CollectionReference to add a new user
-                    return users
-                    .add({
+                    return 
+                    users.add({
                       'email': _email, // John Doe,
                       'password': _password, // 42
                     })

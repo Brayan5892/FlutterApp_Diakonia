@@ -1,10 +1,13 @@
 import 'package:diakonia/presentation/pages/addService.dart';
+import 'package:diakonia/presentation/pages/calendar.dart';
 import 'package:diakonia/presentation/pages/homePage.dart';
 import 'package:diakonia/presentation/pages/map.dart';
 import 'package:diakonia/presentation/pages/profile.dart';
 import 'package:diakonia/presentation/pages/profileEdit.dart';
+import 'package:diakonia/presentation/pages/request.dart';
 import 'package:diakonia/presentation/pages/results.dart';
 import 'package:diakonia/presentation/pages/search_services.dart';
+import 'package:diakonia/presentation/pages/serviceInfo.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:diakonia/presentation/pages/login.dart';
@@ -40,6 +43,8 @@ class MyApp extends StatelessWidget {
         "/profileEdit": (BuildContext context) => ProfileEdit(),
         "/map": (BuildContext context) => map(),
         "/addService": (BuildContext context) => addService(),
+        "/request": (BuildContext context) => Request(),
+      //   "/calendar": (BuildContext context) => Calendar(),
       },
       //para pasar datos entre pantallas/routes
       // onGenerateRoute: (RouteSettings settings){

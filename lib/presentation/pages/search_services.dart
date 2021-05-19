@@ -1,3 +1,4 @@
+import 'package:diakonia/presentation/pages/serviceInfo.dart';
 import 'package:flutter/material.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
@@ -160,6 +161,7 @@ class _SearchState extends State<Search> {
                 child: FutureBuilder<QuerySnapshot>(
                     future:
                         FirebaseFirestore.instance.collection('services').get(),
+                    // ignore: missing_return
                     builder: (context, snapshot) {
                       if (snapshot.hasData) {
                         final List<DocumentSnapshot> documents =
@@ -167,94 +169,108 @@ class _SearchState extends State<Search> {
                         return ListView(
 
                             //Service card
-                            children: documents
+                             children: documents
                                 .map((doc) => Card(
                                       child: Container(
                                         color: Color(int.parse(
                                             "#E6EEED".replaceAll('#', '0xff'))),
                                         height: 200,
-                                        child: Row(
-                                          children: [
-                                            Expanded(
-                                              child: Stack(
-                                                children: [
-                                                  Align(
-                                                    child: ClipRRect(
-                                                        borderRadius:
-                                                            BorderRadius
-                                                                .circular(8.0),
-                                                        child: Image.asset(
-                                                            'assets/images/plomero.jpg')),
-                                                  )
-                                                ],
-                                              ),
+                                        child: GestureDetector(
+                                         
+                                          onTap: (){
+                                            Navigator.push(context, MaterialPageRoute(
+                                              builder: (context) => ServiceInfo(doc),
+                                          
                                             ),
-                                            Expanded(
-                                              child: Stack(
-                                                children: [
-                                                  Container(
-                                                    margin: EdgeInsets.only(
-                                                        top: 60, bottom: 20),
-                                                    decoration: BoxDecoration(
-                                                        color: Color(int.parse(
-                                                            "#E6EEED"
-                                                                .replaceAll('#',
-                                                                    '0xff'))),
-                                                        borderRadius:
-                                                            BorderRadius.only(
-                                                                topRight: Radius
-                                                                    .circular(
-                                                                        20),
-                                                                bottomRight: Radius
-                                                                    .circular(
-                                                                        20))),
-                                                  ),
-                                                  Align(
-                                                    child: Stack(children: [
-                                                      ListTile(
-                                                        title:
-                                                            Text(doc['name']),
-                                                        subtitle: Text(
-                                                          doc['price'].toString(),
-                                                          style: TextStyle(
-                                                              fontWeight:
-                                                                  FontWeight
-                                                                      .bold),
-                                                        ),
-                                                      ),
-                                                      Container(
-                                                        margin: EdgeInsets.only(
-                                                            top: 60,
-                                                            bottom: 20),
-                                                        decoration: BoxDecoration(
-                                                            color: Color(int
-                                                                .parse("#8B9A99"
-                                                                    .replaceAll(
-                                                                        '#',
-                                                                        '0xff'))),
-                                                            borderRadius: BorderRadius.only(
-                                                                topRight: Radius
-                                                                    .circular(
-                                                                        20),
-                                                                bottomRight: Radius
-                                                                    .circular(
-                                                                        20))),
-                                                        child: ListTile(
+                                          ) ;
+                                          },
+                                          child: Row(
+                                            
+                                            children: [
+                                              Expanded(
+                                                
+                                                child: Stack(
+                                                  children: [
+                                                    Align(
+                                                      child: ClipRRect(
+                                                          borderRadius:
+                                                              BorderRadius
+                                                                  .circular(8.0),
+                                                          child: Image.asset(
+                                                              'assets/images/plomero.jpg')
+                                                              
+                                                              ),
+                                                    )
+                                                  ],
+                                                ),
+                                              ),
+                                              Expanded(
+                                                child: Stack(
+                                                  children: [
+                                                    Container(
+                                                      margin: EdgeInsets.only(
+                                                          top: 60, bottom: 20),
+                                                      decoration: BoxDecoration(
+                                                          color: Color(int.parse(
+                                                              "#E6EEED"
+                                                                  .replaceAll('#',
+                                                                      '0xff'))),
+                                                          borderRadius:
+                                                              BorderRadius.only(
+                                                                  topRight: Radius
+                                                                      .circular(
+                                                                          20),
+                                                                  bottomRight: Radius
+                                                                      .circular(
+                                                                          20))),
+                                                    ),
+                                                    Align(
+                                                      child: Stack(children: [
+                                                        ListTile(
+                                                          title:
+                                                              Text(doc['name']),
                                                           subtitle: Text(
-                                                            doc['description'],
+                                                            doc['price'].toString(),
                                                             style: TextStyle(
                                                                 fontWeight:
                                                                     FontWeight
                                                                         .bold),
                                                           ),
                                                         ),
-                                                      )
-                                                    ]),
-                                                  )
-                                                ],
-                                              ),
-                                            )
-                                          ],
+                                                        Container(
+                                                          margin: EdgeInsets.only(
+                                                              top: 60,
+                                                              bottom: 20),
+                                                          decoration: BoxDecoration(
+                                                              color: Color(int
+                                                                  .parse("#8B9A99"
+                                                                      .replaceAll(
+                                                                          '#',
+                                                                          '0xff'))),
+                                                              borderRadius: BorderRadius.only(
+                                                                  topRight: Radius
+                                                                      .circular(
+                                                                          20),
+                                                                  bottomRight: Radius
+                                                                      .circular(
+                                                                          20))),
+                                                          child: ListTile(
+                                                            subtitle: Text(
+                                                              doc['description'],
+                                                              style: TextStyle(
+                                                                  fontWeight:
+                                                                      FontWeight
+                                                                          .bold),
+                                                            ),
+                                                          ),
+                                                        )
+                                                      ]),
+                                                    )
+                                                  ],
+                                                ),
+                                              )
+                                            ],
+                                          ),
                                         ),
                                       ),
 
@@ -318,5 +334,6 @@ class _SearchState extends State<Search> {
     Navigator.of(context).pushNamed("/results", arguments: documents);
     
   }
+
 
 }

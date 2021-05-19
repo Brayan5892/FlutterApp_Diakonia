@@ -106,6 +106,7 @@ class MyHomePage extends StatelessWidget {
                                 image: 'assets/images/request.png',
                                 text: 'Request',
                                 color:Colors.black,
+                                ruta: '/request',
                               )
                             ],
                           ),
