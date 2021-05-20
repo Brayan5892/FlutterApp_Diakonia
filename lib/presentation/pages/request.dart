@@ -1,5 +1,6 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:diakonia/presentation/pages/homePage.dart';
+import 'package:diakonia/presentation/pages/requestInfo.dart';
 import 'package:diakonia/presentation/pages/serviceInfo.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
@@ -87,7 +88,7 @@ class _RequestState extends State<Request> {
                                        child: GestureDetector(
                                          onTap: (){
                                            Navigator.push(context, MaterialPageRoute(
-                                             builder: (context) => ServiceInfo(doc),
+                                             builder: (context) => RequestInfo(doc),
                                          
                                            ),
                                          ) ;

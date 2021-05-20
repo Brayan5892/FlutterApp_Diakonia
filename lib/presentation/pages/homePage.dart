@@ -108,10 +108,18 @@ class MyHomePage extends StatelessWidget {
                                   image: 'assets/images/request.png',
                                   text: 'request',
                                   color:Colors.black,
-                                   ruta:'/request'
+                                 ruta:'/request'
                                    ),
-                                     
+                                    //  onTap: (){
+                                    //         Navigator.push(context, MaterialPageRoute(
+                                    //           builder: (context) => Request(),
+                                          
+                                    //         ),
+                                    //       ) ;
+                                    //       },
                                 ),
+                                     
+                                
                             ],
                           ),
                           SizedBox(height: 10),
