@@ -42,6 +42,10 @@ dependencies:
   #dependencias para guardar imagenes firebase
   firebase_storage: ^8.1.0
   firebase_analytics: ^8.1.0
+  get: ^4.1.4
+  bubble: ^1.2.1
+  firebase_messaging: ^10.0.0
+  flutter_local_notifications: ^5.0.0+4
 
 dev_dependencies:
   flutter_test:
@@ -52,6 +56,7 @@ dev_dependencies:
   hive_generator: 
   build_runner: 
   integration_test:
+  
 # For information on the generic Dart part of this file, see the
 # following page: https://dart.dev/tools/pub/pubspec
 
@@ -74,10 +79,14 @@ flutter:
   - assets/images/clipboard.png
   - assets/images/complain.png
   - assets/images/request.png
+  - assets/images/serviceInfo.png
   - assets/images/job-search.png
   - assets/images/map.png
   - assets/images/pana.png
+  - assets/images/add.jpeg
   - assets/images/plomero.jpg
+  - assets/images/landingicon.png
+  - assets/images/serviciosgeneral.png
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/assets-and-images/#resolution-aware.
 

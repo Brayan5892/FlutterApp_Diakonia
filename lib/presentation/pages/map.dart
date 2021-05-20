@@ -1,5 +1,5 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:diakonia/objects/service.dart';
+import 'package:diakonia/data/objects/service.dart';
 import 'package:flutter/material.dart';
 
 /*import para los permisos */
@@ -23,7 +23,6 @@ class map extends StatefulWidget{
 
 class mapState extends State<map>{
 
-/*Localizacion*/
 LatLng _currentLocation;
 
   _locatePosition(GoogleMapController controller)async{

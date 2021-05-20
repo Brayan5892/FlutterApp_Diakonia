@@ -36,7 +36,8 @@ class CatigoryW extends StatelessWidget {
         ),
       ),
       onTap: () {
-         Navigator.of(context).pushNamed(ruta);
+        Navigator.pushNamed(context, ruta);
+         
       },
     );
   }

@@ -12,7 +12,7 @@ class _LoginState extends State<Login> {
   String _email;
   String _password;
 
-   final auth = FirebaseAuth.instance;
+  final auth = FirebaseAuth.instance;
 
   final formKey = GlobalKey<FormState>();
 
@@ -154,29 +154,27 @@ class _LoginState extends State<Login> {
                           Navigator.of(context).pushNamed("/register");
                       }
                             
-                  void _logIn() async {
-                    if(formKey.currentState.validate()){
-                      try {
-                          formKey.currentState.save();
-                          UserCredential userCredential = await FirebaseAuth.instance.signInWithEmailAndPassword(
-                          email:  _email,
-                          password: _password
-                          );
-          
-                            Navigator.of(context).pushNamed("/home");  
-                        
-                          }  on FirebaseAuthException catch (e) {
-                            
-                            if (e.code == 'user-not-found') {
-                              _showErrorDialog('Usuario no encontrado');
-                            } else if (e.code == 'wrong-password') {
-                              _showErrorDialog('Contraseña incorrecta');
-                            }
-                          }
-
-                     
+            void _logIn() async {
+              if(formKey.currentState.validate()){
+                try {
+                    formKey.currentState.save();
+                    UserCredential userCredential = await FirebaseAuth.instance.signInWithEmailAndPassword(
+                    email:  _email,
+                    password: _password
+                    );
+    
+                      Navigator.of(context).pushNamed("/home");  
+                  
+                    }  on FirebaseAuthException catch (e) {
+                      
+                      if (e.code == 'user-not-found') {
+                        _showErrorDialog('Usuario no encontrado');
+                      } else if (e.code == 'wrong-password') {
+                        _showErrorDialog('Contraseña incorrecta');
                       }
-                  }
+                    }
+                }
+            }
 
             void _showErrorDialog(String msg){
                       showDialog(

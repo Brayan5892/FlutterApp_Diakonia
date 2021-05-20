@@ -1,5 +1,6 @@
 import 'dart:io';
 
+import 'package:diakonia/presentation/pages/homePage.dart';
 import 'package:flutter/material.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_core/firebase_core.dart';
@@ -66,9 +67,14 @@ class _ProfileState extends State<Profile> {
                   Icons.home_outlined,
                   size: 35,
                   color: Colors.black,),
-                onPressed: (){
-                     Navigator.of(context).pushNamed("/home");
-                   }
+                    onPressed: () {
+              Navigator.push(
+                context,
+                new MaterialPageRoute(
+                  builder: (context) => new MyHomePage(),
+                ),
+              );
+            },
                 ),
                      actions: [
           IconButton(
@@ -139,7 +145,7 @@ class _ProfileState extends State<Profile> {
                           image: DecorationImage(
                               fit: BoxFit.cover,
                               image: profilePicture==null ? NetworkImage(
-                                'https://pm1.narvii.com/6521/328d0ecf99dd0a94976de54ac20e3f0ded2219e0_hq.jpg',
+                                'https://image.freepik.com/vector-gratis/perfil-empresario-dibujos-animados_18591-58479.jpg',
                               ) : NetworkImage(profilePicture),
                             )
                           ),

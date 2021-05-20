@@ -219,7 +219,9 @@ class _RegisterState extends State<Register> {
           users.doc(firebaseUser.uid).set({
                       'email': _email, 
                       'password': _password,
-                    }).then((value) => print("User Added"))
+                    }).then((value) =>
+                      print('hola')
+                     )
                     .catchError((error) => print("Failed to add user: $error"));
 
                           Navigator.of(context).pushNamed("/");
@@ -234,7 +236,8 @@ class _RegisterState extends State<Register> {
                             print(e);
                           }
                       }
-  }
+                    }
+                    
                     void _showErrorDialog(String msg){
                       showDialog(
                           context: context,
@@ -256,8 +259,8 @@ class _RegisterState extends State<Register> {
 
                 Future<void> addUser() {
                     // Call the user's CollectionReference to add a new user
-                    return users
-                    .add({
+                    return 
+                    users.add({
                       'email': _email, // John Doe,
                       'password': _password, // 42
                     })

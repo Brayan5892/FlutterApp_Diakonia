@@ -1,8 +1,8 @@
+import 'package:diakonia/presentation/pages/addService.dart';
 import 'dart:io';
 import 'dart:typed_data';
-import 'package:path_provider/path_provider.dart';
 import 'package:diakonia/main.dart' as app;
-import 'package:diakonia/pages/addService/addService.dart';
+import 'package:diakonia/presentation/pages/addService.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -240,6 +240,29 @@ group('test integration', () {
    
  
 
+    //  input='ubicacion prueba';
+     // await tester.enterText(find.widgetWithText(TextField, 'Location'), input);
+     // await tester.pump();      
+      //prueba para obtener geopunto del mapa---------------------------
+     // await tester.tap(find.widgetWithText(ElevatedButton, 'pick location'));  
+     // await tester.pumpAndSettle(Duration(seconds: 15));
+      
+      // await tester.longPressAt(Offset(270,700));
+      // await tester.pumpAndSettle(Duration(seconds: 15));  
+
+      // await tester.tap(find.byIcon(Icons.keyboard_return));//esto puede fallar  
+      // await tester.pump(); 
+      // //prueba para agregar el servicio y terminar----------------------
+      // await tester.tap(find.widgetWithText(ElevatedButton, 'AddService'));  
+      // await tester.pump(); 
+      // //resultados------------------------------------------------------
+      // expect(find.text('Carpenter'), findsOneWidget);
+      // expect(find.text('nombre prueba'), findsOneWidget);
+      // expect(find.text('666'), findsOneWidget);
+      // expect(find.text('descripcion prueba'), findsOneWidget);
+      // expect(find.text('ubicacion prueba'), findsOneWidget);
 
 
-
+  //  });
+  //});
+//}
