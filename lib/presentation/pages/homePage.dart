@@ -108,15 +108,15 @@ class MyHomePage extends StatelessWidget {
                                   image: 'assets/images/request.png',
                                   text: 'Request',
                                   color:Colors.black,
-                                 // ruta:'/Request'
+                                 ruta:'/request'
                                    ),
-                                     onTap: (){
-                                            Navigator.push(context, MaterialPageRoute(
-                                              builder: (context) => Request(),
+                                    //  onTap: (){
+                                    //         Navigator.push(context, MaterialPageRoute(
+                                    //           builder: (context) => Request(),
                                           
-                                            ),
-                                          ) ;
-                                          },
+                                    //         ),
+                                    //       ) ;
+                                    //       },
                                 ),
                                      
                                 
