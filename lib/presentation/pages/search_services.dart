@@ -1,4 +1,5 @@
 import 'package:diakonia/presentation/pages/serviceInfo.dart';
+import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/material.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
@@ -13,8 +14,7 @@ class _SearchState extends State<Search> {
   var paramSearch;
   var iconSelected;
 
-
-   List<IconData> _icons=[
+  List<IconData> _icons = [
     FontAwesomeIcons.chalkboardTeacher,
     FontAwesomeIcons.paintRoller,
     FontAwesomeIcons.wrench,
@@ -22,25 +22,28 @@ class _SearchState extends State<Search> {
     FontAwesomeIcons.dumbbell,
   ];
 
-   Widget _buildIcon(int index){
+  Widget _buildIcon(int index) {
     return GestureDetector(
-
-        onTap: (){
-          setState(() {
-            iconSelected=index;
-            searchByCategory();
-          });
-        },
-        child: Container(
-        margin: EdgeInsets.only(left:20),
-        height:80.0,
-        width:60.0,
+      onTap: () {
+        setState(() {
+          iconSelected = index;
+          searchByCategory();
+        });
+      },
+      child: Container(
+        margin: EdgeInsets.only(left: 20),
+        height: 80.0,
+        width: 60.0,
         decoration: BoxDecoration(
           color: Color(int.parse("#F2BB35".replaceAll('#', '0xff'))),
           borderRadius: BorderRadius.circular(30.0),
-          ),
-        child: Icon(_icons[index],size: 25.0,color: Colors.brown,),
         ),
+        child: Icon(
+          _icons[index],
+          size: 25.0,
+          color: Colors.brown,
+        ),
+      ),
     );
   }
 
@@ -76,6 +79,7 @@ class _SearchState extends State<Search> {
                       ),
                       onPressed: () {
                         Navigator.of(context).pushNamed("/profile");
+                        //Navigator.of(context).pushNamed("/intento");
                       }),
                 ],
               )
@@ -166,6 +170,7 @@ class _SearchState extends State<Search> {
                       if (snapshot.hasData) {
                         final List<DocumentSnapshot> documents =
                             snapshot.data.docs;
+                         
                         return ListView(
                             //Service card
                              children: documents
@@ -183,6 +188,7 @@ class _SearchState extends State<Search> {
                                             ),
                                           ) ;
                                           },
+                                     
                                           child: Row(
                                             
                                             children: [
@@ -195,8 +201,9 @@ class _SearchState extends State<Search> {
                                                           borderRadius:
                                                               BorderRadius
                                                                   .circular(8.0),
-                                                          child: Image.asset(
-                                                              'assets/images/plomero.jpg')
+                                                          child: Image.network(
+                                                              doc['imgURL']
+                                                              )
                                                               
                                                               ),
                                                     )
@@ -298,36 +305,35 @@ class _SearchState extends State<Search> {
     Navigator.of(context).pushNamed("/results", arguments: documents);
   }
 
-   void searchByCategory() async {
-     var cat="";
+  void searchByCategory() async {
+    var cat = "";
 
-    switch(iconSelected){
-        case 0:
-          cat="teacher";
+    switch (iconSelected) {
+      case 0:
+        cat = "teacher";
         break;
-        case 1:
-          cat="painter";
+      case 1:
+        cat = "painter";
         break;
-        case 2:
-          cat="plumber";
+      case 2:
+        cat = "plumber";
         break;
-        case 3:
-          cat="biking";
+      case 3:
+        cat = "biking";
         break;
-        case 4:
-          cat="coach";
+      case 4:
+        cat = "coach";
         break;
-    }  
+    }
 
     var result = await FirebaseFirestore.instance
         .collection('services')
         .where('category', isEqualTo: "teacher")
         .get();
     final List<DocumentSnapshot> documents = result.docs;
-    
+
     Navigator.of(context).pushNamed("/results", arguments: documents);
-    
   }
 
-
+ 
 }

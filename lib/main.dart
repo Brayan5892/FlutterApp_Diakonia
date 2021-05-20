@@ -1,5 +1,4 @@
 import 'package:diakonia/presentation/pages/addService.dart';
-import 'package:diakonia/presentation/pages/calendar.dart';
 import 'package:diakonia/presentation/pages/chatList.dart';
 import 'package:diakonia/presentation/pages/homePage.dart';
 import 'package:diakonia/presentation/pages/map.dart';
@@ -8,23 +7,19 @@ import 'package:diakonia/presentation/pages/profileEdit.dart';
 import 'package:diakonia/presentation/pages/request.dart';
 import 'package:diakonia/presentation/pages/results.dart';
 import 'package:diakonia/presentation/pages/search_services.dart';
-import 'package:diakonia/presentation/pages/serviceInfo.dart';
+import 'package:diakonia/presentation/widgets/landing.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:diakonia/presentation/pages/login.dart';
 import 'package:diakonia/presentation/pages/register.dart';
-import 'package:get/get_core/src/get_main.dart';
-import 'package:get/get_navigation/src/root/get_material_app.dart';
-import 'package:get/get.dart';
-import 'data/models/getX_controller.dart';
 
 
-void main() async { 
+void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp();
   runApp(MyApp());
-} 
- 
+}
+
 class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
@@ -33,8 +28,9 @@ class MyApp extends StatelessWidget {
       
       debugShowCheckedModeBanner: false,
      
-      initialRoute: "/",
+      initialRoute: "/landing",
       routes: {
+        "/landing": (BuildContext context) => Landing(),
         "/home": (BuildContext context) => MyHomePage(),
         "/": (BuildContext context) => Login(),
         "/register": (BuildContext context) => Register(),
@@ -50,11 +46,11 @@ class MyApp extends StatelessWidget {
       //para pasar datos entre pantallas/routes
       // onGenerateRoute: (RouteSettings settings){
       //   final List<String>pathElements=settings.name.split('/');
-      
+
       //   if(pathElements[0]!=''){
       //     return null;
       //   }
-        
+
       //   switch(pathElements[1]){
       //     case 'home':
       //       return MaterialPageRoute(
@@ -64,15 +60,15 @@ class MyApp extends StatelessWidget {
       //         builder: (BuildContext context)=>Register());
       //     case 'map':
       //       return MaterialPageRoute(
-      //         builder: (BuildContext context)=>map()); 
+      //         builder: (BuildContext context)=>map());
       //     case 'addService':
       //       return MaterialPageRoute(
       //         builder: (BuildContext context)=>addService());
       //     case 'login':
       //       return MaterialPageRoute(
-      //         builder: (BuildContext context)=>Login());  
+      //         builder: (BuildContext context)=>Login());
       //     default:
-      //       return null;                           
+      //       return null;
       //   }
       // },
     );

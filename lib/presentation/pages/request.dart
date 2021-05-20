@@ -85,7 +85,6 @@ class _RequestState extends State<Request> {
                                            "#E6EEED".replaceAll('#', '0xff'))),
                                        height: 200,
                                        child: GestureDetector(
-                                        
                                          onTap: (){
                                            Navigator.push(context, MaterialPageRoute(
                                              builder: (context) => ServiceInfo(doc),
@@ -105,9 +104,8 @@ class _RequestState extends State<Request> {
                                                          borderRadius:
                                                              BorderRadius
                                                                  .circular(8.0),
-                                                         child: Image.asset(
-                                                             'assets/images/plomero.jpg')
-                                                             
+                                                         child: Image.network(
+                                                             doc['imgURL']) 
                                                              ),
                                                    )
                                                  ],

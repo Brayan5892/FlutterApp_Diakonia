@@ -106,7 +106,7 @@ class MyHomePage extends StatelessWidget {
                               GestureDetector(
                                 child: CatigoryW(
                                   image: 'assets/images/request.png',
-                                  text: 'Request',
+                                  text: 'request',
                                   color:Colors.black,
                                  ruta:'/request'
                                    ),
@@ -120,8 +120,6 @@ class MyHomePage extends StatelessWidget {
                                 ),
                                      
                                 
-                
-                              
                             ],
                           ),
                           SizedBox(height: 10),
