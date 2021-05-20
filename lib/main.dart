@@ -1,5 +1,4 @@
 import 'package:diakonia/presentation/pages/addService.dart';
-import 'package:diakonia/presentation/pages/calendar.dart';
 import 'package:diakonia/presentation/pages/chatList.dart';
 import 'package:diakonia/presentation/pages/homePage.dart';
 import 'package:diakonia/presentation/pages/map.dart';
@@ -8,13 +7,11 @@ import 'package:diakonia/presentation/pages/profileEdit.dart';
 import 'package:diakonia/presentation/pages/request.dart';
 import 'package:diakonia/presentation/pages/results.dart';
 import 'package:diakonia/presentation/pages/search_services.dart';
-import 'package:diakonia/presentation/pages/serviceInfo.dart';
 import 'package:diakonia/presentation/widgets/landing.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:diakonia/presentation/pages/login.dart';
 import 'package:diakonia/presentation/pages/register.dart';
-import 'data/models/getX_controller.dart';
 
 
 void main() async {
