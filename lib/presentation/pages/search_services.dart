@@ -1,4 +1,5 @@
 import 'package:diakonia/presentation/pages/serviceInfo.dart';
+import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/material.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
@@ -170,6 +171,7 @@ class _SearchState extends State<Search> {
                       if (snapshot.hasData) {
                         final List<DocumentSnapshot> documents =
                             snapshot.data.docs;
+                         
                         return ListView(
                             //Service card
                              children: documents
@@ -187,6 +189,7 @@ class _SearchState extends State<Search> {
                                             ),
                                           ) ;
                                           },
+                                     
                                           child: Row(
                                             
                                             children: [
@@ -199,8 +202,9 @@ class _SearchState extends State<Search> {
                                                           borderRadius:
                                                               BorderRadius
                                                                   .circular(8.0),
-                                                          child: Image.asset(
-                                                              'assets/images/plomero.jpg')
+                                                          child: Image.network(
+                                                              doc['imgURL']
+                                                              )
                                                               
                                                               ),
                                                     )
@@ -332,5 +336,5 @@ class _SearchState extends State<Search> {
     Navigator.of(context).pushNamed("/results", arguments: documents);
   }
 
-
+ 
 }

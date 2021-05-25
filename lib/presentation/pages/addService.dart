@@ -17,6 +17,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 
 import 'package:cloud_firestore/cloud_firestore.dart';
 
+import 'package:firebase_storage/firebase_storage.dart';
 class addService extends StatefulWidget {
   addService() : super();
   final String title = "ADD SERVICE";
@@ -71,186 +72,183 @@ class addServiceState extends State<addService> {
                                     )))
                               ])))
                     ])),
-            body: SingleChildScrollView(
-                   reverse: true,
-                  padding: EdgeInsets.all(32),
-                          child: Builder(
-                  builder: (context) => Stack(children: <Widget>[
-                        Padding(
-                            padding: EdgeInsets.all(16.0),
-                            child: Align(
-                                alignment: Alignment.topLeft,
-                                child: Column(children: <Widget>[
-                                  SizedBox(
-                                    height: 16.0,
-                                  ),
-                                  TextField(
-                                    obscureText: false,
-                                    decoration: InputDecoration(
-                                        focusedBorder: OutlineInputBorder(
-                                            borderSide: BorderSide(
-                                                color: Colors.green.shade50,
-                                                width: 2.0),
-                                            borderRadius: BorderRadius.all(
-                                                Radius.circular(10.0))),
-                                        labelText: 'Name',
-                                        filled: true,
-                                        fillColor: widget.grisClaro),
-                                    controller: _nameCon,
-                                  ),
-                                  SizedBox(
-                                    height: 16.0,
-                                  ),
-                                  TextField(
-                                    obscureText: false,
-                                    decoration: InputDecoration(
-                                        focusedBorder: OutlineInputBorder(
-                                            borderSide: BorderSide(
-                                                color: Colors.green.shade50,
-                                                width: 2.0),
-                                            borderRadius: BorderRadius.all(
-                                                Radius.circular(10.0))),
-                                        labelText: 'Price',
-                                        filled: true,
-                                        fillColor: widget.grisClaro),
-                                    controller: _priceCon,
-                                  ),
-                                  SizedBox(
-                                    height: 16.0,
-                                  ),
-                                  TextField(
-                                    obscureText: false,
-                                    decoration: InputDecoration(
-                                        focusedBorder: OutlineInputBorder(
-                                            borderSide: BorderSide(
-                                                color: Colors.green.shade50,
-                                                width: 2.0),
-                                            borderRadius: BorderRadius.all(
-                                                Radius.circular(10.0))),
-                                        labelText: 'Description',
-                                        filled: true,
-                                        fillColor: widget.grisClaro),
-                                    controller: _descCon,
-                                  ),
-                                  SizedBox(
-                                    height: 16.0,
-                                  ),
-                                  Container(
-                                      alignment: Alignment.topLeft,
-                                      child: Row(
-                                          mainAxisSize: MainAxisSize.min,
-                                          children: <Widget>[
-                                            Expanded(
-                                                child: TextField(
-                                              obscureText: false,
-                                              decoration: InputDecoration(
-                                                  focusedBorder:
-                                                      OutlineInputBorder(
-                                                          borderSide: BorderSide(
-                                                              color:
-                                                                  Colors.green
-                                                                      .shade50,
-                                                              width: 2.0),
-                                                          borderRadius:
-                                                              BorderRadius.all(
-                                                                  Radius.circular(
-                                                                      10.0))),
-                                                  labelText: 'Location',
-                                                  filled: true,
-                                                  fillColor: widget.grisClaro),
-                                              controller: _locCon,
-                                            )),
-                                            Expanded(
-                                                child: Padding(
-                                                    padding: const EdgeInsets.all(
-                                                        16.0),
-                                                    child: ConstrainedBox(
-                                                        constraints:
-                                                            BoxConstraints
-                                                                .tightFor(
-                                                                    width: 26,
-                                                                    height: 48),
-                                                        child: ElevatedButton(
-                                                          onPressed: () {
-                                                            goToMap(context);
-                                                          },
-                                                          child: Text(
-                                                              'pick location'),
-                                                          style: ElevatedButton
-                                                              .styleFrom(
-                                                            shape: RoundedRectangleBorder(
-                                                                borderRadius:
-                                                                    BorderRadius
-                                                                        .circular(
-                                                                            10.0)),
-                                                            primary:
-                                                                widget.amarillo,
-                                                            onPrimary:
-                                                                Colors.black,
-                                                          ),
-                                                        ))))
-                                          ])),
-                                  Container(
-                                      alignment: Alignment.topLeft,
-                                      child: Row(
-                                          mainAxisSize: MainAxisSize.min,
-                                          children: <Widget>[
-                                            Expanded(
-                                                child: ConstrainedBox(
-                                                    constraints:
-                                                        BoxConstraints.tightFor(
-                                                            width: 26,
-                                                            height: 48),
-                                                    child: ElevatedButton(
-                                                      onPressed: () {
-                                                        showAlertDialog(context);
-                                                      },
-                                                      child: Text('Upload Pic'),
-                                                      style: ElevatedButton
-                                                          .styleFrom(
-                                                        shape:
-                                                            RoundedRectangleBorder(
-                                                                borderRadius:
-                                                                    BorderRadius
-                                                                        .circular(
-                                                                            10.0)),
-                                                        primary: widget.amarillo,
-                                                        onPrimary: Colors.black,
-                                                      ),
-                                                    ))),
-                                            Expanded(
-                                                child: Padding(
-                                                    padding: const EdgeInsets.all(
-                                                        20.0),
-                                                    child: ConstrainedBox(
-                                                        constraints:
-                                                            BoxConstraints
-                                                                .tightFor(
-                                                                    width: 26,
-                                                                    height: 48),
-                                                        child: ElevatedButton(
-                                                          onPressed: () {
-                                                            add();
-                                                          },
-                                                          child:
-                                                              Text('AddService'),
-                                                          style: ElevatedButton
-                                                              .styleFrom(
-                                                            shape: RoundedRectangleBorder(
-                                                                borderRadius:
-                                                                    BorderRadius
-                                                                        .circular(
-                                                                            10.0)),
-                                                            primary:
-                                                                widget.amarillo,
-                                                            onPrimary:
-                                                                Colors.black,
-                                                          ),
-                                                        ))))
-                                          ]))
-                                ])))
-                      ])),
-            )),
+            body: Builder(
+                builder: (context) => Stack(children: <Widget>[
+                      Padding(
+                          padding: EdgeInsets.all(16.0),
+                          child: Align(
+                              alignment: Alignment.topLeft,
+                              child: Column(children: <Widget>[
+                                SizedBox(
+                                  height: 16.0,
+                                ),
+                                TextField(
+                                  obscureText: false,
+                                  decoration: InputDecoration(
+                                      focusedBorder: OutlineInputBorder(
+                                          borderSide: BorderSide(
+                                              color: Colors.green.shade50,
+                                              width: 2.0),
+                                          borderRadius: BorderRadius.all(
+                                              Radius.circular(10.0))),
+                                      labelText: 'Name',
+                                      filled: true,
+                                      fillColor: widget.grisClaro),
+                                  controller: _nameCon,
+                                ),
+                                SizedBox(
+                                  height: 16.0,
+                                ),
+                                TextField(
+                                  obscureText: false,
+                                  decoration: InputDecoration(
+                                      focusedBorder: OutlineInputBorder(
+                                          borderSide: BorderSide(
+                                              color: Colors.green.shade50,
+                                              width: 2.0),
+                                          borderRadius: BorderRadius.all(
+                                              Radius.circular(10.0))),
+                                      labelText: 'Price',
+                                      filled: true,
+                                      fillColor: widget.grisClaro),
+                                  controller: _priceCon,
+                                ),
+                                SizedBox(
+                                  height: 16.0,
+                                ),
+                                TextField(
+                                  obscureText: false,
+                                  decoration: InputDecoration(
+                                      focusedBorder: OutlineInputBorder(
+                                          borderSide: BorderSide(
+                                              color: Colors.green.shade50,
+                                              width: 2.0),
+                                          borderRadius: BorderRadius.all(
+                                              Radius.circular(10.0))),
+                                      labelText: 'Description',
+                                      filled: true,
+                                      fillColor: widget.grisClaro),
+                                  controller: _descCon,
+                                ),
+                                SizedBox(
+                                  height: 16.0,
+                                ),
+                                Container(
+                                    alignment: Alignment.topLeft,
+                                    child: Row(
+                                        mainAxisSize: MainAxisSize.min,
+                                        children: <Widget>[
+                                          Expanded(
+                                              child: TextField(
+                                            obscureText: false,
+                                            decoration: InputDecoration(
+                                                focusedBorder:
+                                                    OutlineInputBorder(
+                                                        borderSide: BorderSide(
+                                                            color:
+                                                                Colors.green
+                                                                    .shade50,
+                                                            width: 2.0),
+                                                        borderRadius:
+                                                            BorderRadius.all(
+                                                                Radius.circular(
+                                                                    10.0))),
+                                                labelText: 'Location',
+                                                filled: true,
+                                                fillColor: widget.grisClaro),
+                                            controller: _locCon,
+                                          )),
+                                          Expanded(
+                                              child: Padding(
+                                                  padding: const EdgeInsets.all(
+                                                      16.0),
+                                                  child: ConstrainedBox(
+                                                      constraints:
+                                                          BoxConstraints
+                                                              .tightFor(
+                                                                  width: 26,
+                                                                  height: 48),
+                                                      child: ElevatedButton(
+                                                        onPressed: () {
+                                                          goToMap(context);
+                                                        },
+                                                        child: Text(
+                                                            'pick location'),
+                                                        style: ElevatedButton
+                                                            .styleFrom(
+                                                          shape: RoundedRectangleBorder(
+                                                              borderRadius:
+                                                                  BorderRadius
+                                                                      .circular(
+                                                                          10.0)),
+                                                          primary:
+                                                              widget.amarillo,
+                                                          onPrimary:
+                                                              Colors.black,
+                                                        ),
+                                                      ))))
+                                        ])),
+                                Container(
+                                    alignment: Alignment.topLeft,
+                                    child: Row(
+                                        mainAxisSize: MainAxisSize.min,
+                                        children: <Widget>[
+                                          Expanded(
+                                              child: ConstrainedBox(
+                                                  constraints:
+                                                      BoxConstraints.tightFor(
+                                                          width: 26,
+                                                          height: 48),
+                                                  child: ElevatedButton(
+                                                    onPressed: () {
+                                                      showAlertDialog(context);
+                                                    },
+                                                    child: Text('Upload Pic'),
+                                                    style: ElevatedButton
+                                                        .styleFrom(
+                                                      shape:
+                                                          RoundedRectangleBorder(
+                                                              borderRadius:
+                                                                  BorderRadius
+                                                                      .circular(
+                                                                          10.0)),
+                                                      primary: widget.amarillo,
+                                                      onPrimary: Colors.black,
+                                                    ),
+                                                  ))),
+                                          Expanded(
+                                              child: Padding(
+                                                  padding: const EdgeInsets.all(
+                                                      20.0),
+                                                  child: ConstrainedBox(
+                                                      constraints:
+                                                          BoxConstraints
+                                                              .tightFor(
+                                                                  width: 26,
+                                                                  height: 48),
+                                                      child: ElevatedButton(
+                                                        onPressed: () {
+                                                          add();
+                                                          showAlertDialogExit(context);
+                                                        },
+                                                        child:
+                                                            Text('AddService'),
+                                                        style: ElevatedButton
+                                                            .styleFrom(
+                                                          shape: RoundedRectangleBorder(
+                                                              borderRadius:
+                                                                  BorderRadius
+                                                                      .circular(
+                                                                          10.0)),
+                                                          primary:
+                                                              widget.amarillo,
+                                                          onPrimary:
+                                                              Colors.black,
+                                                        ),
+                                                      ))))
+                                        ]))
+                              ])))
+                    ]))),
         routes: {
           '/map': (context) =>
               map() //el contexto aqui puede dar problemas de materializacion
@@ -258,46 +256,85 @@ class addServiceState extends State<addService> {
   }
 
 //funcion para agregar servicio a la tabla (markers continene todos los marcadores del en el mapa)
-  add() {
+  add()async{
+      String imageUrl;
     setState(() {
-      _name = _nameCon.text;
-      _price = int.parse(_priceCon.text);
-      _des = _descCon.text;
-      _loc = _locCon.text;
+      _name=_nameCon.text;     
+      _price=int.parse(_priceCon.text);   
+      _des=_descCon.text;
+      _loc=_locCon.text; 
     });
-    //markers puede llegar vacio
-    LatLng coord =
-        new LatLng(_marker.position.latitude, _marker.position.longitude);
+    
+    var firebaseUser =  FirebaseAuth.instance.currentUser;
 
-    var firebaseUser = FirebaseAuth.instance.currentUser;
-    //codigo para agregar servicio a las tablas
+    if(imageFile!=null){
+      var snapshot = await FirebaseStorage.instance.ref()
+      .child('servicesIMG/'+firebaseUser.uid+'/'+_name)
+      .putFile(imageFile);
+      var downloadUrl = await snapshot.ref.getDownloadURL();
+      setState(() {
+       imageUrl = downloadUrl;
+      });
+    }
 
-    if (imageFile != null) imageFile.path;
-    _selectedCategory.toString().split('.').last;
-
-    FirebaseFirestore.instance
-        .collection('services')
-        .doc('servicio_' + firebaseUser.uid)
-        .set({
-      "category": _selectedCategory.toString().split('.').last,
-      "coords": new GeoPoint(coord.latitude, coord.longitude),
-      "description": _des,
-      "location": _loc,
-      "name": _name,
-      "price": _price,
-      "userId": firebaseUser.uid
-    });
-
+    //markers puede llegar null
+    if(_marker!=null){
+      LatLng coord=new LatLng(_marker.position.latitude,_marker.position.longitude);
+    
+      //codigo para agregar servicio a las tablas
+      FirebaseFirestore.instance.collection('services').doc('servicio_'+firebaseUser.uid+'_'+_name).set({
+        "category":_selectedCategory.toString().split('.').last,
+        "coords" : new GeoPoint(coord.latitude, coord.longitude),
+        "description":_des,
+        "location":_loc,
+        "name":_name,
+        "price":_price,
+        "userId":firebaseUser.uid,
+        'imgURL':imageUrl
+      });
+    }else{
+      //codigo para agregar servicio a las tablas
+      FirebaseFirestore.instance.collection('services').doc('servicio_'+firebaseUser.uid+'_'+_name).set({
+        "category":_selectedCategory.toString().split('.').last,
+        "coords" : new GeoPoint(0,0),
+        "description":_des,
+        "location":_loc,
+        "name":_name,
+        "price":_price,
+        "userId":firebaseUser.uid,
+        'imgURL':imageUrl
+      });
+    }
     //-----------------------------------------
+    
+
     Navigator.pushNamed(context, '/home');
+  }
+
+  showAlertDialogExit(BuildContext context){
+
+    // configurar el alert dialog
+    AlertDialog alert = AlertDialog(
+      title: Text("Service added successfully"),
+      content: Text("The service "+_name+" was added succesfully"),
+    );
+
+    // mostrar el alert dialog
+    showDialog(
+      context: context,
+      builder: (BuildContext context) {
+        return alert;
+      },
+    );
   }
 
 //Navegacion a la ventana mapa-------------------------------------------------------
   Marker _marker;
 
-  goToMap(BuildContext context) async {
-    _marker = await Navigator.push(
-        context, MaterialPageRoute(builder: (context) => map()));
+  goToMap(BuildContext context)async{
+    _marker=await Navigator.push(
+      context,
+      MaterialPageRoute(builder: (context)=>map()));
   }
 
 //COMBO BOX CATEGORIES ---------------------------------------------------------------
@@ -313,38 +350,38 @@ class addServiceState extends State<addService> {
 
   //funcion para construir el combobox
   List<DropdownMenuItem<categories>> buildDropdownMenuItems() {
-    List<DropdownMenuItem<categories>> items = new List();
+    List<DropdownMenuItem<categories>> items=new List();
     DropdownMenuItem<categories> item;
-    List<categories> _categories = new List();
+    List<categories> _categories=new List();
     categories.values.forEach((category) {
-      _categories.add(category);
+    _categories.add(category);
     });
     for (categories _category in _categories) {
-      item = DropdownMenuItem(
-        value: _category,
-        child: Text(_category.toString().split('.').last.replaceAll("_", " ")),
-      );
+      item=DropdownMenuItem(
+          value: _category,
+          child: Text(_category.toString().split('.').last.replaceAll("_", " ")),
+        );
       items.add(item);
     }
     return items;
-  }
+  }  
 
   @override
   void initState() {
     //esto es para el combobox
     _dropdownMenuItems = buildDropdownMenuItems();
     _selectedCategory = _dropdownMenuItems[0].value;
-
+    
     super.initState();
   }
 
 //CAMPOS DE TEXTO ----------------------------------------------------------
-  String _name, _des, _loc;
+  String _name,_des,_loc;  
   int _price;
-  final _nameCon = TextEditingController(),
-      _priceCon = TextEditingController(),
-      _descCon = TextEditingController(),
-      _locCon = TextEditingController();
+  final _nameCon=TextEditingController(),
+        _priceCon=TextEditingController(),
+        _descCon=TextEditingController(),
+        _locCon=TextEditingController();
 
   @override
   void dispose() {
@@ -359,16 +396,17 @@ class addServiceState extends State<addService> {
 
 //CARGAR IMG DEL DISPOSITIVO -----------------------------------------------
   showAlertDialog(BuildContext context) {
+
     // configurar los botones
     Widget cameraButton = ElevatedButton(
       child: Text("Camera"),
-      onPressed: () {
+      onPressed:  () {
         openCamera();
       },
     );
     Widget galleryButton = ElevatedButton(
       child: Text("Gallery"),
-      onPressed: () {
+      onPressed:  () {
         openGallery();
       },
     );
@@ -395,24 +433,24 @@ class addServiceState extends State<addService> {
   File imageFile;
 
   //cargar imagen de galeria
-  openGallery() async {
+  openGallery()async{
     final picker = ImagePicker();
-    var pic = await picker.getImage(source: ImageSource.gallery);
+    var pic=await picker.getImage(source: ImageSource.gallery);
     setState(() {
-      if (pic != null) {
+      if (pic!=null) {
         imageFile = File(pic.path);
       } else {
         print('No image selected.');
       }
     });
   }
-
+  
   //cargar imagen de camara
-  openCamera() async {
+  openCamera()async{
     final picker = ImagePicker();
-    var pic = await picker.getImage(source: ImageSource.gallery);
+    var pic=await picker.getImage(source: ImageSource.camera);
     setState(() {
-      if (pic != null) {
+      if (pic!=null) {
         imageFile = File(pic.path);
       } else {
         print('No image selected.');
@@ -421,7 +459,3 @@ class addServiceState extends State<addService> {
   }
 //---------------------------------------------------------------------------
 }
-/**
-var firebaseUser =  FirebaseAuth.instance.currentUser;
-firebaseUser.uid
- */

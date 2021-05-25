@@ -18,6 +18,7 @@ class _ServiceInfoState extends State<ServiceInfo> {
   String name='';
   String description='';
   String userServiceid='';
+  String imgService='';
     var nameUser=" ", telephone=" ", lastname=" ",  descriptionUser=" ", profilePicture=" ",nameUserCurrent="",profilePictureCurrent="";
 void initState() {
     super.initState();
@@ -27,6 +28,7 @@ void initState() {
           name=service.data()['name'];
           description =service.data()['description'];
           userServiceid= service.data()['userId'];
+          imgService=service.data()['imgURL'];
         });
         getUsers();
   }
@@ -264,7 +266,7 @@ void initState() {
                             ),
                             onPressed: () {
                             Navigator.push(context, MaterialPageRoute(
-                                  builder: (context) => Calendar(name, nameUser, userServiceid),
+                                  builder: (context) => Calendar(name, nameUser, userServiceid,imgService),
                                                       
                                   ),
                                 ) ;

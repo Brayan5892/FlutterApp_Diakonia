@@ -8,7 +8,8 @@ class Calendar extends StatefulWidget {
   String name;
   var nameUser;
   String userServiceid;
-  Calendar(this.name, this.nameUser, this.userServiceid);
+  String imgService;
+  Calendar(this.name, this.nameUser, this.userServiceid, this.imgService);
   @override
   _CalendarState createState() => _CalendarState();
 
@@ -18,12 +19,13 @@ class _CalendarState extends State<Calendar> {
   String name;
   var nameUser;
   String userServiceid;
-
+ String imgService;
   void initState() {
     super.initState();
     name = widget.name;
     nameUser = widget.nameUser;  
     userServiceid = widget.userServiceid;  
+    imgService = widget.imgService;
   }
   
     DateTime selectedDate = DateTime.now();
@@ -231,7 +233,7 @@ class _CalendarState extends State<Calendar> {
                                     ),
                                   ),
                                   onPressed: () {
-                                 saveRequest(nameUser, name, userServiceid, selectedDate, context);
+                                 saveRequest(nameUser, name, userServiceid, selectedDate, context, imgService);
                                     },
                         ),
                                ),
@@ -275,7 +277,7 @@ class _CalendarState extends State<Calendar> {
   }
 }
 
- Future <void> saveRequest(name, descriptionService, nameUser, selectedDate, context) async{
+ Future <void> saveRequest(name, descriptionService, nameUser, selectedDate, context,imgService) async{
       var firebaseUser =  FirebaseAuth.instance.currentUser;
      // var col = await FirebaseFirestore.instance.collection('request');
       var document = await FirebaseFirestore.instance
@@ -286,7 +288,8 @@ class _CalendarState extends State<Calendar> {
           'nameService': name,
           'infoService': descriptionService,
           'namePrestadorServicio': nameUser,
-          'dateGetService': selectedDate
+          'dateGetService': selectedDate,
+          'imgURL':imgService
       })
       .then((value) => 
          Navigator.push(

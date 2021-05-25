@@ -38,7 +38,6 @@ GoogleMapController mapController;
 
   @override
   Widget build(BuildContext contex){
-    _setPermissions();
     return MaterialApp(
       home: Scaffold(
         appBar: AppBar(
@@ -62,7 +61,7 @@ GoogleMapController mapController;
                     children: <Widget>[
                       Text(widget.title),
                       SizedBox(height: 20.0,),
-                      Container(
+                      Container(//busqueda de servicios en el app bar
                         padding: const EdgeInsets.only(left: 0.0, right: 0.0),
                         decoration: BoxDecoration(
                           borderRadius: BorderRadius.circular(10.0),
@@ -110,7 +109,7 @@ GoogleMapController mapController;
               markers: _markers,
               onCameraMove: _onCameraMove
             ),
-            Padding(
+            Padding(//botones tipo mapa y volver
               padding: EdgeInsets.all(16.0),
               child: Align(
                 alignment: Alignment.topLeft,
@@ -208,7 +207,7 @@ final _searchCont=TextEditingController();
     super.dispose();
   }
 //Cargar Srvicios de las tablas-----------------------------------------------------------
-List <Service> services=new List<Service>();
+List <Service> services=[];
   
   Future _loadServices()async{//esto hay que probarlo en serio
     //codigo para conseguir las coordenadas de los servicios:

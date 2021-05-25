@@ -1,5 +1,6 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:diakonia/presentation/pages/homePage.dart';
+import 'package:diakonia/presentation/pages/requestInfo.dart';
 import 'package:diakonia/presentation/pages/serviceInfo.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
@@ -85,10 +86,9 @@ class _RequestState extends State<Request> {
                                            "#E6EEED".replaceAll('#', '0xff'))),
                                        height: 200,
                                        child: GestureDetector(
-                                        
                                          onTap: (){
                                            Navigator.push(context, MaterialPageRoute(
-                                             builder: (context) => ServiceInfo(doc),
+                                             builder: (context) => RequestInfo(doc),
                                          
                                            ),
                                          ) ;
@@ -105,9 +105,8 @@ class _RequestState extends State<Request> {
                                                          borderRadius:
                                                              BorderRadius
                                                                  .circular(8.0),
-                                                         child: Image.asset(
-                                                             'assets/images/plomero.jpg')
-                                                             
+                                                         child: Image.network(
+                                                             doc['imgURL']) 
                                                              ),
                                                    )
                                                  ],
