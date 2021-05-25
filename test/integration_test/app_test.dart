@@ -22,7 +22,7 @@ group('test integration', () {
  IntegrationTestWidgetsFlutterBinding.ensureInitialized();
  
  app.main();
- testWidgets("Register", 
+/* testWidgets("Register", 
  (tester) async{
    app.main();
    await tester.pumpAndSettle();
@@ -41,6 +41,7 @@ group('test integration', () {
      await tester.tap(signUpButton);
      await tester.pumpAndSettle(Duration(seconds: 4));
  });
+ 
  testWidgets("login with correct email and password", 
  (tester) async {
   app.main();
@@ -225,10 +226,42 @@ group('test integration', () {
  });
 
 
- 
+    
+ */
+ testWidgets("Chat, enviar mensajes", 
+  (tester) async {
+    app.main();
+     await tester.pumpAndSettle();
+     await tester.tap(find.text("Sign in"));
+     await tester.pumpAndSettle(Duration(seconds: 4));
+
+     final emailField = find.byKey(Key("emailLogin"));
+     final passwordField = find.byKey(Key("passwordLogin"));
+     final signInButton = find.text("Log in");
+    
+     await tester.enterText(emailField, "Brayaaan@gmail.com");
+     await tester.enterText(passwordField, "zxcasdqwe123");
+     await tester.pumpAndSettle(Duration(seconds: 3));
+
+     await tester.tap(signInButton);
+     await tester.pumpAndSettle(Duration(seconds: 4));
+
+     //go to messages
+     await tester.tap(find.text("Messages"));
+     await tester.pumpAndSettle(Duration(seconds: 15));
+
+     //enter chat
+     await tester.tap(find.text("Camila"));
+     await tester.pumpAndSettle(Duration(seconds: 5));
+       // save
+     await tester.enterText(find.byKey(Key('chatField')), 'Prueba');
+     await tester.pumpAndSettle(Duration(seconds: 5));
+     await tester.tap(find.byIcon(Icons.send));
+     await tester.pumpAndSettle(Duration(seconds: 5));
+       // save
+ });
    });
-   
- 
+
 
     
      

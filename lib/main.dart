@@ -43,34 +43,7 @@ class MyApp extends StatelessWidget {
         "/request": (BuildContext context) => Request(),
         "/chatList": (BuildContext context) => ChatList(),
       },
-      //para pasar datos entre pantallas/routes
-      // onGenerateRoute: (RouteSettings settings){
-      //   final List<String>pathElements=settings.name.split('/');
-
-      //   if(pathElements[0]!=''){
-      //     return null;
-      //   }
-
-      //   switch(pathElements[1]){
-      //     case 'home':
-      //       return MaterialPageRoute(
-      //         builder: (BuildContext context)=>Main());
-      //     case 'register':
-      //       return MaterialPageRoute(
-      //         builder: (BuildContext context)=>Register());
-      //     case 'map':
-      //       return MaterialPageRoute(
-      //         builder: (BuildContext context)=>map());
-      //     case 'addService':
-      //       return MaterialPageRoute(
-      //         builder: (BuildContext context)=>addService());
-      //     case 'login':
-      //       return MaterialPageRoute(
-      //         builder: (BuildContext context)=>Login());
-      //     default:
-      //       return null;
-      //   }
-      // },
+   
     );
   }
 }

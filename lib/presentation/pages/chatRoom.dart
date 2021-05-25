@@ -140,7 +140,7 @@ class _ChatRoomState extends State<ChatRoom> {
                           Expanded(
                             child: TextField(
                             controller: textController,
-                              key:Key('searchField'),
+                              key:Key('chatField'),
                               decoration: InputDecoration(
                                   border: InputBorder.none,
                                   hintText: "Send message"),
