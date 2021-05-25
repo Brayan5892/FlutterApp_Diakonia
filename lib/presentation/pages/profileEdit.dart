@@ -15,6 +15,7 @@ class _ProfileEditState extends State<ProfileEdit> {
 
   @override
   Widget build(BuildContext context) {
+    final isKeyboard = MediaQuery.of(context).viewInsets.bottom != 0;
     return Scaffold(
       
       resizeToAvoidBottomInset: false,
@@ -34,7 +35,7 @@ class _ProfileEditState extends State<ProfileEdit> {
           ],
         ),
         backgroundColor: Color(int.parse("#41736C".replaceAll('#', '0xff'))),
-        toolbarHeight: 200.0,
+           toolbarHeight: isKeyboard == false ? 200 : 20,
         shape: RoundedRectangleBorder(
             borderRadius: BorderRadius.only(
                 bottomRight: Radius.circular(67),
@@ -176,6 +177,7 @@ class _ProfileEditState extends State<ProfileEdit> {
                         )),
                   )
                   ),
+                
               Expanded(
                 child: Container(
                   decoration: BoxDecoration(

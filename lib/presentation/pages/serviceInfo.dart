@@ -24,7 +24,6 @@ void initState() {
      
     service = widget.service;
     setState(() {
-       
           name=service.data()['name'];
           description =service.data()['description'];
           userServiceid= service.data()['userId'];
@@ -37,7 +36,6 @@ void initState() {
       var document = await FirebaseFirestore.instance.collection('users').doc(userServiceid).get(); 
       
       setState(() {
-       
         nameUser=document.data()['name'];
         lastname=document.data()['lastname'];
         telephone=document.data()['phone'];
@@ -47,11 +45,11 @@ void initState() {
 
       var document2 = await FirebaseFirestore.instance.collection('users').doc(FirebaseAuth.instance.currentUser.uid).get(); 
       
-      setState(() {
-       
+      setState(() { 
         nameUserCurrent=document2.data()['name'];
         profilePictureCurrent=document2.data()['profilePicture'];
       });
+
   }
 
   
@@ -285,12 +283,7 @@ void initState() {
         ),
            
           ),
-        
-             
-         
-           
-          
-      
+
     );
   }
 

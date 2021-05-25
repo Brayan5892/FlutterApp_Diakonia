@@ -51,6 +51,7 @@ class _SearchState extends State<Search> {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
       home: Scaffold(
+          resizeToAvoidBottomInset: false,
           appBar: AppBar(
             leading: Column(
               mainAxisAlignment: MainAxisAlignment.start,

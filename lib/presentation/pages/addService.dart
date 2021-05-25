@@ -1,6 +1,7 @@
 import 'package:diakonia/data/objects/categories.dart';
 import 'package:diakonia/presentation/pages/map.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 
 //import para el manejo de archivos E/S
 import 'dart:io';
@@ -30,13 +31,14 @@ class addServiceState extends State<addService> {
   final GlobalKey<ScaffoldState> _scaffold = GlobalKey<ScaffoldState>();
   @override
   Widget build(BuildContext contex) {
+    final isKeyboard = MediaQuery.of(contex).viewInsets.bottom != 0;
     return MaterialApp(
         home: Scaffold(
             resizeToAvoidBottomInset: false,
             key: _scaffold,
             appBar: AppBar(
                 backgroundColor: widget.verdeOscuro,
-                toolbarHeight: 200,
+                toolbarHeight: isKeyboard == false ? 200 : 0,
                 shape: RoundedRectangleBorder(
                     borderRadius: BorderRadius.only(
                         bottomRight: Radius.circular(67),
@@ -45,7 +47,7 @@ class addServiceState extends State<addService> {
                     mainAxisSize: MainAxisSize.min,
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: <Widget>[
-                      Padding(
+                     if(!isKeyboard)  Padding(
                           padding: EdgeInsets.all(16.0),
                           child: Align(
                               alignment: Alignment.center,
@@ -69,182 +71,186 @@ class addServiceState extends State<addService> {
                                     )))
                               ])))
                     ])),
-            body: Builder(
-                builder: (context) => Stack(children: <Widget>[
-                      Padding(
-                          padding: EdgeInsets.all(16.0),
-                          child: Align(
-                              alignment: Alignment.topLeft,
-                              child: Column(children: <Widget>[
-                                SizedBox(
-                                  height: 16.0,
-                                ),
-                                TextField(
-                                  obscureText: false,
-                                  decoration: InputDecoration(
-                                      focusedBorder: OutlineInputBorder(
-                                          borderSide: BorderSide(
-                                              color: Colors.green.shade50,
-                                              width: 2.0),
-                                          borderRadius: BorderRadius.all(
-                                              Radius.circular(10.0))),
-                                      labelText: 'Name',
-                                      filled: true,
-                                      fillColor: widget.grisClaro),
-                                  controller: _nameCon,
-                                ),
-                                SizedBox(
-                                  height: 16.0,
-                                ),
-                                TextField(
-                                  obscureText: false,
-                                  decoration: InputDecoration(
-                                      focusedBorder: OutlineInputBorder(
-                                          borderSide: BorderSide(
-                                              color: Colors.green.shade50,
-                                              width: 2.0),
-                                          borderRadius: BorderRadius.all(
-                                              Radius.circular(10.0))),
-                                      labelText: 'Price',
-                                      filled: true,
-                                      fillColor: widget.grisClaro),
-                                  controller: _priceCon,
-                                ),
-                                SizedBox(
-                                  height: 16.0,
-                                ),
-                                TextField(
-                                  obscureText: false,
-                                  decoration: InputDecoration(
-                                      focusedBorder: OutlineInputBorder(
-                                          borderSide: BorderSide(
-                                              color: Colors.green.shade50,
-                                              width: 2.0),
-                                          borderRadius: BorderRadius.all(
-                                              Radius.circular(10.0))),
-                                      labelText: 'Description',
-                                      filled: true,
-                                      fillColor: widget.grisClaro),
-                                  controller: _descCon,
-                                ),
-                                SizedBox(
-                                  height: 16.0,
-                                ),
-                                Container(
-                                    alignment: Alignment.topLeft,
-                                    child: Row(
-                                        mainAxisSize: MainAxisSize.min,
-                                        children: <Widget>[
-                                          Expanded(
-                                              child: TextField(
-                                            obscureText: false,
-                                            decoration: InputDecoration(
-                                                focusedBorder:
-                                                    OutlineInputBorder(
-                                                        borderSide: BorderSide(
-                                                            color:
-                                                                Colors.green
-                                                                    .shade50,
-                                                            width: 2.0),
-                                                        borderRadius:
-                                                            BorderRadius.all(
-                                                                Radius.circular(
-                                                                    10.0))),
-                                                labelText: 'Location',
-                                                filled: true,
-                                                fillColor: widget.grisClaro),
-                                            controller: _locCon,
-                                          )),
-                                          Expanded(
-                                              child: Padding(
-                                                  padding: const EdgeInsets.all(
-                                                      16.0),
-                                                  child: ConstrainedBox(
-                                                      constraints:
-                                                          BoxConstraints
-                                                              .tightFor(
-                                                                  width: 26,
-                                                                  height: 48),
-                                                      child: ElevatedButton(
-                                                        onPressed: () {
-                                                          goToMap(context);
-                                                        },
-                                                        child: Text(
-                                                            'pick location'),
-                                                        style: ElevatedButton
-                                                            .styleFrom(
-                                                          shape: RoundedRectangleBorder(
-                                                              borderRadius:
-                                                                  BorderRadius
-                                                                      .circular(
-                                                                          10.0)),
-                                                          primary:
-                                                              widget.amarillo,
-                                                          onPrimary:
-                                                              Colors.black,
-                                                        ),
-                                                      ))))
-                                        ])),
-                                Container(
-                                    alignment: Alignment.topLeft,
-                                    child: Row(
-                                        mainAxisSize: MainAxisSize.min,
-                                        children: <Widget>[
-                                          Expanded(
-                                              child: ConstrainedBox(
-                                                  constraints:
-                                                      BoxConstraints.tightFor(
-                                                          width: 26,
-                                                          height: 48),
-                                                  child: ElevatedButton(
-                                                    onPressed: () {
-                                                      showAlertDialog(context);
-                                                    },
-                                                    child: Text('Upload Pic'),
-                                                    style: ElevatedButton
-                                                        .styleFrom(
-                                                      shape:
-                                                          RoundedRectangleBorder(
-                                                              borderRadius:
-                                                                  BorderRadius
-                                                                      .circular(
-                                                                          10.0)),
-                                                      primary: widget.amarillo,
-                                                      onPrimary: Colors.black,
-                                                    ),
-                                                  ))),
-                                          Expanded(
-                                              child: Padding(
-                                                  padding: const EdgeInsets.all(
-                                                      20.0),
-                                                  child: ConstrainedBox(
-                                                      constraints:
-                                                          BoxConstraints
-                                                              .tightFor(
-                                                                  width: 26,
-                                                                  height: 48),
-                                                      child: ElevatedButton(
-                                                        onPressed: () {
-                                                          add();
-                                                        },
-                                                        child:
-                                                            Text('AddService'),
-                                                        style: ElevatedButton
-                                                            .styleFrom(
-                                                          shape: RoundedRectangleBorder(
-                                                              borderRadius:
-                                                                  BorderRadius
-                                                                      .circular(
-                                                                          10.0)),
-                                                          primary:
-                                                              widget.amarillo,
-                                                          onPrimary:
-                                                              Colors.black,
-                                                        ),
-                                                      ))))
-                                        ]))
-                              ])))
-                    ]))),
+            body: SingleChildScrollView(
+                   reverse: true,
+                  padding: EdgeInsets.all(32),
+                          child: Builder(
+                  builder: (context) => Stack(children: <Widget>[
+                        Padding(
+                            padding: EdgeInsets.all(16.0),
+                            child: Align(
+                                alignment: Alignment.topLeft,
+                                child: Column(children: <Widget>[
+                                  SizedBox(
+                                    height: 16.0,
+                                  ),
+                                  TextField(
+                                    obscureText: false,
+                                    decoration: InputDecoration(
+                                        focusedBorder: OutlineInputBorder(
+                                            borderSide: BorderSide(
+                                                color: Colors.green.shade50,
+                                                width: 2.0),
+                                            borderRadius: BorderRadius.all(
+                                                Radius.circular(10.0))),
+                                        labelText: 'Name',
+                                        filled: true,
+                                        fillColor: widget.grisClaro),
+                                    controller: _nameCon,
+                                  ),
+                                  SizedBox(
+                                    height: 16.0,
+                                  ),
+                                  TextField(
+                                    obscureText: false,
+                                    decoration: InputDecoration(
+                                        focusedBorder: OutlineInputBorder(
+                                            borderSide: BorderSide(
+                                                color: Colors.green.shade50,
+                                                width: 2.0),
+                                            borderRadius: BorderRadius.all(
+                                                Radius.circular(10.0))),
+                                        labelText: 'Price',
+                                        filled: true,
+                                        fillColor: widget.grisClaro),
+                                    controller: _priceCon,
+                                  ),
+                                  SizedBox(
+                                    height: 16.0,
+                                  ),
+                                  TextField(
+                                    obscureText: false,
+                                    decoration: InputDecoration(
+                                        focusedBorder: OutlineInputBorder(
+                                            borderSide: BorderSide(
+                                                color: Colors.green.shade50,
+                                                width: 2.0),
+                                            borderRadius: BorderRadius.all(
+                                                Radius.circular(10.0))),
+                                        labelText: 'Description',
+                                        filled: true,
+                                        fillColor: widget.grisClaro),
+                                    controller: _descCon,
+                                  ),
+                                  SizedBox(
+                                    height: 16.0,
+                                  ),
+                                  Container(
+                                      alignment: Alignment.topLeft,
+                                      child: Row(
+                                          mainAxisSize: MainAxisSize.min,
+                                          children: <Widget>[
+                                            Expanded(
+                                                child: TextField(
+                                              obscureText: false,
+                                              decoration: InputDecoration(
+                                                  focusedBorder:
+                                                      OutlineInputBorder(
+                                                          borderSide: BorderSide(
+                                                              color:
+                                                                  Colors.green
+                                                                      .shade50,
+                                                              width: 2.0),
+                                                          borderRadius:
+                                                              BorderRadius.all(
+                                                                  Radius.circular(
+                                                                      10.0))),
+                                                  labelText: 'Location',
+                                                  filled: true,
+                                                  fillColor: widget.grisClaro),
+                                              controller: _locCon,
+                                            )),
+                                            Expanded(
+                                                child: Padding(
+                                                    padding: const EdgeInsets.all(
+                                                        16.0),
+                                                    child: ConstrainedBox(
+                                                        constraints:
+                                                            BoxConstraints
+                                                                .tightFor(
+                                                                    width: 26,
+                                                                    height: 48),
+                                                        child: ElevatedButton(
+                                                          onPressed: () {
+                                                            goToMap(context);
+                                                          },
+                                                          child: Text(
+                                                              'pick location'),
+                                                          style: ElevatedButton
+                                                              .styleFrom(
+                                                            shape: RoundedRectangleBorder(
+                                                                borderRadius:
+                                                                    BorderRadius
+                                                                        .circular(
+                                                                            10.0)),
+                                                            primary:
+                                                                widget.amarillo,
+                                                            onPrimary:
+                                                                Colors.black,
+                                                          ),
+                                                        ))))
+                                          ])),
+                                  Container(
+                                      alignment: Alignment.topLeft,
+                                      child: Row(
+                                          mainAxisSize: MainAxisSize.min,
+                                          children: <Widget>[
+                                            Expanded(
+                                                child: ConstrainedBox(
+                                                    constraints:
+                                                        BoxConstraints.tightFor(
+                                                            width: 26,
+                                                            height: 48),
+                                                    child: ElevatedButton(
+                                                      onPressed: () {
+                                                        showAlertDialog(context);
+                                                      },
+                                                      child: Text('Upload Pic'),
+                                                      style: ElevatedButton
+                                                          .styleFrom(
+                                                        shape:
+                                                            RoundedRectangleBorder(
+                                                                borderRadius:
+                                                                    BorderRadius
+                                                                        .circular(
+                                                                            10.0)),
+                                                        primary: widget.amarillo,
+                                                        onPrimary: Colors.black,
+                                                      ),
+                                                    ))),
+                                            Expanded(
+                                                child: Padding(
+                                                    padding: const EdgeInsets.all(
+                                                        20.0),
+                                                    child: ConstrainedBox(
+                                                        constraints:
+                                                            BoxConstraints
+                                                                .tightFor(
+                                                                    width: 26,
+                                                                    height: 48),
+                                                        child: ElevatedButton(
+                                                          onPressed: () {
+                                                            add();
+                                                          },
+                                                          child:
+                                                              Text('AddService'),
+                                                          style: ElevatedButton
+                                                              .styleFrom(
+                                                            shape: RoundedRectangleBorder(
+                                                                borderRadius:
+                                                                    BorderRadius
+                                                                        .circular(
+                                                                            10.0)),
+                                                            primary:
+                                                                widget.amarillo,
+                                                            onPrimary:
+                                                                Colors.black,
+                                                          ),
+                                                        ))))
+                                          ]))
+                                ])))
+                      ])),
+            )),
         routes: {
           '/map': (context) =>
               map() //el contexto aqui puede dar problemas de materializacion
