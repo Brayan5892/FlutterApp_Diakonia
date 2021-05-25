@@ -22,7 +22,7 @@ group('test integration', () {
  IntegrationTestWidgetsFlutterBinding.ensureInitialized();
  
  app.main();
-/* testWidgets("Register", 
+/*testWidgets("Register", 
  (tester) async{
    app.main();
    await tester.pumpAndSettle();
@@ -46,6 +46,10 @@ group('test integration', () {
  (tester) async {
   app.main();
      await tester.pumpAndSettle();
+     await tester.tap(find.text("Sign in"));
+     await tester.pumpAndSettle(Duration(seconds: 4));
+
+     await tester.pumpAndSettle();
      final emailField = find.byKey(Key("emailLogin"));
      final passwordField = find.byKey(Key("passwordLogin"));
      final signInButton = find.text("Log in");
@@ -66,6 +70,10 @@ group('test integration', () {
  
      app.main();
  
+     await tester.pumpAndSettle();
+     await tester.tap(find.text("Sign in"));
+     await tester.pumpAndSettle(Duration(seconds: 4));
+
      await tester.pumpAndSettle();
      final emailField = find.byKey(Key("emailLogin"));
      final passwordField = find.byKey(Key("passwordLogin"));
@@ -88,7 +96,11 @@ group('test integration', () {
  (tester) async {
  
      app.main();
- 
+
+     await tester.pumpAndSettle();
+     await tester.tap(find.text("Sign in"));
+     await tester.pumpAndSettle(Duration(seconds: 4));
+
      await tester.pumpAndSettle();
      final emailField = find.byKey(Key("emailLogin"));
      final passwordField = find.byKey(Key("passwordLogin"));
@@ -117,7 +129,11 @@ group('test integration', () {
  (tester) async {
  
      app.main();
- 
+
+     await tester.pumpAndSettle();
+     await tester.tap(find.text("Sign in"));
+     await tester.pumpAndSettle(Duration(seconds: 4));
+
      await tester.pumpAndSettle();
      final emailField = find.byKey(Key("emailLogin"));
      final passwordField = find.byKey(Key("passwordLogin"));
@@ -190,6 +206,10 @@ group('test integration', () {
   (tester) async {
     app.main();
      await tester.pumpAndSettle();
+     await tester.tap(find.text("Sign in"));
+     await tester.pumpAndSettle(Duration(seconds: 4));
+
+     await tester.pumpAndSettle();
      final emailField = find.byKey(Key("emailLogin"));
      final passwordField = find.byKey(Key("passwordLogin"));
      final signInButton = find.text("Log in");
@@ -227,7 +247,7 @@ group('test integration', () {
 
 
     
- */
+ 
  testWidgets("Chat, enviar mensajes", 
   (tester) async {
     app.main();
@@ -260,6 +280,82 @@ group('test integration', () {
      await tester.pumpAndSettle(Duration(seconds: 5));
        // save
  });
+
+  testWidgets("Requests", 
+  (tester) async {
+    app.main();
+     await tester.pumpAndSettle();
+     await tester.tap(find.text("Sign in"));
+     await tester.pumpAndSettle(Duration(seconds: 4));
+
+     final emailField = find.byKey(Key("emailLogin"));
+     final passwordField = find.byKey(Key("passwordLogin"));
+     final signInButton = find.text("Log in");
+    
+     await tester.enterText(emailField, "Brayaaan@gmail.com");
+     await tester.enterText(passwordField, "zxcasdqwe123");
+     await tester.pumpAndSettle(Duration(seconds: 3));
+
+     await tester.tap(signInButton);
+     await tester.pumpAndSettle(Duration(seconds: 4));
+
+     //go to messages
+     await tester.tap(find.text("request"));
+     await tester.pumpAndSettle(Duration(seconds: 15));
+
+     //enter chat
+     await tester.tap(find.text("Karol"));
+     await tester.pumpAndSettle(Duration(seconds: 5));
+   
+       // save
+ });
+ */
+testWidgets("Request a service", (tester)async{
+     app.main();
+     await tester.pumpAndSettle();
+    
+     await tester.pumpAndSettle();
+     await tester.tap(find.text("Sign in"));
+     await tester.pumpAndSettle(Duration(seconds: 4));
+
+     final emailField = find.byKey(Key("emailLogin"));
+     final passwordField = find.byKey(Key("passwordLogin"));
+     final signInButton = find.text("Log in");
+    
+     await tester.enterText(emailField, "Brayaaan@gmail.com");
+     await tester.enterText(passwordField, "zxcasdqwe123");
+     await tester.pumpAndSettle(Duration(seconds: 3));
+
+     await tester.tap(signInButton);
+     await tester.pumpAndSettle(Duration(seconds: 4));
+
+     await tester.tap(find.text("Search"));
+     await tester.pumpAndSettle(Duration(seconds: 3));
+
+     await tester.tap(find.text("Carpinteria Karol"));
+     await tester.pumpAndSettle(Duration(seconds: 3));
+
+     await tester.tap(find.text("Request"));
+     await tester.pumpAndSettle(Duration(seconds: 3));
+
+     await tester.tap(find.text("Select date"));
+     await tester.pumpAndSettle(Duration(seconds: 3));
+
+     await tester.tap(find.text(">"));
+     await tester.pumpAndSettle(Duration(seconds: 3));     
+
+     await tester.tap(find.text("20"));
+     await tester.pumpAndSettle(Duration(seconds: 3));
+
+     await tester.tap(find.text("OK"));
+     await tester.pumpAndSettle(Duration(seconds: 3));
+
+     await tester.tap(find.text("Request"));
+     await tester.pumpAndSettle(Duration(seconds: 3));
+
+     await tester.tap(find.byIcon(Icons.home_outlined));
+     await tester.pumpAndSettle(Duration(seconds: 3));
+    });
    });
 
 
