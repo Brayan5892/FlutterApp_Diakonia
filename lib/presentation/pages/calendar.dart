@@ -42,6 +42,7 @@ class _CalendarState extends State<Calendar> {
         selectedDate = picked;
       });
   }
+  
   @override
  Widget build(BuildContext context) {
     double width = MediaQuery.of(context).size.width;
@@ -224,7 +225,7 @@ class _CalendarState extends State<Calendar> {
                                     child: Padding(
                                       padding: EdgeInsets.only(top:20, bottom:20, left:70, right: 70),
                                       child: Text(
-                                        '  Request ',
+                                        'Request',
                                         style: TextStyle(
                                             color: Colors.white,
                                             fontSize: 18,

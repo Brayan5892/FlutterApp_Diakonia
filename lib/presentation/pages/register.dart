@@ -220,7 +220,7 @@ class _RegisterState extends State<Register> {
                       'email': _email, 
                       'password': _password,
                     }).then((value) =>
-                      print('hola')
+                        _showErrorDialog('Usuario registrado con exito')
                      )
                     .catchError((error) => print("Failed to add user: $error"));
 

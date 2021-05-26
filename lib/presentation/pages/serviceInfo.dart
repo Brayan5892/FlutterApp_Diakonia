@@ -9,7 +9,7 @@ import 'package:diakonia/presentation/pages/chatList.dart';
 class ServiceInfo extends StatefulWidget {
   final DocumentSnapshot service;
   ServiceInfo(this.service);
-  @override
+  @override 
   _ServiceInfoState createState() => _ServiceInfoState();
 }
  

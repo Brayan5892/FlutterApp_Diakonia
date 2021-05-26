@@ -2,8 +2,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:diakonia/presentation/pages/chatRoom.dart';
 import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';
-import 'package:flutter_local_notifications/flutter_local_notifications.dart';
-import 'package:firebase_messaging/firebase_messaging.dart';
+
 
 class ChatList extends StatefulWidget {
   @override
@@ -13,8 +12,7 @@ class ChatList extends StatefulWidget {
 class _ChatListState extends State<ChatList> {
 
   @override
-  final FirebaseMessaging firebaseMessaging = FirebaseMessaging.instance;
-  final FlutterLocalNotificationsPlugin flutterLocalNotificationsPlugin = FlutterLocalNotificationsPlugin();
+  
   void initState() { 
     super.initState();
     getChats();
@@ -163,7 +161,7 @@ class _ChatListState extends State<ChatList> {
     
   }
 
- 
+  
   String getValue(DocumentReference documentReference) {
     String val;
     documentReference.get().then((onData) {

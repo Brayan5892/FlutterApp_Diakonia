@@ -44,8 +44,8 @@ dependencies:
   firebase_analytics: ^8.1.0
   get: ^4.1.4
   bubble: ^1.2.1
-  firebase_messaging: 7.0.0
-  flutter_local_notifications: 1.4.4+4
+  firebase_messaging:
+  flutter_local_notifications:
   cached_network_image: 
   cloud_functions: ^1.1.0
 

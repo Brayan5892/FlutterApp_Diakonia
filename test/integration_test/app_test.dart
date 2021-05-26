@@ -22,7 +22,7 @@ group('test integration', () {
  IntegrationTestWidgetsFlutterBinding.ensureInitialized();
  
  app.main();
-/*testWidgets("Register", 
+testWidgets("Register", 
  (tester) async{
    app.main();
    await tester.pumpAndSettle();
@@ -158,49 +158,7 @@ group('test integration', () {
  
   });
 
-    // testWidgets("add service page", (tester)async{
-    //   await tester.pumpWidget(addService());
-    //   //pruebas dropdown button------------------------------------------
-    //   await tester.tap(find.text('Categories'));
-    //   await tester.pumpAndSettle();
-
-    //   await tester.tap(find.text('Carpenter').last);
-    //   await tester.pumpAndSettle(Duration(seconds: 2));
-    //   //pruebas text field nombre----------------------------------------
-    //   var input='nombre prueba';
-    //   await tester.enterText(find.widgetWithText(TextField, 'Name'), input);
-    //   await tester.pump();
-
-    //   input='666';
-    //   await tester.enterText(find.widgetWithText(TextField, 'Price'), input);
-    //   await tester.pump();
-
-    //   input='descripcion prueba';
-    //   await tester.enterText(find.widgetWithText(TextField, 'Description'), input);
-    //   await tester.pump();
-
-    //   input='ubicacion prueba';
-    //   await tester.enterText(find.widgetWithText(TextField, 'Location'), input);
-    //   await tester.pump();      
-    //   //prueba para obtener geopunto del mapa---------------------------
-    //   await tester.tap(find.widgetWithText(ElevatedButton, 'pick location'));  
-    //   await tester.pumpAndSettle(Duration(seconds: 15));
-      
-    //   await tester.longPressAt(Offset(270,700));
-    //   await tester.pump();   
-
-    //   await tester.tap(find.byIcon(Icons.keyboard_return));//esto puede fallar  
-    //   await tester.pump(); 
-    //   //prueba para agregar el servicio y terminar----------------------
-    //   await tester.tap(find.widgetWithText(ElevatedButton, 'AddService'));  
-    //   await tester.pump(); 
-    //   //resultados------------------------------------------------------
-    //   expect(find.text('Carpenter'), findsOneWidget);
-    //   expect(find.text('nombre prueba'), findsOneWidget);
-    //   expect(find.text('666'), findsOneWidget);
-    //   expect(find.text('descripcion prueba'), findsOneWidget);
-    //   expect(find.text('ubicacion prueba'), findsOneWidget);
-    // });
+   
 
    testWidgets("Editar perfil: login, homepage, profile, editprofile", 
   (tester) async {
@@ -234,14 +192,14 @@ group('test integration', () {
       await tester.enterText(find.byKey(Key('phone')), '300134');
       await tester.pumpAndSettle(Duration(seconds: 5));
       await tester.enterText(find.byKey(Key('description')), 'A new description');
-      await tester.pumpAndSettle(Duration(seconds: 5));
+      await tester.pumpAndSettle(Duration(seconds: 10));
           
        // save
       await tester.tap(find.byKey(Key('saveEdit')));
-      await tester.pumpAndSettle(Duration(seconds: 5));
+      await tester.pumpAndSettle(Duration(seconds: 15));
       
       await tester.tap(find.text("Okay"));
-      await tester.pumpAndSettle(Duration(seconds: 5));
+      await tester.pumpAndSettle(Duration(seconds: 15));
      
  });
 
@@ -309,7 +267,7 @@ group('test integration', () {
    
        // save
  });
- */
+ 
 testWidgets("Request a service", (tester)async{
      app.main();
      await tester.pumpAndSettle();
@@ -336,26 +294,17 @@ testWidgets("Request a service", (tester)async{
      await tester.pumpAndSettle(Duration(seconds: 3));
 
      await tester.tap(find.text("Request"));
-     await tester.pumpAndSettle(Duration(seconds: 3));
-
-     await tester.tap(find.text("Select date"));
-     await tester.pumpAndSettle(Duration(seconds: 3));
-
-     await tester.tap(find.text(">"));
-     await tester.pumpAndSettle(Duration(seconds: 3));     
-
-     await tester.tap(find.text("20"));
-     await tester.pumpAndSettle(Duration(seconds: 3));
-
-     await tester.tap(find.text("OK"));
-     await tester.pumpAndSettle(Duration(seconds: 3));
+     await tester.pumpAndSettle(Duration(seconds: 10));
 
      await tester.tap(find.text("Request"));
-     await tester.pumpAndSettle(Duration(seconds: 3));
+     await tester.pumpAndSettle(Duration(seconds: 5));
 
      await tester.tap(find.byIcon(Icons.home_outlined));
      await tester.pumpAndSettle(Duration(seconds: 3));
     });
+
+
+    
    });
 
 
@@ -368,30 +317,3 @@ testWidgets("Request a service", (tester)async{
 
    
  
-
-    //  input='ubicacion prueba';
-     // await tester.enterText(find.widgetWithText(TextField, 'Location'), input);
-     // await tester.pump();      
-      //prueba para obtener geopunto del mapa---------------------------
-     // await tester.tap(find.widgetWithText(ElevatedButton, 'pick location'));  
-     // await tester.pumpAndSettle(Duration(seconds: 15));
-      
-      // await tester.longPressAt(Offset(270,700));
-      // await tester.pumpAndSettle(Duration(seconds: 15));  
-
-      // await tester.tap(find.byIcon(Icons.keyboard_return));//esto puede fallar  
-      // await tester.pump(); 
-      // //prueba para agregar el servicio y terminar----------------------
-      // await tester.tap(find.widgetWithText(ElevatedButton, 'AddService'));  
-      // await tester.pump(); 
-      // //resultados------------------------------------------------------
-      // expect(find.text('Carpenter'), findsOneWidget);
-      // expect(find.text('nombre prueba'), findsOneWidget);
-      // expect(find.text('666'), findsOneWidget);
-      // expect(find.text('descripcion prueba'), findsOneWidget);
-      // expect(find.text('ubicacion prueba'), findsOneWidget);
-
-
-  //  });
-  //});
-//}
