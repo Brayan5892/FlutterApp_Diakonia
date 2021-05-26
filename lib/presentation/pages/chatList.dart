@@ -37,6 +37,7 @@ class _ChatListState extends State<ChatList> {
 
   Widget build(BuildContext context) {
     return MaterialApp(
+       debugShowCheckedModeBanner: false,
       title: 'Material App',
       home: Scaffold(
          appBar: AppBar(

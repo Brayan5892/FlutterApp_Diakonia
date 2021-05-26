@@ -319,6 +319,7 @@ void initState() {
             'toID':userServiceid,
             'text':'.',
             'createdAT':DateTime.now().millisecondsSinceEpoch.toString(),
+            'type':'text'
          }).then((value) =>
                       print('hola')
                      )

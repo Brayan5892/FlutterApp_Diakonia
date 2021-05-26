@@ -219,6 +219,11 @@ class _RegisterState extends State<Register> {
           users.doc(firebaseUser.uid).set({
                       'email': _email, 
                       'password': _password,
+                      'description':'',
+                      'name':'',
+                      'lastname':'',
+                      'phone':'',
+                      'profilePicture':'https://res.cloudinary.com/dfm8d2pyf/image/upload/v1622052320/user128_qwkt11.png',
                     }).then((value) =>
                       print('hola')
                      )
